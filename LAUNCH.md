@@ -33,8 +33,9 @@ Order matters for search: Google and Bing should first meet the site on its fina
 - [x] Tell Claude: Claude checks the live site end to end (passed 2 November 2026: 86 URLs, 0 issues) (https and www redirects, every page returns 200 or a real 404, canonical and hreflang tags point at orryvelle.com, no `noindex` anywhere, robots.txt, sitemap, llms.txt, structured data, the Bulgarian redirect leaves bots alone, the consent banner, the enquiry form with one real test)
 
 ### 2. Email on the domain (accounts below verify by email)
-- [ ] **Email for `hello@orryvelle.com`**: no MX records yet, so mail bounces. Cloudflare Email Routing (free, forwards to your Gmail) is enough to start; Google Workspace or Zoho if you want to send from the address. Send a test both ways
-- [ ] Add SPF and DMARC records (your provider shows them) so replies don't land in spam. Tell Claude the provider, so the privacy policy names it
+- [x] **Email for `hello@orryvelle.com`** (Google Workspace, set up 2 November 2026; MX, SPF and DKIM key checked). Was: no MX records, so mail bounced. Cloudflare Email Routing (free, forwards to your Gmail) is enough to start; Google Workspace or Zoho if you want to send from the address. Send a test both ways
+- [x] SPF and DMARC records; Google Workspace named in the privacy policy
+- [ ] Remove the leftover GoDaddy address (`mailto:dmarc_rua@onsecureserver.net`) from the `_dmarc` record, keeping the Cloudflare one, and confirm the Admin console shows DKIM as "Authenticating email"
 
 ### 3. Google Search Console (the most important account)
 - [ ] Add a **Domain** property for `orryvelle.com`, verified by the DNS TXT record in Cloudflare (covers www, http and https)
