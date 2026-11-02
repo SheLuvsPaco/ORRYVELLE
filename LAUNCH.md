@@ -11,14 +11,15 @@ Tasks that need your accounts or decisions. Tick them off as you go; anything th
   - after n8n receives an enquiry, where it goes: if it reaches an AI service (OpenAI etc.), a CRM, a sheet or anything beyond your email, tell Claude, because each one must be listed as a recipient
   - **bookings are removed after the call has taken place or been cancelled**: the policy promises this, so delete past bookings in Cal.com (or tell Claude to soften the wording)
 - [ ] Send the company number (ЕИК) when you have it: Claude adds it to `site.company.eik` and it appears in the footer, both policies and structured data
-- [ ] Rename the project folder, create the new GitHub repo and push `main`. Push `main` only: the old remote branch `remove-sections` (February 2026, before the rebrand) isn't needed
+- [x] New GitHub repo `SheLuvsPaco/ORRYVELLE` (public), pushed 2 November 2026 as one clean commit, so no old history or secrets. The full history is kept on this Mac in the branch `archive/full-history`; the old repo is the `old-origin` remote
+- [ ] Optional: rename the project folder (and move it off the iCloud Desktop to stop the "name 2" copies)
 - [ ] Create a **new** Vercel project for Orryvelle (not a new version of the previous site's project)
 - [ ] Set environment variables in Vercel (Project → Settings → Environment Variables):
   - `ENQUIRY_WEBHOOK_URL`: all environments (the contact form breaks without it)
   - `GOOGLE_SITE_VERIFICATION` / `BING_SITE_VERIFICATION`: only if you verify by meta tag instead of DNS
   - `NEXT_PUBLIC_GA_ID` comes later (Deploy day). Until then analytics is simply off; `.env.local`, `.env.example` and the code use the placeholder `G-XXXXXXXXXX`, which counts as unset
   - `.env.local` holds the same names for your Mac only (it's never uploaded). Vercel keeps its own copy, so a value changed in `.env.local` must also be changed in Vercel
-- [ ] Optional: change the n8n webhook path, since the old URL is in git history
+- [ ] **Change the n8n webhook path (recommended).** The live enquiry webhook is in the public history of the old repo `SheLuvsPaco/sheluvspaconexus` (February 2026 commit), so anyone can post fake enquiries to it. Change the path in n8n, put the new URL in `.env.local` and Vercel's `ENQUIRY_WEBHOOK_URL`, and either make the old repo private or delete it
 
 ## Deploy day
 
