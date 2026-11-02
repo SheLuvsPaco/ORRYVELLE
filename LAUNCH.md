@@ -47,9 +47,9 @@ Order matters for search: Google and Bing should first meet the site on its fina
 - [x] Ask Claude to run `npm run indexnow` (2 November 2026: 202 Accepted for 86 URLs)
 
 ### 5. Google Analytics
-- [ ] Create a **new** GA4 property with a web data stream for `https://orryvelle.com`; copy the measurement ID (`G-` plus letters and numbers)
-- [ ] Vercel: set `NEXT_PUBLIC_GA_ID` to that ID for **Production only**, then **redeploy** (the value is built into the site)
-- [ ] In a private window: banner appears, no `googletagmanager` request before Accept, after Accept the visit shows in **Realtime**
+- [x] Create a **new** GA4 property with a web data stream for `https://orryvelle.com`; copy the measurement ID (`G-` plus letters and numbers)
+- [x] Vercel: set `NEXT_PUBLIC_GA_ID` (`G-THD2EXB2Z4`, type Config) to that ID for **Production only**, then **redeploy** (the value is built into the site)
+- [x] In a private window: banner appears, no `googletagmanager` request before Accept, after Accept the visit shows in **Realtime**
 - [ ] Admin: Data retention **14 months** (event and user data); accept the **Data Processing Terms**; Google signals **off**
 - [ ] Admin → Product links: **link Search Console**, so search queries appear next to bookings
 - [ ] Admin → Channel groups: copy the default group and add an **AI assistants** channel (source matches `chatgpt|perplexity|gemini|copilot|claude|deepseek`), placed above Referral
