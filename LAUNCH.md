@@ -60,6 +60,8 @@ Order matters for search: Google and Bing should first meet the site on its fina
 AI assistants recommend companies that other trusted sites describe the same way. Use the exact name, one-line description, URL and logo from `docs/brand/profile-kit.md` everywhere, and send every profile URL to Claude (they go into the site's structured data as `sameAs`).
 
 ### Week 1: entity profiles
+
+Tracked in [docs/profiles.md](docs/profiles.md); dated follow-ups are in the Reminders app list "Orryvelle launch".
 - [x] LinkedIn company page: linkedin.com/company/orryvelle, in `sameAs` since 2 November 2026 (finish About, specialties, cover, button; one intro post)
 - [ ] Clutch: profile created 2 November 2026 from hello@, **under review**; send Claude the public link when approved. Portfolio items didn't save (Clutch glitch; retry later with Brave Shields off). Request reviews from past clients
 - [ ] GoodFirms and DesignRush (reuse kit sections 8 and 9)
