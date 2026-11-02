@@ -40,7 +40,7 @@ Order matters for search: Google and Bing should first meet the site on its fina
 ### 3. Google Search Console (the most important account)
 - [ ] Add a **Domain** property for `orryvelle.com`, verified by the DNS TXT record in Cloudflare (covers www, http and https)
 - [ ] Sitemaps → submit `https://orryvelle.com/sitemap.xml`
-- [ ] URL Inspection → **Request indexing** for: `/`, `/bg`, the three service pages in both languages, `/contact`, `/bg/kontakti` (about 10 a day are allowed; do the rest the next day: `/work`, `/about`, `/insights`, the five guides)
+- [ ] URL Inspection → **Request indexing**, working through [docs/indexing-requests.md](docs/indexing-requests.md) (82 URLs, about 10 a day). Day 1 is: `/`, `/bg`, the three service pages in both languages, `/contact`, `/bg/kontakti` (about 10 a day are allowed; do the rest the next day: `/work`, `/about`, `/insights`, the five guides)
 
 ### 4. Bing Webmaster Tools (Bing's index feeds ChatGPT search, Copilot and DuckDuckGo)
 - [ ] Sign in, **Import from Google Search Console** (no verification tag needed), confirm the sitemap is listed
