@@ -181,7 +181,6 @@ export default function IntegrationsHub({ locale = "en" }: { locale?: Locale }) 
   }
   return (
     <section
-      data-float-hide
       className="section section-dots integration-section"
       ref={ref}
       data-manual-play={userPlaying === true}

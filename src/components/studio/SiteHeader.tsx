@@ -56,6 +56,8 @@ export default function SiteHeader({ locale = "en" }: { locale?: Locale }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
+  const drawer = useRef<HTMLElement>(null);
+  const drawerClose = useRef<HTMLButtonElement>(null);
   const servicesButton = useRef<HTMLButtonElement>(null);
   const servicesWrap = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<number>();
@@ -122,8 +124,15 @@ export default function SiteHeader({ locale = "en" }: { locale?: Locale }) {
     setServicesOpen(false);
   }, [pathname]);
 
+  // The page behind the drawer stays put. Locking <html> (not <body>) keeps the sticky header
+  // anchored to the viewport: an overflow on <body> turns it into its own scroll box and the
+  // header, with the old menu, jumped back to the top of the page.
+  const wasOpen = useRef(false);
   useEffect(() => {
-    document.body.classList.toggle("menu-open", menuOpen);
+    document.documentElement.classList.toggle("menu-open", menuOpen);
+    if (menuOpen) drawerClose.current?.focus();
+    else if (wasOpen.current) toggle.current?.focus();
+    wasOpen.current = menuOpen;
   }, [menuOpen]);
 
   useEffect(() => {
@@ -133,10 +142,7 @@ export default function SiteHeader({ locale = "en" }: { locale?: Locale }) {
         setServicesOpen(false);
         servicesButton.current?.focus();
       }
-      if (menuOpen) {
-        setMenuOpen(false);
-        toggle.current?.focus();
-      }
+      if (menuOpen) setMenuOpen(false);
     };
     const onClick = (event: MouseEvent) => {
       if (!servicesWrap.current?.contains(event.target as Node))
@@ -164,6 +170,7 @@ export default function SiteHeader({ locale = "en" }: { locale?: Locale }) {
   const tone = isHome && overDark && !menuOpen ? "dark" : "paper";
 
   return (
+    <>
     <header
       ref={header}
       className="site-header"
@@ -294,21 +301,41 @@ export default function SiteHeader({ locale = "en" }: { locale?: Locale }) {
         </button>
       </div>
 
+    </header>
+
+      {/* Outside <header>: its backdrop-filter would make it the containing block for these fixed layers. */}
+      <div className="mobile-backdrop" data-open={menuOpen} aria-hidden="true" onClick={() => setMenuOpen(false)} />
       <nav
+        ref={drawer}
         id="mobile-navigation"
         className="mobile-nav"
         aria-label={copy.mobileNav}
-        hidden={!menuOpen}
+        data-open={menuOpen}
+        onKeyDown={(event) => {
+          // Keep Tab inside the open drawer.
+          if (event.key !== "Tab" || !drawer.current) return;
+          const items = drawer.current.querySelectorAll<HTMLElement>("a[href], button");
+          const first = items[0];
+          const last = items[items.length - 1];
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last?.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first?.focus();
+          }
+        }}
       >
-        <div className="container">
+        <div className="mobile-nav-head">
+          <span className="mobile-nav-title" aria-hidden="true">{copy.menuTitle}</span>
+          <button ref={drawerClose} type="button" className="mobile-nav-close" aria-label={copy.closeMenu} onClick={() => setMenuOpen(false)}>
+            <X size={20} />
+          </button>
+        </div>
+        <div className="mobile-nav-body">
           <small className="mobile-nav-label">{copy.servicesLabel}</small>
           {copy.menu.map((service) => (
-            <Link
-              key={service.href}
-              href={service.href}
-              className="mobile-service"
-              onClick={() => setMenuOpen(false)}
-            >
+            <Link key={service.href} href={service.href} className="mobile-service" onClick={() => setMenuOpen(false)}>
               <IconTile name={service.icon} size={18} />
               <span>
                 <b>{service.name}</b>
@@ -322,21 +349,20 @@ export default function SiteHeader({ locale = "en" }: { locale?: Locale }) {
               key={link.href}
               href={link.href}
               className="mobile-link"
+              aria-current={pathname === link.href ? "page" : undefined}
               onClick={() => setMenuOpen(false)}
             >
               {link.label}
-              <ArrowUpRight size={20} aria-hidden="true" />
+              <ArrowUpRight size={18} aria-hidden="true" />
             </Link>
           ))}
-          <div className="mobile-nav-foot">
-            <Link
-              className="btn btn-primary"
-              href={copy.contact}
-              onClick={() => setMenuOpen(false)}
-            >
-              <span>{copy.bookCall}</span>
-              <ArrowUpRight size={17} aria-hidden="true" />
-            </Link>
+        </div>
+        <div className="mobile-nav-foot">
+          <Link className="btn btn-primary" href={copy.contact} onClick={() => setMenuOpen(false)}>
+            <span>{copy.bookCall}</span>
+            <ArrowUpRight size={17} aria-hidden="true" />
+          </Link>
+          <div className="mobile-nav-meta">
             <a href={`mailto:${site.email}`}>{site.email}</a>
             <a
               href={counterpart(pathname, otherLocale)}
@@ -349,6 +375,6 @@ export default function SiteHeader({ locale = "en" }: { locale?: Locale }) {
           </div>
         </div>
       </nav>
-    </header>
+    </>
   );
 }

@@ -100,7 +100,6 @@ export default function TechnologyCarousel({ locale = "en" }: { locale?: Locale 
 
   return (
     <section
-      data-float-hide
       ref={ref}
       id="technology"
       className="tech-band"

@@ -210,7 +210,8 @@ body.studio {
   overflow-x: clip;
 }
 
-body.studio.menu-open {
+/* Open mobile menu: the page behind stops scrolling (on <html>, so the sticky header keeps working). */
+html.menu-open {
   overflow: hidden;
 }
 
@@ -928,27 +929,101 @@ body.studio.menu-open {
   border: 1px solid var(--line);
 }
 
-.mobile-nav {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  height: calc(100dvh - 72px);
-  overflow-y: auto;
-  padding: 24px 0 48px;
-  background: var(--paper);
-  border-top: 1px solid var(--line);
+/* Mobile menu: a drawer from the right, reachable from anywhere on the page. */
+
+.mobile-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 140;
+  background: rgba(14, 23, 27, 0.48);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--dur) var(--ease-soft),
+    visibility 0s linear var(--dur);
 }
 
-.mobile-nav[hidden] {
-  display: none;
+.mobile-backdrop[data-open="true"] {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--dur) var(--ease-soft);
+}
+
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 150;
+  display: flex;
+  flex-direction: column;
+  width: min(360px, 88vw);
+  background: var(--paper);
+  border-left: 1px solid var(--line);
+  box-shadow: var(--shadow-3);
+  transform: translateX(100%);
+  visibility: hidden;
+  transition:
+    transform 0.35s var(--ease-out),
+    visibility 0s linear 0.35s;
+}
+
+.mobile-nav[data-open="true"] {
+  transform: none;
+  visibility: visible;
+  transition: transform 0.35s var(--ease-out);
+}
+
+/* Only the drawer exists below the desktop breakpoint. */
+@media (min-width: 1081px) {
+  .mobile-backdrop,
+  .mobile-nav {
+    display: none;
+  }
+}
+
+.mobile-nav-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: none;
+  height: 64px;
+  padding: 0 12px 0 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.mobile-nav-title {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.mobile-nav-close {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.mobile-nav-body {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 8px 20px 24px;
 }
 
 .mobile-nav-label {
   display: block;
-  margin: 12px 0 8px;
+  margin: 20px 0 4px;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -957,43 +1032,68 @@ body.studio.menu-open {
 .mobile-service {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 14px 0;
+  gap: 14px;
+  min-height: 56px;
+  padding: 10px 0;
   border-bottom: 1px solid var(--line);
 }
 
 .mobile-service b {
   display: block;
-  font-size: 17px;
+  font-size: 16px;
 }
 
 .mobile-service small {
   display: block;
   color: var(--muted);
   font-size: 13px;
+  line-height: 1.4;
 }
 
 .mobile-link {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 0;
+  min-height: 52px;
   border-bottom: 1px solid var(--line);
   font-family: var(--font-display);
-  font-size: 34px;
+  font-size: 22px;
   font-weight: 600;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
+}
+
+.mobile-link[aria-current="page"] {
+  color: var(--bronze-dark);
 }
 
 .mobile-nav-foot {
   display: grid;
-  gap: 16px;
-  margin-top: 32px;
+  gap: 12px;
+  flex: none;
+  padding: 16px 20px calc(16px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--line);
 }
 
-.mobile-nav-foot a:last-child {
-  color: var(--muted);
+.mobile-nav-foot .btn {
+  width: 100%;
+  gap: 12px;
+  padding-inline: 16px;
+  white-space: normal;
+}
+
+.mobile-nav-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
   font-size: 14px;
+}
+
+.mobile-nav-meta a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--muted);
 }
 
 /* ── Floating booking ─────────────────────────────────── */
@@ -1813,6 +1913,14 @@ body.studio::after {
 
 .floating-booking:hover {
   transform: translateY(-2px);
+}
+
+/* Touch screens keep :hover after a tap, which left buttons stuck half-raised. */
+@media (hover: none) {
+  .btn:hover,
+  .floating-booking:hover {
+    transform: none;
+  }
 }
 
 .floating-mark {
@@ -4138,9 +4246,6 @@ body.studio {
   .header-inner,
   .site-header[data-scrolled="true"] .header-inner {
     height: 64px;
-  }
-  .mobile-nav {
-    height: calc(100dvh - 64px);
   }
 
   /* Floating booking clears the iOS home indicator. */
