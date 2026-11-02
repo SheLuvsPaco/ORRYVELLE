@@ -211,17 +211,17 @@ Eligible because Orryvelle visits clients in person when a project needs it. Goo
 | Email | hello@orryvelle.com |
 | Phone | Only once decided for the website too, so every listing shows the same number |
 
-**Service lines (focus must total 100%; the three disciplines carry equal weight, adjust to reality):**
+**Service lines (focus must total 100%; on Clutch every line needs at least 10% or it doesn't appear in that directory; the three disciplines stay roughly equal):**
 
 | Service line | Focus |
 |---|---|
 | Custom Software Development | 25% |
-| Mobile App Development | 8% |
-| AI Development | 23% |
-| Business Process Automation (or Generative AI if Clutch doesn't list it) | 10% |
-| Web Design | 14% |
-| Web Development | 12% |
-| E-Commerce Development | 8% |
+| Mobile App Development | 10% |
+| AI Development | 20% |
+| AI Agent Development (or Generative AI if not offered; never Robotic Process Automation, which means enterprise RPA tools) | 10% |
+| Web Design | 15% |
+| Web Development | 10% |
+| E-Commerce Development | 10% |
 
 **Client focus (your estimate; adjust):** Small business 80%, Midmarket 20%.
 
