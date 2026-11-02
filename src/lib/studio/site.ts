@@ -18,8 +18,8 @@ export const site = {
   base: { country: "Bulgaria", countryCode: "BG" },
   /** Shown in the footer; structured data and llms.txt say the same. */
   location: "Based in Bulgaria, working with clients worldwide",
-  /** Profiles that exist and represent the studio (schema.org sameAs). Add LinkedIn here once it's live. */
-  profiles: [] as string[],
+  /** Profiles that exist and represent the studio (schema.org sameAs). Add each one once it's live. */
+  profiles: ["https://www.linkedin.com/company/orryvelle"] as string[],
   /**
    * The registered company: the data controller in the privacy policy, the footer line and
    * structured data. Bulgarian law asks for name, address and registration number on the site.
