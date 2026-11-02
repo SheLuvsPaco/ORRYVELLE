@@ -21,30 +21,61 @@ Tasks that need your accounts or decisions. Tick them off as you go; anything th
   - `.env.local` holds the same names for your Mac only (it's never uploaded). Vercel keeps its own copy, so a value changed in `.env.local` must also be changed in Vercel
 - [ ] **Change the n8n webhook path (recommended).** The live enquiry webhook is in the public history of the old repo `SheLuvsPaco/sheluvspaconexus` (February 2026 commit), so anyone can post fake enquiries to it. Change the path in n8n, put the new URL in `.env.local` and Vercel's `ENQUIRY_WEBHOOK_URL`, and either make the old repo private or delete it
 
-## Deploy day
+## Deploy day (in this order; each step depends on the one before)
 
-- [ ] Add `orryvelle.com` and `www.orryvelle.com` to the Vercel project; set `orryvelle.com` as primary and make www redirect to it (Vercel forces https on its own). DNS is on Cloudflare and currently points at Cloudflare's proxy: replace those records with the ones Vercel shows, set to "DNS only" (grey cloud), or Vercel can't issue the certificate
-- [ ] Check the live site: home, a Bulgarian page, the contact form (one real test enquiry), `/robots.txt`, `/sitemap.xml`, `/llms.txt`, `/privacy`, `/cookies`
-- [ ] **Google Analytics**, once the site is live:
-  - Create a **new** GA4 property for Orryvelle (don't reuse the old site's property) with a web data stream for `https://orryvelle.com`; copy its measurement ID (`G-` followed by letters and numbers)
-  - In Vercel, set `NEXT_PUBLIC_GA_ID` to that ID for **Production only**, then **redeploy**: `NEXT_PUBLIC_` values are built into the site, so a new value only takes effect after a new deploy
-  - In the property (Admin): Data retention **14 months** for event and user data (the privacy policy says 14 months); accept the **Data Processing Terms** in Account settings; leave Google signals **off**
-  - After the first real enquiry and booking: Events → mark `enquiry_sent` and `call_booked` as **key events**
-- [ ] Check consent on the live site: in a private window the banner appears and the browser's Network tab shows no `googletagmanager` request until you click Accept; after Accept, the visit appears in Analytics → Realtime
-- [ ] **Email for `hello@orryvelle.com`** (right after deploy). The domain has no MX records yet, so mail to the address on every page bounces. Set up a mailbox (Google Workspace, Zoho, iCloud+ custom domain or Cloudflare Email Routing to Gmail) and send a test message. Tell Claude which provider, so the privacy policy can name it
-- [ ] Google Search Console: add a **Domain** property (DNS verification covers www, http and https), submit `https://orryvelle.com/sitemap.xml`
-- [ ] Bing Webmaster Tools: import the site from Search Console, confirm the sitemap
-- [ ] Ask Claude to run `npm run indexnow` (tells Bing, Yandex, Seznam and Naver about every page)
-- [ ] In Search Console, request indexing for the home page and the three service pages, in both languages
+Order matters for search: Google and Bing should first meet the site on its final address, with mail, verification and analytics already working, so nothing gets indexed twice or measured late.
 
-## First weeks
+### 1. Go live on the real domain (before any search engine sees it)
+- [ ] Vercel: import `SheLuvsPaco/ORRYVELLE` as a **new** project, add `ENQUIRY_WEBHOOK_URL` (all environments), deploy. Don't switch on Vercel Web Analytics, Speed Insights or Firewall bot rules: they aren't in the privacy policy, and bot rules can block search and AI crawlers
+- [ ] Vercel → Domains: add `orryvelle.com` (primary) and `www.orryvelle.com` (redirect to `orryvelle.com`)
+- [ ] Cloudflare → DNS: replace the current records with the ones Vercel shows, all **DNS only** (grey cloud). Proxied records would put Cloudflare's bot and AI-crawler blocking in front of the site and stop Vercel issuing the certificate
+- [ ] Vercel → Domains: set the project's `*.vercel.app` address to **redirect** to `orryvelle.com`, so the same pages never exist on two addresses
+- [ ] Tell Claude: Claude checks the live site end to end (https and www redirects, every page returns 200 or a real 404, canonical and hreflang tags point at orryvelle.com, no `noindex` anywhere, robots.txt, sitemap, llms.txt, structured data, the Bulgarian redirect leaves bots alone, the consent banner, the enquiry form with one real test)
 
-- [ ] Google Business Profile as a service-area business (Bulgaria), if you want map and local visibility
-- [ ] Profiles, using the text and images in `docs/brand/profile-kit.md`: LinkedIn company page, YouTube, X, Instagram, Clutch, GoodFirms, DesignRush, Crunchbase. Send the URLs to Claude (they go into the site's structured data)
-- [ ] Watch Search Console's "Generative AI performance" report and Bing's "AI Performance" report
+### 2. Email on the domain (accounts below verify by email)
+- [ ] **Email for `hello@orryvelle.com`**: no MX records yet, so mail bounces. Cloudflare Email Routing (free, forwards to your Gmail) is enough to start; Google Workspace or Zoho if you want to send from the address. Send a test both ways
+- [ ] Add SPF and DMARC records (your provider shows them) so replies don't land in spam. Tell Claude the provider, so the privacy policy names it
+
+### 3. Google Search Console (the most important account)
+- [ ] Add a **Domain** property for `orryvelle.com`, verified by the DNS TXT record in Cloudflare (covers www, http and https)
+- [ ] Sitemaps → submit `https://orryvelle.com/sitemap.xml`
+- [ ] URL Inspection → **Request indexing** for: `/`, `/bg`, the three service pages in both languages, `/contact`, `/bg/kontakti` (about 10 a day are allowed; do the rest the next day: `/work`, `/about`, `/insights`, the five guides)
+
+### 4. Bing Webmaster Tools (Bing's index feeds ChatGPT search, Copilot and DuckDuckGo)
+- [ ] Sign in, **Import from Google Search Console** (no verification tag needed), confirm the sitemap is listed
+- [ ] Ask Claude to run `npm run indexnow` (pushes every URL to Bing, Yandex, Seznam and Naver at once)
+
+### 5. Google Analytics
+- [ ] Create a **new** GA4 property with a web data stream for `https://orryvelle.com`; copy the measurement ID (`G-` plus letters and numbers)
+- [ ] Vercel: set `NEXT_PUBLIC_GA_ID` to that ID for **Production only**, then **redeploy** (the value is built into the site)
+- [ ] In a private window: banner appears, no `googletagmanager` request before Accept, after Accept the visit shows in **Realtime**
+- [ ] Admin: Data retention **14 months** (event and user data); accept the **Data Processing Terms**; Google signals **off**
+- [ ] Admin → Product links: **link Search Console**, so search queries appear next to bookings
+- [ ] Admin → Channel groups: copy the default group and add an **AI assistants** channel (source matches `chatgpt|perplexity|gemini|copilot|claude|deepseek`), placed above Referral
+- [ ] After the first real enquiry and booking: mark `enquiry_sent` and `call_booked` as **key events**
+
+## First weeks (visibility in AI answers depends on these)
+
+AI assistants recommend companies that other trusted sites describe the same way. Use the exact name, one-line description, URL and logo from `docs/brand/profile-kit.md` everywhere, and send every profile URL to Claude (they go into the site's structured data as `sameAs`).
+
+### Week 1: entity profiles
+- [ ] LinkedIn company page (the first thing assistants and buyers check)
+- [ ] Clutch (what AI cites for "best software / web agency in Bulgaria"), then GoodFirms and DesignRush
+- [ ] Crunchbase
+- [ ] YouTube, X, Instagram (claim the handle even if you post later)
+- [ ] Google Business Profile as a **service-area business** (Bulgaria, address hidden), category "Software company" plus "Website designer", website `https://orryvelle.com`. Verification may ask for a short video
+- [ ] Bing Places: import from Google Business Profile
+
+### Week 1 to 2: reviews and checks
+- [ ] Ask your first clients for a review on Google and on Clutch, and for permission to quote them on the site (the reviews section appears as soon as quotes exist)
+- [ ] Search Console → Pages: indexed versus not indexed; send Claude anything listed as "Crawled, currently not indexed" or "Duplicate"
+- [ ] Search Console → Enhancements and Core Web Vitals: send Claude any errors
+- [ ] Ask Claude to run PageSpeed Insights on the live pages (the real-network scores) and fix anything below 90
+
+### Ongoing
 - [ ] After every deploy that adds or changes pages: ask Claude to run IndexNow
+- [ ] Monthly: ask ChatGPT, Perplexity, Gemini and Copilot "best custom software / AI automation / website studio in Bulgaria" and the questions the guides answer; note whether Orryvelle appears. Check Search Console's "Generative AI performance" and Bing's "AI Performance" reports
 - [ ] Upgrade Next.js 14 to 15. 14.2.35 is the last 14.x release, and `npm audit` lists advisories fixed only in 15 and 16. Most of them cover features this site doesn't use or that Vercel already handles, so it isn't a launch blocker. Claude does it on a branch with a full visual check
-- [ ] In Analytics, add an "AI assistants" channel group so ChatGPT, Perplexity, Gemini and Copilot visits show as their own source
 
 ## SEO, AEO and GEO backlog (Claude, in this order)
 
