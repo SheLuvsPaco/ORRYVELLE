@@ -44,7 +44,7 @@ Order matters for search: Google and Bing should first meet the site on its fina
 
 ### 4. Bing Webmaster Tools (Bing's index feeds ChatGPT search, Copilot and DuckDuckGo)
 - [ ] Sign in, **Import from Google Search Console** (no verification tag needed), confirm the sitemap is listed
-- [ ] Ask Claude to run `npm run indexnow` (pushes every URL to Bing, Yandex, Seznam and Naver at once)
+- [x] Ask Claude to run `npm run indexnow` (2 November 2026: 202 Accepted for 86 URLs)
 
 ### 5. Google Analytics
 - [ ] Create a **new** GA4 property with a web data stream for `https://orryvelle.com`; copy the measurement ID (`G-` plus letters and numbers)
