@@ -43,7 +43,7 @@ Order matters for search: Google and Bing should first meet the site on its fina
 - [x] URL Inspection → **Request indexing**, Day 1 batch done 2 November 2026; further requests only when needed, see [docs/indexing-requests.md](docs/indexing-requests.md). Day 1 was: `/`, `/bg`, the three service pages in both languages, `/contact`, `/bg/kontakti` (about 10 a day are allowed; do the rest the next day: `/work`, `/about`, `/insights`, the five guides)
 
 ### 4. Bing Webmaster Tools (Bing's index feeds ChatGPT search, Copilot and DuckDuckGo)
-- [ ] Sign in, **Import from Google Search Console** (no verification tag needed), confirm the sitemap is listed
+- [x] Sign in, **Import from Google Search Console** (done 2 November 2026; submit the sitemap by hand if Bing shows none) (no verification tag needed), confirm the sitemap is listed
 - [x] Ask Claude to run `npm run indexnow` (2 November 2026: 202 Accepted for 86 URLs)
 
 ### 5. Google Analytics
