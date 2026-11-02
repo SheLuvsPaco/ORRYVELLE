@@ -150,6 +150,7 @@ Custom Software Development, AI Development, Business Process Automation, Web De
 | `banner-linkedin-2256x382.png` | LinkedIn company cover (1128×191 at 2x); content sits right, clear of the logo |
 | `banner-x-1500x500.png` | X header; content sits right, clear of the avatar |
 | `banner-youtube-2560x1440.png` | YouTube banner; content inside the 1546×423 safe area shown on every device |
+| `portfolio/01` to `06-*.jpg` | Real client work (case-study covers, 2596×1300 JPG): Google Business Profile photos, Clutch, GoodFirms and DesignRush portfolio items |
 
 Colours: charcoal #0E171B, bronze #D0AD8B, paper #ECE8DF, ink #172126. Fonts: Barlow Condensed (headings), DM Sans (text).
 
