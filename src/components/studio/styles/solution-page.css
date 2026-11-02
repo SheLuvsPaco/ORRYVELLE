@@ -557,3 +557,33 @@
     font-size: var(--m-body);
   }
 }
+
+/* Phone hero order: breadcrumbs, headline, visual, actions, lead, trust line. The copy
+   column dissolves into the grid so the visual can sit right under the headline. */
+@media (max-width: 760px) {
+  .solution-hero-grid {
+    gap: 0;
+  }
+  .solution-hero-copy {
+    display: contents;
+  }
+  .solution-hero h1 .h1-kicker {
+    font-size: 13px;
+  }
+  .solution-hero-visual {
+    order: 1;
+    margin-top: 28px;
+  }
+  .solution-hero .hero-actions {
+    order: 2;
+    margin-top: 28px;
+  }
+  .solution-hero .hero-lead {
+    order: 3;
+    margin-top: var(--m-intro);
+    font-size: 15px;
+  }
+  .solution-trust {
+    order: 4;
+  }
+}
