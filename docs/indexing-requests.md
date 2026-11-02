@@ -1,31 +1,33 @@
 # Search Console indexing requests
 
-How: Search Console → paste the URL into **"Inspect any URL in orryvelle.com"** at the top → wait for the result → **REQUEST INDEXING** → wait for "Indexing requested" → next URL.
+How: Search Console → paste the URL into **"Inspect any URL in orryvelle.com"** at the top → wait for the result → **REQUEST INDEXING** → wait for "Indexing requested".
 
-Google allows roughly 10 requests a day. When it says **"Quota exceeded"**, stop, note the date in the log, and continue the next day from the first unticked URL. Every page is already in the submitted sitemap, so this only speeds things up; nothing is lost if a page waits.
+The submitted sitemap is what gets the site indexed; Google crawls every page in it on its own. Manual requests only move a page up the queue, so use them sparingly (about 10 a day are allowed):
 
-Total: 82 pages to request, plus 4 legal pages that don't need it.
+- for the pages that bring bookings, once (done on Day 1);
+- when a new guide is published or an important page changes a lot;
+- when Search Console → **Pages** shows an important page stuck at "Discovered, currently not indexed" or "Crawled, currently not indexed" for two weeks or more.
 
 ## Log
 
-Date, how far you got, anything odd:
-
-- 
+- 2 November 2026: Day 1 batch requested (10 URLs), sitemap submitted
 
 ## Day 1: home, services and contact (both languages)
 
-- [ ] `https://orryvelle.com`
-- [ ] `https://orryvelle.com/services/custom-software`
-- [ ] `https://orryvelle.com/services/enterprise-solutions`
-- [ ] `https://orryvelle.com/services/websites`
-- [ ] `https://orryvelle.com/contact`
-- [ ] `https://orryvelle.com/bg`
-- [ ] `https://orryvelle.com/bg/uslugi/softuer-po-porachka`
-- [ ] `https://orryvelle.com/bg/uslugi/ai-i-avtomatizatsiya`
-- [ ] `https://orryvelle.com/bg/uslugi/uebsaitove`
-- [ ] `https://orryvelle.com/bg/kontakti`
+- [x] `https://orryvelle.com`
+- [x] `https://orryvelle.com/services/custom-software`
+- [x] `https://orryvelle.com/services/enterprise-solutions`
+- [x] `https://orryvelle.com/services/websites`
+- [x] `https://orryvelle.com/contact`
+- [x] `https://orryvelle.com/bg`
+- [x] `https://orryvelle.com/bg/uslugi/softuer-po-porachka`
+- [x] `https://orryvelle.com/bg/uslugi/ai-i-avtomatizatsiya`
+- [x] `https://orryvelle.com/bg/uslugi/uebsaitove`
+- [x] `https://orryvelle.com/bg/kontakti`
 
-## Day 2: focused service pages
+## Reference: every other page, in priority order (request only when needed, see above)
+
+### Batch 2: focused service pages
 
 - [ ] `https://orryvelle.com/services/enterprise-solutions/ai-receptionist`
 - [ ] `https://orryvelle.com/bg/uslugi/ai-i-avtomatizatsiya/ai-asistent`
@@ -38,7 +40,7 @@ Date, how far you got, anything odd:
 - [ ] `https://orryvelle.com/services/enterprise-solutions/business-process-automation`
 - [ ] `https://orryvelle.com/bg/uslugi/ai-i-avtomatizatsiya/avtomatizatsiya-na-biznes-protsesi`
 
-## Day 3: focused service pages
+### Batch 3: focused service pages
 
 - [ ] `https://orryvelle.com/services/custom-software/custom-crm-development`
 - [ ] `https://orryvelle.com/bg/uslugi/softuer-po-porachka/crm-sistema-po-porachka`
@@ -51,7 +53,7 @@ Date, how far you got, anything odd:
 - [ ] `https://orryvelle.com/services/websites/web-design`
 - [ ] `https://orryvelle.com/bg/uslugi/uebsaitove/izrabotka-na-uebsait`
 
-## Day 4: focused service pages, work, industries and the Bulgaria page
+### Batch 4: focused service pages, work, industries and the Bulgaria page
 
 - [ ] `https://orryvelle.com/services/websites/shopify-development`
 - [ ] `https://orryvelle.com/bg/uslugi/uebsaitove/izrabotka-na-onlain-magazin`
@@ -64,7 +66,7 @@ Date, how far you got, anything odd:
 - [ ] `https://orryvelle.com/industries/home-services`
 - [ ] `https://orryvelle.com/bg/industrii/domashni-uslugi-i-remonti`
 
-## Day 5: industries and the Bulgaria page, guides, about and hubs
+### Batch 5: industries and the Bulgaria page, guides, about and hubs
 
 - [ ] `https://orryvelle.com/industries/event-rental`
 - [ ] `https://orryvelle.com/bg/industrii/naem-za-subitiya`
@@ -77,7 +79,7 @@ Date, how far you got, anything odd:
 - [ ] `https://orryvelle.com/insights`
 - [ ] `https://orryvelle.com/bg/statii`
 
-## Day 6: guides, about and hubs
+### Batch 6: guides, about and hubs
 
 - [ ] `https://orryvelle.com/insights/ai-receptionist-vs-answering-service`
 - [ ] `https://orryvelle.com/bg/statii/ai-asistent-ili-call-tsentar`
@@ -90,7 +92,7 @@ Date, how far you got, anything odd:
 - [ ] `https://orryvelle.com/insights/n8n-vs-zapier-vs-make`
 - [ ] `https://orryvelle.com/bg/statii/n8n-zapier-ili-make`
 
-## Day 7: guides, about and hubs, case studies
+### Batch 7: guides, about and hubs, case studies
 
 - [ ] `https://orryvelle.com/about`
 - [ ] `https://orryvelle.com/bg/za-nas`
@@ -103,7 +105,7 @@ Date, how far you got, anything odd:
 - [ ] `https://orryvelle.com/work/ai-voice-receptionist`
 - [ ] `https://orryvelle.com/bg/proekti/ai-voice-receptionist`
 
-## Day 8: case studies
+### Batch 8: case studies
 
 - [ ] `https://orryvelle.com/work/ai-cold-caller`
 - [ ] `https://orryvelle.com/bg/proekti/ai-cold-caller`
@@ -116,7 +118,7 @@ Date, how far you got, anything odd:
 - [ ] `https://orryvelle.com/work/varna-royal`
 - [ ] `https://orryvelle.com/bg/proekti/varna-royal`
 
-## Day 9: case studies
+### Batch 9: case studies
 
 - [ ] `https://orryvelle.com/work/revenue-operations-hub`
 - [ ] `https://orryvelle.com/bg/proekti/revenue-operations-hub`

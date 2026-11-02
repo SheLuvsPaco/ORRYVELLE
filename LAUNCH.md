@@ -38,9 +38,9 @@ Order matters for search: Google and Bing should first meet the site on its fina
 - [ ] Remove the leftover GoDaddy address (`mailto:dmarc_rua@onsecureserver.net`) from the `_dmarc` record, keeping the Cloudflare one, and confirm the Admin console shows DKIM as "Authenticating email"
 
 ### 3. Google Search Console (the most important account)
-- [ ] Add a **Domain** property for `orryvelle.com`, verified by the DNS TXT record in Cloudflare (covers www, http and https)
-- [ ] Sitemaps → submit `https://orryvelle.com/sitemap.xml`
-- [ ] URL Inspection → **Request indexing**, working through [docs/indexing-requests.md](docs/indexing-requests.md) (82 URLs, about 10 a day). Day 1 is: `/`, `/bg`, the three service pages in both languages, `/contact`, `/bg/kontakti` (about 10 a day are allowed; do the rest the next day: `/work`, `/about`, `/insights`, the five guides)
+- [x] Add a **Domain** property for `orryvelle.com`, verified by the DNS TXT record in Cloudflare (covers www, http and https)
+- [x] Sitemaps → submit `https://orryvelle.com/sitemap.xml`
+- [x] URL Inspection → **Request indexing**, Day 1 batch done 2 November 2026; further requests only when needed, see [docs/indexing-requests.md](docs/indexing-requests.md). Day 1 was: `/`, `/bg`, the three service pages in both languages, `/contact`, `/bg/kontakti` (about 10 a day are allowed; do the rest the next day: `/work`, `/about`, `/insights`, the five guides)
 
 ### 4. Bing Webmaster Tools (Bing's index feeds ChatGPT search, Copilot and DuckDuckGo)
 - [ ] Sign in, **Import from Google Search Console** (no verification tag needed), confirm the sitemap is listed
