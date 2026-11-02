@@ -191,3 +191,51 @@ Eligible because Orryvelle visits clients in person when a project needs it. Goo
 | Уебсайтове и онлайн магазини | Премиум уебсайтове и Shopify магазини, проектирани от нулата: бързи, готови за Google и лесни за обновяване, създадени да печелят клиенти, а не просто да съществуват. |
 
 **Never add:** keywords or a city in the business name, prices, or a description that promises things the site doesn't.
+
+---
+
+## 8. Clutch (and the same answers for GoodFirms and DesignRush)
+
+| Field | Value |
+|---|---|
+| Company name | Orryvelle |
+| Website | https://orryvelle.com |
+| Tagline | The tagline in section 1. If the field is too short: `Custom software, AI agents and premium websites` (47 characters) |
+| Logo | `avatar-paper-800.png` |
+| Description / summary | The long description in section 2 |
+| Founded | The year Orryvelle Ltd was registered |
+| Employees | 2-9 (Clutch's band closest to 2-10) |
+| Minimum project size | **Undisclosed** (no prices anywhere; every project is scoped after the free consultation) |
+| Average hourly rate | **Undisclosed** |
+| Location | Ruse, Bulgaria (registered address from section 1 if a street is required) |
+| Email | hello@orryvelle.com |
+| Phone | Only once decided for the website too, so every listing shows the same number |
+
+**Service lines (focus must total 100%; the three disciplines carry equal weight, adjust to reality):**
+
+| Service line | Focus |
+|---|---|
+| Custom Software Development | 25% |
+| Mobile App Development | 8% |
+| AI Development | 23% |
+| Business Process Automation (or Generative AI if Clutch doesn't list it) | 10% |
+| Web Design | 14% |
+| Web Development | 12% |
+| E-Commerce Development | 8% |
+
+**Client focus (your estimate; adjust):** Small business 80%, Midmarket 20%.
+
+**Industry focus (from real projects; pick the closest names Clutch offers):** Hospitality & leisure (event rentals), Real estate (property services), Retail and e-commerce (florist), Consumer products & services (pet care, home services), Financial services (tax advisory).
+
+**Portfolio items (real client work only; title, category, image, description):**
+
+| Title | Category | Image | Description |
+|---|---|---|---|
+| Nantucket Events Company | Custom Software Development | `portfolio/01-nantucket-events-platform.jpg` | The operations system behind a Nantucket event-rental company: one season calendar, a job card for every event, and a field brief each crew member reads before leaving the warehouse. |
+| Five-Star Priorities | Mobile App Development | `portfolio/02-five-star-priorities-app.jpg` | An iPhone app for a property-services team: each crew’s day laid out as a route of stops, every job approved by the owner, and the week on one calendar. |
+| AI Voice Receptionist | AI Development | `portfolio/03-ai-voice-receptionist.jpg` | Two voice agents on one calendar: an inbound receptionist that answers every call and books, reschedules, or cancels appointments, and an outbound agent that calls every new booking to say thank you and set expectations. |
+| Sales Pipeline System | AI Development (Business Process Automation) | `portfolio/04-sales-pipeline-automation.jpg` | Three automated email and SMS sequences around the CRM of a firm advising on tax, second passports, and banking: pre-sell every booked call, win back no-shows while they are still warm, and revive leads that went cold. |
+| Magnolia Blooms | E-Commerce Development | `portfolio/05-magnolia-blooms-shopify.jpg` | A Shopify storefront for a boutique florist in Bendigo: fresh and preserved blooms and gifts to buy online, with weddings and floral workshops given their own place on the page. |
+| Varna Royal | Web Design | `portfolio/06-varna-royal-website.jpg` | A premium website for a window and door repair company in Varna: a calm, interior-led look, every service shown with photography, a three-step process, and a free-quote form. |
+
+**Reviews:** Clutch ranks firms by verified client reviews. Ask your clients (Nantucket Events Company, Five-Star Priorities, Varna Royal, the grooming studios, the advisory firm) to leave one through Clutch's review link; Clutch verifies each reviewer. Never write or arrange reviews yourself.
