@@ -35,7 +35,8 @@ When a profile is live, send me its URL. I'll add it to the site's structured da
 | Clutch, GoodFirms, DesignRush | The service lines in section 4 |
 | Google Analytics | Computers & Electronics |
 | X, Instagram (business category) | Software company or Product/service if that's missing |
-| Tagline | The engine for businesses that refuse to stall. |
+| Tagline (any field called "tagline" or "headline": LinkedIn, Clutch, GoodFirms, DesignRush) | Custom software, AI agents and premium websites for businesses that want to stop losing time and leads. |
+| Slogan (brand line for banners, posts and bios that ask for a motto; not for tagline fields) | The engine for businesses that refuse to stall. |
 
 **Always:** spell it "Orryvelle" in text (the all-caps ORRYVELLE is only the logo), link to https://orryvelle.com (not a subpage, unless a field asks for a booking link), use the same logo everywhere.
 
@@ -45,10 +46,10 @@ When a profile is live, send me its URL. I'll add it to the site's structured da
 
 ## 2. Descriptions by length
 
-**Tagline (48 characters):**
+**Slogan (48 characters):**
 > The engine for businesses that refuse to stall.
 
-**One line, up to 120 characters (LinkedIn tagline, directory headlines):**
+**One line, up to 120 characters (the tagline in section 1; LinkedIn tagline, directory headlines):**
 > Custom software, AI agents and premium websites for businesses that want to stop losing time and leads.
 
 **Bio, up to 150 characters (Instagram, X, TikTok if shortened):**
