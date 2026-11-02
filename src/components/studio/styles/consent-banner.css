@@ -1,0 +1,124 @@
+/* Cookie choice: a slim graphite bar along the bottom on desktop (low enough to leave the hero's
+   buttons visible), a card on phones. Both buttons share one style so neither answer is pushed.
+   No entrance motion. */
+
+.consent-banner {
+  position: fixed;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  z-index: 95;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 32px;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding: 16px 16px 16px 24px;
+  border: 1px solid var(--deep-line);
+  border-radius: 3px;
+  background: var(--deep);
+  color: var(--on-deep);
+  box-shadow: var(--shadow-3);
+}
+
+.consent-banner:focus {
+  outline: none;
+}
+
+.consent-banner:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
+
+.consent-banner h2 {
+  margin: 0 0 4px;
+  color: var(--bronze-light);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.consent-banner p {
+  margin: 0;
+  max-width: 820px;
+  color: var(--on-deep-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.consent-banner a {
+  color: var(--on-deep);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.consent-banner a:hover {
+  color: var(--white);
+}
+
+.consent-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(132px, 1fr));
+  gap: 10px;
+}
+
+.consent-actions button {
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--bronze);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--on-deep);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease-soft),
+    color var(--dur-fast) var(--ease-soft);
+}
+
+.consent-actions button:hover {
+  background: var(--bronze);
+  color: var(--deep);
+}
+
+/* The booking pill sits above the bar instead of under it. */
+html[data-consent-open] .floating-booking {
+  bottom: 124px;
+}
+
+@media (max-width: 760px) {
+  .consent-banner {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    padding: var(--m-card-pad);
+  }
+
+  .consent-banner h2 {
+    margin-bottom: 8px;
+    font-size: var(--m-label);
+  }
+
+  .consent-banner p {
+    font-size: var(--m-small);
+    line-height: 1.55;
+  }
+
+  .consent-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* On a phone the card is tall; the pill waits until the choice is made. */
+  html[data-consent-open] .floating-booking {
+    visibility: hidden;
+  }
+}

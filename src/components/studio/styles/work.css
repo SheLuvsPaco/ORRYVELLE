@@ -1,0 +1,210 @@
+/* Styles for Work.tsx; imported there so they load only where it renders. */
+
+.tag {
+  padding: 4px 8px;
+  background: var(--pale);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+.tag-concept {
+  background: transparent;
+  border-style: dashed;
+  border-color: var(--orange);
+  color: var(--orange);
+}
+.square-arrow {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  background: var(--ink);
+  color: var(--white);
+  transition: background 0.2s;
+}
+.work-card {
+  display: block;
+  height: 100%;
+  padding: 8px;
+  background: var(--pale-2);
+  border: 1px solid var(--line);
+}
+.work-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px 24px 22px;
+  background: var(--white);
+}
+.work-card-head b {
+  display: block;
+  margin-top: 12px;
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.work-card-media {
+  display: block;
+  padding: 0 24px 24px;
+  background: var(--white);
+}
+.work-card-media .device-browser {
+  transition: transform 0.4s ease;
+}
+.work-card:hover .square-arrow {
+  background: var(--orange);
+}
+.work-card:hover .work-card-media .device-browser {
+  transform: translateY(-6px);
+}
+/* Surfaces with depth */
+.work-card {
+  box-shadow: var(--shadow-1);
+}
+.work-card {
+  transition:
+    box-shadow 0.5s var(--ease-soft),
+    transform 0.5s var(--ease-out),
+    border-color var(--dur) var(--ease-soft);
+}
+.work-card:hover {
+  box-shadow: var(--shadow-2);
+}
+.work-card-media .device-browser {
+  transition:
+    transform 0.7s var(--ease-out),
+    box-shadow 0.7s var(--ease-soft);
+}
+.work-card:hover .cl-page {
+  translate: 0 calc(var(--u) * -0.5);
+}
+.work-card:hover .cl-piece,
+.work-card:hover .cl-phone,
+.work-card:hover .cl-shot {
+  translate: 0 calc(var(--u) * -1.4);
+}
+.work-card {
+  display: block;
+  height: 100%;
+  padding: 10px;
+  background: var(--pale-2);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+.work-card-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  padding: 26px 26px 0;
+  background: var(--white);
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(37, 39, 33, 0.05);
+}
+.work-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 0;
+  background: none;
+}
+.work-card-head .tags {
+  padding-top: 4px;
+}
+.work-card .square-arrow {
+  width: 46px;
+  height: 46px;
+  transition: background-color var(--dur-fast) var(--ease-soft);
+}
+.work-card .square-arrow svg {
+  transition: transform var(--dur) var(--ease-out);
+}
+.work-card:hover .square-arrow svg {
+  transform: translate(2px, -2px);
+}
+.work-card-title {
+  display: block;
+  margin: 14px 0 26px;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(28px, 2.5vw, 36px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 0.98;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.work-card-media {
+  display: block;
+  margin-top: auto;
+  padding: 0;
+  background: none;
+}
+.work-card-media .collage,
+.work-card-media .lazy-collage {
+  aspect-ratio: 1 / 0.84;
+  border-radius: 3px 3px 0 0;
+}
+@media (max-width: 760px) {
+  /* One border and no rim or ring: the white inner is the card. */
+  .work-card {
+    padding: 0;
+    overflow: hidden;
+    background: var(--white);
+    border-radius: 4px;
+    box-shadow: none;
+  }
+  .work-card-inner {
+    padding: var(--m-card-pad) var(--m-card-pad) 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .tag {
+    font-size: var(--m-label);
+  }
+  .tags {
+    gap: 8px;
+  }
+  .work-card .square-arrow {
+    width: 44px;
+    height: 44px;
+  }
+  .work-card-title {
+    margin: var(--m-inner) 0 var(--m-card-gap);
+    font-size: var(--m-h3);
+    line-height: 1.05;
+  }
+  .work-card-media .collage,
+  .work-card-media .lazy-collage {
+    aspect-ratio: 1 / 0.8;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .work-card:hover .cl-layer {
+    translate: none;
+  }
+}
+.tag-concept {
+  color: var(--bronze-dark);
+}
+.tag-concept {
+  border-color: var(--bronze);
+}
+
+/* Scale pass: the title absorbs leftover height so the media sits flush without an auto margin. */
+@media (max-width: 760px) {
+  .work-card-title {
+    flex: 1 0 auto;
+  }
+  .work-card-media {
+    margin-top: 0;
+  }
+}

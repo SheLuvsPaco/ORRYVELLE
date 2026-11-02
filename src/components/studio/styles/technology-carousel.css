@@ -1,0 +1,235 @@
+/* Styles for TechnologyCarousel.tsx; imported there so they load only where it renders. */
+
+/* Technology band: a quiet, continuous marquee in a single ink tone.
+   Motion runs on the compositor (Web Animations API) and glides to a stop on
+   hover, touch-and-hold, or the pause control. */
+.tech-band {
+  position: relative;
+  background: var(--white);
+  border-block: 1px solid var(--line);
+}
+.tech-band-inner {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0 40px;
+  min-height: 116px;
+}
+.tech-band-label {
+  padding-right: 40px;
+  border-right: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.55;
+  letter-spacing: 0.005em;
+  white-space: nowrap;
+}
+.tech-band-label strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.tech-marquee {
+  position: relative;
+  overflow: hidden;
+  padding-block: 34px;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 11%,
+    #000 89%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 11%,
+    #000 89%,
+    transparent 100%
+  );
+}
+.tech-marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+.tech-marquee-group {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 68px;
+  margin: 0;
+  padding: 0 68px 0 0;
+  list-style: none;
+}
+.tech-marquee-group li {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  white-space: nowrap;
+  opacity: 0.56;
+  filter: grayscale(1) contrast(1.15);
+  transition:
+    opacity 420ms var(--ease-soft),
+    filter 520ms var(--ease-soft);
+}
+.tech-marquee-group li > span {
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16.5px;
+  font-weight: 500;
+  letter-spacing: -0.022em;
+  line-height: 1;
+}
+/* Optical balance: solid marks read heavier than line marks at the same size,
+   and light marks lose presence in grayscale. */
+.tech-marquee-group li:has(img[src*="typescript"]) .brand-logo,
+.tech-marquee-group li:has(img[src*="nodejs"]) .brand-logo,
+.tech-marquee-group li:has(img[src*="vercel"]) .brand-logo,
+.tech-marquee-group li:has(img[src*="nextjs"]) .brand-logo {
+  transform: scale(0.84);
+}
+.tech-marquee-group li:has(img[src*="react"]) img,
+.tech-marquee-group li:has(img[src*="n8n"]) img {
+  filter: brightness(0.62);
+}
+@media (hover: hover) {
+  .tech-marquee:hover .tech-marquee-group li {
+    opacity: 0.38;
+  }
+  .tech-marquee .tech-marquee-group li:hover {
+    opacity: 1;
+    filter: none;
+  }
+  .tech-marquee .tech-marquee-group li:hover img {
+    filter: none;
+  }
+}
+.tech-toggle {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition:
+    color 180ms var(--ease-soft),
+    border-color 180ms var(--ease-soft),
+    background-color 180ms var(--ease-soft),
+    transform 140ms var(--ease-soft);
+}
+.tech-toggle:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.tech-toggle:active {
+  transform: scale(0.94);
+}
+@media (max-width: 760px) {
+  .tech-band-inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    min-height: 0;
+    padding-top: 22px;
+  }
+  .tech-band-label {
+    padding-right: 0;
+    border-right: 0;
+    white-space: normal;
+  }
+  .tech-band-label br {
+    display: none;
+  }
+  .tech-marquee {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-inline: -16px;
+    padding-block: 24px 26px;
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0,
+      #000 9%,
+      #000 91%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0,
+      #000 9%,
+      #000 91%,
+      transparent 100%
+    );
+  }
+  .tech-marquee-group {
+    gap: 44px;
+    padding-right: 44px;
+  }
+  .tech-marquee-group li > span {
+    font-size: 15px;
+  }
+}
+
+/* Phone refinements: tighter band and a 44 px pause control. */
+@media (max-width: 760px) {
+  .tech-band-inner {
+    padding-top: var(--m-card-gap);
+  }
+  .tech-band-label {
+    font-size: var(--m-small);
+  }
+  .tech-toggle {
+    width: 44px;
+    height: 44px;
+  }
+  .tech-marquee {
+    padding-block: var(--m-inner) var(--m-card-gap);
+  }
+}
+
+/* Reduced motion on phones: a calm static grid. A frozen marquee shows a logo cut off at the
+   edge, so the track is laid out whole (transform !important beats the paused animation),
+   the aria-hidden repeat and the pause control (nothing moves) are hidden. */
+@media (max-width: 760px) and (prefers-reduced-motion: reduce) {
+  .tech-band-inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .tech-toggle,
+  .tech-marquee-group[aria-hidden="true"] {
+    display: none;
+  }
+  .tech-marquee {
+    grid-row: auto;
+    margin-inline: 0;
+    padding-block: var(--m-inner) var(--m-card-gap);
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .tech-marquee-track {
+    display: block;
+    width: auto;
+    transform: none !important;
+  }
+  .tech-marquee-group {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 8px;
+    padding: 0;
+  }
+  .tech-marquee-group li {
+    gap: 8px;
+    min-height: 40px;
+    opacity: 0.72;
+  }
+  .tech-marquee-group li > span {
+    font-size: var(--m-small);
+  }
+}
+/* Three names do not fit across at 360 px and below. */
+@media (max-width: 389px) and (prefers-reduced-motion: reduce) {
+  .tech-marquee-group {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 var(--m-card-gap);
+  }
+}

@@ -1,0 +1,154 @@
+/* Styles used only by the ContactPage template (both languages). */
+
+/* ── Contact ──────────────────────────────────────────── */
+.contact-page {
+  padding-bottom: 120px;
+}
+.contact-intro {
+  max-width: 880px;
+  padding: 72px 0 56px;
+}
+.contact-intro .chip {
+  margin-bottom: 28px;
+}
+.contact-intro h1 {
+  font-size: clamp(56px, 7vw, 108px);
+}
+.contact-intro p {
+  max-width: 620px;
+  margin-top: 28px;
+  color: var(--muted);
+  font-size: 18px;
+}
+.contact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+  gap: 64px;
+  align-items: start;
+}
+.aside-label {
+  display: block;
+  margin: 0 0 20px;
+  color: var(--muted);
+  font-family: inherit;
+  line-height: 1.4;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.contact-aside ol {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+.contact-aside li {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 12px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+.contact-aside li > span {
+  color: var(--bronze-dark);
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+}
+.contact-aside h3 {
+  margin-bottom: 6px;
+  font-size: 22px;
+  text-transform: uppercase;
+}
+.contact-aside p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.contact-email {
+  display: grid;
+  gap: 6px;
+  margin-top: 32px;
+  padding: 22px;
+  background: var(--pale);
+  border: 1px solid var(--line);
+  font-size: 14px;
+}
+.contact-email span {
+  color: var(--muted);
+}
+.contact-email a {
+  font-weight: 600;
+}
+@media (max-width: 1080px) {
+  .contact-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ── Phone layout (760px and below) ───────────────────── */
+@media (max-width: 760px) {
+  .contact-page {
+    padding-bottom: var(--m-sec);
+  }
+  .contact-intro {
+    padding: var(--m-card-pad) 0 var(--m-intro);
+  }
+  .contact-intro .chip {
+    margin-bottom: var(--m-card-gap);
+  }
+  /* Token scale: the Bulgarian "ИЗКЛЮЧИТЕЛНО." is 280px at 44px and fits a 320px phone. */
+  .contact-intro h1 {
+    font-size: var(--m-h1);
+    line-height: 1.02;
+  }
+  .contact-intro p {
+    margin-top: var(--m-card-gap);
+    font-size: var(--m-lead);
+  }
+  .contact-layout {
+    gap: 48px 0;
+  }
+  /* The booking and brief tool comes first; the steps are supporting reading. */
+  .contact-experience {
+    order: -1;
+  }
+  .contact-aside li {
+    grid-template-columns: 40px minmax(0, 1fr);
+    padding: var(--m-card-gap) 0;
+  }
+  .contact-aside li > span {
+    font-size: var(--m-h4);
+  }
+  .contact-aside h3 {
+    margin-bottom: 4px;
+    font-size: var(--m-h4);
+  }
+  .contact-aside p {
+    font-size: var(--m-small);
+    line-height: 1.55;
+  }
+  /* The email line is a plain row, not a second card. */
+  .contact-email {
+    gap: 0;
+    margin-top: 0;
+    padding: var(--m-inner) 0 0;
+    background: none;
+    border: 0;
+  }
+  .contact-email a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  /* The footer call to action repeats the two actions this page already offers. */
+  body:has(.contact-experience) .footer-cta {
+    display: none;
+  }
+  body:has(.contact-experience) .site-footer {
+    padding-top: var(--m-sec);
+  }
+  body:has(.contact-experience) .footer-top {
+    padding-bottom: var(--m-intro);
+  }
+}

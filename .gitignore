@@ -1,0 +1,17 @@
+node_modules
+node_modules/
+.next/
+.env
+.env*.local
+# Local working notes from before the rebrand (some refer to the previous site); the brand kit,
+# image credits and LAUNCH.md are tracked.
+docs/research/
+docs/verification/
+docs/aeo/
+.DS_Store
+.next-*/
+# iCloud Drive (this folder syncs) makes "name 2.ext" conflict copies.
+* [0-9].*
+.tsbuildinfo
+# Local state of an AI memory tool, not project files.
+.eventloom/

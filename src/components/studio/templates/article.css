@@ -1,0 +1,536 @@
+/* Styles used only by the ArticlePage template (both languages). */
+
+/* The header shares the article grid so the title lines up with the text column. */
+.insight-head {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 860px);
+  column-gap: 72px;
+  padding-block: 40px 48px;
+}
+.insight-head > * {
+  grid-column: 2;
+}
+.insight-head .case-crumbs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.insight-head .case-crumbs a {
+  color: var(--ink);
+  font-weight: 600;
+}
+.insight-head .case-crumbs a:hover {
+  color: var(--orange);
+}
+.insight-head h1 {
+  max-width: 22ch;
+  font-size: clamp(40px, 5.2vw, 80px);
+  line-height: 0.98;
+}
+.insight-lede {
+  max-width: 660px;
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 19px;
+  line-height: 1.6;
+}
+.insight-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+}
+.insight-meta span:first-child {
+  color: var(--ink);
+  font-weight: 600;
+}
+.insight-meta i {
+  width: 4px;
+  height: 4px;
+  background: var(--orange);
+}
+
+.insight-layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 720px);
+  gap: 72px;
+  justify-content: start;
+  padding-bottom: 88px;
+}
+
+/* Table of contents: sticky beside the article on wide screens. */
+.insight-toc {
+  position: sticky;
+  top: calc(var(--header-bar, 85px) + 24px);
+  align-self: start;
+  font-size: 14px;
+}
+.insight-toc > span {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.insight-toc ol {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-left: 1px solid var(--line);
+}
+.insight-toc a {
+  display: block;
+  margin-left: -1px;
+  padding: 7px 0 7px 14px;
+  border-left: 1px solid transparent;
+  color: var(--muted);
+  line-height: 1.35;
+  transition: color var(--dur-fast), border-color var(--dur-fast);
+}
+.insight-toc a:hover {
+  border-left-color: var(--orange);
+  color: var(--ink);
+}
+
+/* The short answer: the passage search and AI assistants quote. */
+.insight-answer {
+  position: relative;
+  margin-bottom: 56px;
+  padding: 32px 34px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  --corner: var(--ink);
+}
+.insight-answer h2 {
+  margin-bottom: 14px;
+  color: var(--orange-dark);
+  font-family: var(--font-body), sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+}
+.insight-answer p {
+  font-size: 19px;
+  line-height: 1.6;
+}
+.insight-answer ul {
+  display: grid;
+  gap: 10px;
+  margin: 22px 0 0;
+  padding: 22px 0 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+.insight-answer li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+.insight-answer li::before {
+  content: "";
+  position: absolute;
+  top: 0.62em;
+  left: 2px;
+  width: 7px;
+  height: 7px;
+  background: var(--orange);
+}
+
+/* Article body. */
+.prose {
+  font-size: 17.5px;
+  line-height: 1.75;
+}
+.prose > * + * {
+  margin-top: 1.1em;
+}
+.prose h2 {
+  margin-top: 2.4em;
+  scroll-margin-top: calc(var(--header-bar, 85px) + 24px);
+  font-size: clamp(30px, 3vw, 42px);
+  line-height: 1.02;
+}
+.prose h3 {
+  margin-top: 1.9em;
+  scroll-margin-top: calc(var(--header-bar, 85px) + 24px);
+  font-family: var(--font-body), sans-serif;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+.prose h2 + *,
+.prose h3 + * {
+  margin-top: 0.7em;
+}
+.prose p,
+.prose li {
+  color: #2f3a3e;
+}
+.prose strong {
+  color: var(--ink);
+  font-weight: 650;
+}
+.prose a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--orange);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.prose a:hover {
+  color: var(--orange-dark);
+}
+.prose ul,
+.prose ol {
+  padding-left: 1.3em;
+}
+.prose ul {
+  list-style: disc;
+}
+.prose ol {
+  list-style: decimal;
+}
+.prose li + li {
+  margin-top: 0.45em;
+}
+.prose ul li::marker {
+  color: var(--orange);
+}
+.prose blockquote {
+  margin-inline: 0;
+  padding: 4px 0 4px 22px;
+  border-left: 2px solid var(--orange);
+  color: var(--muted);
+  font-style: italic;
+}
+.prose hr {
+  margin-block: 2.4em;
+  border: 0;
+  border-top: 1px solid var(--line);
+}
+.table-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  background: var(--white);
+}
+.prose table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+.prose th,
+.prose td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+.prose th {
+  background: var(--pale);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.prose tr:last-child td {
+  border-bottom: 0;
+}
+.prose td:first-child {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Related service, then sources. */
+.insight-service {
+  position: relative;
+  display: grid;
+  gap: 22px;
+  margin-top: 64px;
+  padding: 30px 32px;
+  background: var(--deep);
+  color: var(--on-deep);
+  --corner: var(--orange-light, #d0ad8b);
+}
+.insight-service small {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--orange-light, #d0ad8b);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.insight-service p {
+  font-size: 18px;
+  line-height: 1.55;
+}
+.insight-service-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 26px;
+}
+.insight-service .text-link {
+  color: var(--on-deep);
+}
+.insight-sources {
+  margin-top: 56px;
+}
+.insight-sources h2 {
+  font-size: 28px;
+}
+.insight-sources ol {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0 0;
+  padding-left: 1.4em;
+  list-style: decimal;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.insight-sources a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+.insight-sources a:hover {
+  text-decoration-color: var(--orange);
+}
+.insight-sources > p {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+@media (max-width: 1080px) {
+  .insight-head {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 760px;
+  }
+  .insight-head > * {
+    grid-column: 1;
+  }
+  .insight-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    max-width: 760px;
+  }
+  .insight-toc {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .insight-head {
+    padding-block: 24px 32px;
+  }
+  .insight-lede {
+    font-size: 17px;
+  }
+  .insight-answer {
+    margin-bottom: 40px;
+    padding: 24px 20px;
+  }
+  .insight-answer p {
+    font-size: 17px;
+  }
+  .prose {
+    font-size: 16.5px;
+  }
+  .insight-service {
+    padding: 24px 20px;
+  }
+}
+
+/* Phone: article on the type scale, scrolling tables with an edge fade and a sticky label column. */
+@media (max-width: 760px) {
+  .insight-head .case-crumbs {
+    gap: 8px;
+    margin-bottom: 0;
+    font-size: var(--m-small);
+  }
+  .insight-head .case-crumbs a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .insight-head h1 {
+    max-width: none;
+    margin-top: var(--m-inner);
+    font-size: var(--m-h2);
+    line-height: 1.02;
+  }
+  :lang(bg) .insight-head h1 {
+    font-size: clamp(28px, 8.7vw, 34px);
+  }
+  .insight-lede {
+    margin-top: var(--m-card-gap);
+    font-size: var(--m-lead);
+    line-height: 1.5;
+  }
+  .insight-meta {
+    gap: 4px var(--m-inner);
+    margin-top: 24px;
+    padding-top: var(--m-card-gap);
+    font-size: var(--m-label);
+  }
+  .insight-layout {
+    padding-bottom: var(--m-sec);
+  }
+
+  .insight-answer {
+    margin-bottom: 48px;
+    padding: var(--m-card-pad);
+  }
+  .insight-answer h2 {
+    margin-bottom: var(--m-inner);
+    font-size: var(--m-label);
+  }
+  .insight-answer p {
+    font-size: var(--m-body);
+    line-height: 1.55;
+  }
+  .insight-answer ul {
+    gap: var(--m-inner);
+    margin-top: var(--m-card-gap);
+    padding-top: var(--m-card-gap);
+  }
+  .insight-answer li {
+    font-size: var(--m-small);
+    line-height: 1.55;
+  }
+
+  .prose {
+    font-size: var(--m-body);
+    line-height: 1.65;
+  }
+  .prose h2 {
+    margin-top: 48px;
+    font-size: var(--m-h3);
+    line-height: 1.1;
+  }
+  .prose h3 {
+    margin-top: var(--m-intro);
+    font-size: var(--m-h4);
+  }
+  .prose h2 + *,
+  .prose h3 + * {
+    margin-top: var(--m-inner);
+  }
+  .prose > * + * {
+    margin-top: var(--m-card-gap);
+  }
+  .prose ul,
+  .prose ol {
+    padding-left: var(--m-card-pad);
+  }
+  .prose th,
+  .prose td {
+    padding: var(--m-inner) var(--m-card-gap);
+  }
+  .insight-answer li {
+    padding-left: 24px;
+  }
+  .prose li + li {
+    margin-top: var(--m-inner);
+  }
+  .prose blockquote {
+    padding-left: var(--m-card-gap);
+  }
+
+  /* Flex lets a sticky ::after pin a fade to the visible right edge until the table ends. */
+  .table-scroll {
+    display: flex;
+    overscroll-behavior-x: contain;
+  }
+  .table-scroll::after {
+    content: "";
+    position: sticky;
+    right: 0;
+    flex: none;
+    width: 32px;
+    align-self: stretch;
+    background: linear-gradient(to left, var(--white) 20%, rgba(255, 255, 255, 0));
+    pointer-events: none;
+  }
+  .prose table {
+    flex: none;
+    min-width: 520px;
+    font-size: var(--m-small);
+  }
+  .prose th {
+    font-size: var(--m-label);
+  }
+  .prose th:first-child,
+  .prose td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: var(--white);
+    box-shadow: inset -1px 0 0 var(--line);
+  }
+  .prose th:first-child {
+    background: var(--pale);
+  }
+
+  .insight-service {
+    gap: var(--m-card-pad);
+    margin-top: 48px;
+    padding: var(--m-card-pad);
+  }
+  .insight-service small {
+    margin-bottom: var(--m-inner);
+    font-size: var(--m-label);
+  }
+  .insight-service p {
+    font-size: var(--m-body);
+  }
+  .insight-service-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--m-inner);
+  }
+  .insight-service-actions .text-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .insight-sources {
+    margin-top: 48px;
+  }
+  .insight-sources h2 {
+    font-size: var(--m-h3);
+  }
+  .insight-sources ol {
+    margin-top: var(--m-card-gap);
+  }
+  .insight-sources > p {
+    font-size: var(--m-label);
+  }
+  /* Two-column tables fit the screen: no fade needed. */
+  .table-scroll:not(:has(th:nth-child(3)))::after {
+    display: none;
+  }
+  .prose table:not(:has(th:nth-child(3))) {
+    min-width: 0;
+  }
+}

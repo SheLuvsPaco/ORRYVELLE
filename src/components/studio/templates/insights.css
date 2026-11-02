@@ -1,0 +1,229 @@
+/* Styles used only by the InsightsPage template (both languages). */
+
+.insights-hero {
+  padding-block: 72px 24px;
+}
+.insights-hero-copy {
+  max-width: 820px;
+}
+.insights-hero h1 {
+  margin-top: 22px;
+  font-size: clamp(56px, 7vw, 112px);
+}
+.insights-hero h1 .tone {
+  color: var(--tone);
+}
+.insights-hero p {
+  max-width: 620px;
+  margin-top: 26px;
+  color: var(--muted);
+  font-size: 19px;
+  line-height: 1.6;
+}
+
+.insights-index {
+  padding-top: 32px;
+}
+.insight-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.insight-list li:first-child {
+  grid-column: 1 / -1;
+}
+.insight-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+  padding: 32px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  transition:
+    border-color var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+.insight-card:hover {
+  border-color: var(--ink);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-2);
+}
+.insight-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--muted);
+}
+.insight-card .tag {
+  padding: 4px 8px;
+  background: var(--pale);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+.insight-card h2 {
+  max-width: 24ch;
+  font-size: clamp(28px, 2.6vw, 38px);
+  line-height: 1.02;
+}
+.insight-list li:first-child .insight-card h2 {
+  font-size: clamp(34px, 3.6vw, 52px);
+}
+/* Featured guide: its short answer fills the right-hand column. */
+.insight-list li:first-child .insight-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  grid-template-areas:
+    "top top"
+    "title answer"
+    "desc answer"
+    "meta answer";
+  grid-template-rows: auto auto 1fr auto;
+  gap: 16px 56px;
+}
+.insight-list li:first-child .insight-card-top {
+  grid-area: top;
+}
+.insight-list li:first-child .insight-card h2 {
+  grid-area: title;
+}
+.insight-list li:first-child .insight-card p {
+  grid-area: desc;
+}
+.insight-list li:first-child .insight-card-meta {
+  grid-area: meta;
+}
+.insight-card-answer {
+  grid-area: answer;
+  align-self: start;
+  padding: 22px 0 0 28px;
+  border-left: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.6;
+}
+.insight-card-answer small {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--orange-dark);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.insight-card p {
+  max-width: 62ch;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+.insight-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.insight-card-meta i {
+  width: 4px;
+  height: 4px;
+  background: var(--orange);
+}
+
+@media (max-width: 760px) {
+  .insights-hero {
+    padding-block: 40px 8px;
+  }
+  .insights-hero p {
+    font-size: 17px;
+  }
+  .insight-list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+  .insight-card {
+    padding: 24px 20px;
+  }
+}
+@media (max-width: 900px) {
+  .insight-list li:first-child .insight-card {
+    display: flex;
+  }
+  .insight-card-answer {
+    padding: 16px 0 0;
+    border-top: 1px solid var(--line);
+    border-left: 0;
+  }
+}
+
+/* Phone: scale type, compact cards, no marks, short answer hidden. */
+@media (max-width: 760px) {
+  .insights-hero {
+    padding-block: 24px var(--m-card-gap);
+  }
+  .insights-hero h1 {
+    margin-top: var(--m-card-gap);
+    font-size: var(--m-h1);
+  }
+  :lang(bg) .insights-hero h1 {
+    font-size: clamp(34px, 10.6vw, 44px);
+  }
+  .insights-hero p {
+    margin-top: var(--m-card-gap);
+    font-size: var(--m-body);
+  }
+  .insight-list {
+    gap: var(--m-card-gap);
+  }
+  .insight-card {
+    gap: var(--m-inner);
+    padding: var(--m-card-pad);
+  }
+  .insight-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  /* No corner marks on index cards on phones. */
+  .insight-card .corners {
+    display: none;
+  }
+  .insight-card .tag {
+    font-size: var(--m-label);
+  }
+  .insight-card h2,
+  .insight-list li:first-child .insight-card h2 {
+    max-width: none;
+    font-size: var(--m-h3);
+    line-height: 1.1;
+  }
+  .insight-card p {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    font-size: var(--m-small);
+    line-height: 1.55;
+  }
+  /* The article opens with the same short answer. */
+  .insight-card-answer {
+    display: none;
+  }
+  .insight-card-meta {
+    gap: 8px;
+    padding-top: 0;
+    font-size: var(--m-label);
+  }
+}

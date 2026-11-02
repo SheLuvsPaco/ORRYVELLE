@@ -1,0 +1,362 @@
+/* Styles for StudioIntro.tsx; imported there so they load only where it renders. */
+
+/* ── Studio intro ─────────────────────────────────────── */
+.studio-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 80px;
+  align-items: center;
+}
+.studio-copy .chip {
+  margin-bottom: 24px;
+}
+.studio-copy h2 {
+  margin-bottom: 28px;
+}
+.studio-copy .lead {
+  margin-bottom: 18px;
+  font-size: 19px;
+  line-height: 1.6;
+}
+.studio-copy p:not(.lead) {
+  color: var(--muted);
+}
+.studio-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 28px;
+  margin-top: 36px;
+}
+@media (max-width: 1080px) {
+  .studio-intro {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+/* Glass tile language shared by the photo compositions. */
+.si-stats,
+.si-mark {
+  backdrop-filter: blur(16px) saturate(1.15);
+  -webkit-backdrop-filter: blur(16px) saturate(1.15);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 18px 40px -22px rgba(0, 0, 0, 0.65);
+}
+/* ── Studio intro (home) ──────────────────────────────── */
+.studio-intro {
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: 88px;
+}
+.studio-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.studio-contact a {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 500;
+}
+.studio-contact a:hover {
+  color: var(--orange);
+}
+.studio-contact-icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  transition: border-color var(--dur-fast) var(--ease-soft);
+}
+.studio-contact a:hover .studio-contact-icon {
+  border-color: currentColor;
+}
+.si-visual {
+  position: relative;
+}
+.si-frame {
+  position: relative;
+  padding: 10px;
+  background: var(--pale-2);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  box-shadow: var(--shadow-2);
+}
+.si-photo {
+  position: relative;
+  aspect-ratio: 5 / 5.5;
+  overflow: hidden;
+  border-radius: 3px;
+  background: var(--deep);
+}
+.si-photo img {
+  object-fit: cover;
+  object-position: 66% 50%;
+}
+.si-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(34, 37, 31, 0) 48%,
+      rgba(34, 37, 31, 0.5) 100%
+    ),
+    radial-gradient(
+      60% 50% at 70% 30%,
+      rgba(173, 137, 104, 0.1),
+      transparent 70%
+    );
+  pointer-events: none;
+}
+.si-mark {
+  position: absolute;
+  left: -26px;
+  top: 64px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  background: rgba(37, 39, 33, 0.74);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--paper);
+  --corner: #9a9d90;
+}
+.si-mark b {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-style: italic;
+  font-weight: 700;
+}
+.si-stats {
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  bottom: 28px;
+  z-index: 2;
+  background: rgba(37, 39, 33, 0.46);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--white);
+  --corner: #c3c5b9;
+}
+.si-stats dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: 20px 0 19px;
+}
+.si-stats dl > div {
+  min-width: 0;
+  padding: 0 24px;
+}
+.si-stats dl > div + div {
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
+}
+.si-stats dt {
+  font-family: var(--font-display);
+  font-size: 50px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+.si-stats dt small {
+  margin-left: 3px;
+  color: #cfd0c5;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.si-stats dd {
+  margin: 6px 0 0;
+  color: #dcddd3;
+  font-size: 13px;
+  line-height: 1.35;
+}
+@media (max-width: 1200px) {
+  .studio-intro {
+    gap: 64px;
+  }
+  .si-stats dl > div {
+    padding: 0 18px;
+  }
+  .si-stats dt {
+    font-size: 44px;
+  }
+}
+@media (max-width: 1080px) {
+  .studio-intro {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .si-visual {
+    max-width: 680px;
+  }
+}
+@media (max-width: 760px) {
+  .si-frame {
+    padding: 6px;
+  }
+  .si-photo {
+    aspect-ratio: 4 / 4.2;
+  }
+  .si-mark {
+    left: -10px;
+    top: 24px;
+    width: 60px;
+    height: 60px;
+  }
+  .si-mark b {
+    font-size: 24px;
+  }
+  .si-stats {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+  }
+  .si-stats dl {
+    padding: 14px 0 13px;
+  }
+  .si-stats dl > div {
+    padding: 0 10px;
+  }
+  .si-stats dt {
+    font-size: 32px;
+  }
+  .si-stats dt small {
+    font-size: 15px;
+  }
+  .si-stats dd {
+    font-size: 11.5px;
+  }
+  .studio-intro {
+    gap: 48px;
+  }
+}
+@media (max-width: 420px) {
+  .si-stats dt {
+    font-size: 27px;
+  }
+  .si-stats dd {
+    font-size: 10.5px;
+  }
+}
+.si-mark {
+  color: var(--bronze-light);
+}
+.si-mark .orryvelle-mark {
+  margin: auto;
+}
+
+/* Phone layout: copy first, one calm photo, the three figures as a plain row beneath it. */
+@media (max-width: 760px) {
+  .studio-intro {
+    gap: var(--m-intro);
+  }
+  .studio-copy .chip {
+    margin-bottom: var(--m-inner);
+  }
+  .studio-copy h2 {
+    margin-bottom: var(--m-card-gap);
+  }
+  .studio-copy .lead {
+    margin-bottom: var(--m-inner);
+    font-size: var(--m-lead);
+    line-height: 1.5;
+  }
+  .studio-copy p:not(.lead) {
+    font-size: var(--m-body);
+  }
+  .studio-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--m-inner);
+    margin-top: 24px;
+  }
+  .studio-actions .btn {
+    width: 100%;
+  }
+  .studio-actions .text-link {
+    align-self: flex-start;
+    min-height: 44px;
+  }
+  .studio-contact {
+    flex-direction: column;
+    gap: 0;
+    margin-top: 24px;
+    padding-top: var(--m-inner);
+  }
+  .si-visual {
+    max-width: none;
+  }
+  .si-frame {
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .si-photo {
+    aspect-ratio: 4 / 3;
+    border-radius: 4px;
+  }
+  .si-mark {
+    display: none;
+  }
+  .si-stats {
+    position: static;
+    margin-top: var(--m-card-gap);
+    background: transparent;
+    border: 0;
+    border-block: 1px solid var(--line);
+    color: var(--ink);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
+  }
+  .si-stats .corners {
+    display: none;
+  }
+  .si-stats dl {
+    padding: var(--m-card-gap) 0;
+  }
+  .si-stats dl > div {
+    padding: 0 var(--m-inner);
+  }
+  .si-stats dl > div:first-child {
+    padding-left: 0;
+  }
+  .si-stats dl > div + div {
+    border-left-color: var(--line);
+  }
+  .si-stats dt {
+    font-size: var(--m-h2);
+  }
+  .si-stats dt small {
+    color: var(--muted);
+    font-size: var(--m-body);
+  }
+  .si-stats dd {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: var(--m-label);
+  }
+}
+@media (max-width: 420px) {
+  .si-stats dt {
+    font-size: var(--m-h2);
+  }
+  .si-stats dd {
+    font-size: var(--m-label);
+  }
+}

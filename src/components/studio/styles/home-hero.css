@@ -1,0 +1,809 @@
+/* Styles for HomeHero.tsx; imported there so they load only where it renders. */
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: 64px;
+  align-items: start;
+}
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 36px;
+  padding: 4px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  font-size: 13px;
+}
+.status-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  background: var(--paper);
+  font-weight: 600;
+}
+.status-action {
+  padding: 6px 12px;
+  color: var(--muted);
+}
+.status-chip:hover .status-action {
+  color: var(--orange);
+}
+.hero-accent {
+  color: var(--tone);
+}
+.hero-word {
+  position: relative;
+  display: inline-grid;
+  margin: 0.08em 0 0.1em 0.04em;
+  padding: 0.04em 0.12em 0;
+  border: 1px solid var(--line);
+  color: var(--orange);
+  --corner: var(--ink);
+}
+.hero-word > span {
+  grid-area: 1 / 1;
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
+}
+.hero-word > span[data-active="false"] {
+  opacity: 0;
+  transform: translateY(0.25em);
+}
+.hero-form {
+  padding: 8px;
+  background: var(--pale-2);
+  border: 1px solid var(--line);
+}
+@media (max-width: 1080px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .hero-grid {
+    gap: 56px;
+  }
+  .hero-form {
+    max-width: 680px;
+  }
+}
+/* Surfaces with depth */
+.hero-form {
+  box-shadow: var(--shadow-1);
+}
+.hero-form {
+  box-shadow: var(--shadow-3);
+}
+/* Hero word: letters rise into the frame */
+.hero-word > span {
+  transition:
+    opacity 0.6s var(--ease-soft),
+    transform 0.8s var(--ease-out),
+    filter 0.6s var(--ease-soft);
+}
+.hero-word > span[data-active="false"] {
+  transform: translateY(0.3em);
+  filter: blur(6px);
+}
+/* Atmosphere: warm key light, cool fill, diagonal beams, haze, grain. */
+.hero-atmos {
+  position: absolute;
+  /*
+   * A fixed height (close to the hero's real one at each layout) instead of the hero's own:
+   * the lights are sized in % of this box, and tying them to the hero made them jump when
+   * the heading font loaded and nudged its height, which counts as layout shift (CLS).
+   */
+  inset: 0 0 auto;
+  height: 960px;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+@media (max-width: 1080px) {
+  .hero-atmos {
+    height: 1600px;
+  }
+}
+@media (max-width: 760px) {
+  .hero-atmos {
+    height: 1720px;
+  }
+}
+.hero-atmos > span {
+  position: absolute;
+  display: block;
+}
+.atmos-warm {
+  left: -24%;
+  top: -62%;
+  width: 76%;
+  height: 130%;
+  background: radial-gradient(
+    closest-side,
+    rgba(197, 158, 121, 0.42),
+    rgba(143, 102, 72, 0.21) 32%,
+    rgba(96, 68, 51, 0.07) 64%,
+    transparent 100%
+  );
+  filter: blur(16px);
+  animation: atmos-warm 28s var(--ease-in-out) infinite alternate;
+}
+.atmos-cool {
+  right: -26%;
+  top: 8%;
+  width: 78%;
+  height: 124%;
+  background: radial-gradient(
+    closest-side,
+    rgba(126, 156, 182, 0.32),
+    rgba(92, 118, 142, 0.15) 44%,
+    rgba(70, 88, 104, 0.05) 72%,
+    transparent 100%
+  );
+  filter: blur(16px);
+  animation: atmos-cool 36s var(--ease-in-out) infinite alternate;
+}
+/* Light shafts falling from the top left, warm near the source, cool across the form. */
+.atmos-beam {
+  top: -35%;
+  height: 175%;
+  border-radius: 50%;
+  transform-origin: 50% 0;
+  transform: rotate(-24deg);
+  mix-blend-mode: screen;
+}
+.atmos-beam.is-a {
+  left: 12%;
+  width: 17%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 190, 140, 0.36),
+    rgba(240, 160, 110, 0.16) 45%,
+    rgba(200, 130, 90, 0.05) 82%,
+    transparent
+  );
+  filter: blur(34px);
+  animation: atmos-beam-a 32s var(--ease-in-out) infinite alternate;
+}
+.atmos-beam.is-b {
+  left: 31%;
+  width: 5%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 222, 196, 0.26),
+    rgba(255, 210, 180, 0.09) 55%,
+    transparent 88%
+  );
+  filter: blur(16px);
+  animation: atmos-beam-b 26s var(--ease-in-out) infinite alternate;
+}
+.atmos-beam.is-c {
+  left: 58%;
+  width: 20%;
+  background: linear-gradient(
+    180deg,
+    rgba(156, 190, 214, 0.32),
+    rgba(130, 164, 190, 0.15) 50%,
+    rgba(110, 140, 160, 0.05) 85%,
+    transparent
+  );
+  filter: blur(38px);
+  animation: atmos-beam-c 38s var(--ease-in-out) infinite alternate;
+}
+.atmos-beam.is-d {
+  left: 82%;
+  width: 6%;
+  background: linear-gradient(
+    180deg,
+    rgba(190, 214, 230, 0.2),
+    rgba(170, 196, 214, 0.07) 55%,
+    transparent 88%
+  );
+  filter: blur(18px);
+  animation: atmos-beam-d 30s var(--ease-in-out) infinite alternate;
+}
+.atmos-haze {
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 120% 90% at 50% 20%,
+      transparent 45%,
+      rgba(8, 9, 7, 0.5) 100%
+    ),
+    linear-gradient(180deg, transparent 62%, var(--night-2) 100%);
+}
+.atmos-grain {
+  inset: 0;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.hero-atmos[data-motion="off"] > span {
+  animation-play-state: paused;
+}
+.hero .hero-grid {
+  position: relative;
+  grid-template-columns: minmax(0, 1.16fr) minmax(0, 0.84fr);
+  gap: 72px;
+  align-items: start;
+}
+/* Status chip */
+.hero .status-chip {
+  gap: 2px;
+  margin-bottom: 34px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  color: var(--on-night);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transition:
+    border-color var(--dur) var(--ease-soft),
+    background-color var(--dur) var(--ease-soft);
+}
+.hero .status-label {
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 2px;
+}
+.hero .status-action {
+  color: var(--on-night-muted);
+  transition: color var(--dur-fast) var(--ease-soft);
+}
+.hero .status-chip:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+.hero .status-chip:hover .status-action {
+  color: var(--orange-light);
+}
+/* Headline: three lines; the key word sits in a crosshair frame. */
+.hero .hero-title {
+  display: block;
+  font-size: clamp(60px, 6.35vw, 92px);
+  line-height: 0.9;
+  letter-spacing: -0.015em;
+  color: var(--on-night);
+}
+.hero .hero-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 0.2em;
+}
+.hero .hero-accent {
+  margin-top: 0.06em;
+  color: var(--on-night-tone);
+}
+.hero .hero-word {
+  margin: 0.06em 0;
+  padding: 0.07em 0.13em 0.01em;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.035),
+    rgba(255, 255, 255, 0)
+  );
+  color: #c59d79;
+  --corner: var(--on-night);
+}
+/* Credential row: the three disciplines, framed like entries on a drawing. */
+.hero-credentials {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 620px;
+  margin-top: 64px;
+  --corner: #767a6d;
+}
+.hero-credentials li + li {
+  margin-left: -1px;
+}
+.hero-credentials a {
+  position: relative;
+  display: grid;
+  gap: 9px;
+  height: 100%;
+  padding: 16px 18px 17px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.02);
+  transition:
+    background-color var(--dur) var(--ease-soft),
+    border-color var(--dur) var(--ease-soft);
+}
+.hero-credentials a:hover {
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.hero-credentials .corners i {
+  transform: scale(0.62);
+}
+.hero-credentials small {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--on-night-muted);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: color var(--dur-fast) var(--ease-soft);
+}
+.hero-credentials small::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  background: var(--orange);
+}
+.hero-credentials a:hover small {
+  color: var(--orange-light);
+}
+.hero-credentials b {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--on-night);
+}
+.hero-credentials b .tone {
+  color: var(--on-night-tone);
+}
+/* Form: a paper card inside a thick translucent rim, badge on its corner. */
+.hero .hero-form {
+  position: relative;
+  max-width: 560px;
+  width: 100%;
+  justify-self: end;
+  margin-top: 6px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.085);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 4px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 2px 6px rgba(0, 0, 0, 0.14),
+    0 40px 80px -36px rgba(0, 0, 0, 0.7);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+.hero .hero-badge {
+  /* Centred on the rim's corner: clears the heading and reads as pinned. */
+  left: -52px;
+  top: -52px;
+  width: 104px;
+  height: 104px;
+  background: rgba(24, 26, 22, 0.78);
+  color: var(--on-night);
+  -webkit-backdrop-filter: saturate(1.2) blur(12px);
+  backdrop-filter: saturate(1.2) blur(12px);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 18px 36px -14px rgba(0, 0, 0, 0.7);
+}
+.hero .hero-badge text {
+  font-size: 9.2px;
+  letter-spacing: 0.16em;
+}
+/* details.css sizes and spins every svg in the badge; the centre mark must stay still. */
+.hero .hero-badge > svg:last-child {
+  position: relative;
+  inset: auto;
+  width: 16px;
+  height: 16px;
+  color: var(--orange-light);
+  animation: none;
+}
+.hero .hero-badge::before {
+  content: "";
+  position: absolute;
+  inset: 25px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+@media (max-width: 1200px) {
+  .hero .hero-grid {
+    gap: 56px;
+  }
+  .hero-credentials b {
+    font-size: 19px;
+  }
+}
+@media (max-width: 1080px) {
+  .hero .hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 72px;
+  }
+  .hero .hero-title {
+    font-size: clamp(56px, 9vw, 92px);
+  }
+  .hero .hero-form {
+    justify-self: start;
+    max-width: 640px;
+    margin-left: 34px;
+  }
+}
+@media (max-width: 760px) {
+  .atmos-warm {
+    left: -60%;
+    top: -20%;
+    width: 150%;
+    height: 70%;
+  }
+  .atmos-cool {
+    right: -70%;
+    top: 30%;
+    width: 160%;
+    height: 80%;
+  }
+  .hero .status-chip {
+    margin-bottom: 28px;
+    font-size: 12.5px;
+  }
+  /* Sized so each of the three lines stays whole down to 320px. */
+  .hero .hero-title {
+    font-size: clamp(42px, 13.4vw, 60px);
+    line-height: 0.92;
+  }
+  .hero .hero-word {
+    margin: 0.08em 0 0.06em 0.02em;
+  }
+  .hero-credentials {
+    margin-top: 44px;
+  }
+  .hero-credentials a {
+    align-content: start;
+    gap: 8px;
+    padding: 14px 12px 15px;
+  }
+  .hero-credentials small {
+    gap: 6px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+  .hero-credentials b {
+    font-size: 18px;
+  }
+  .hero-credentials b .tone {
+    display: block;
+    margin-top: 2px;
+  }
+  .hero .hero-grid {
+    gap: 76px;
+  }
+  .hero .hero-form {
+    margin-left: 0;
+    padding: 6px;
+  }
+  .hero .hero-badge {
+    left: auto;
+    right: 14px;
+    top: -40px;
+    width: 88px;
+    height: 88px;
+  }
+  .hero .hero-badge::before {
+    inset: 21px;
+  }
+}
+@media (max-width: 380px) {
+  .hero-credentials small {
+    font-size: 9.5px;
+    letter-spacing: 0.08em;
+  }
+  .hero-credentials b {
+    font-size: 16.5px;
+  }
+  .hero-credentials a {
+    padding-inline: 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .studio .hero-atmos > .atmos-warm {
+    animation: atmos-warm 110s var(--ease-in-out) infinite alternate !important;
+  }
+  .studio .hero-atmos > .atmos-cool {
+    animation: atmos-cool 140s var(--ease-in-out) infinite alternate !important;
+  }
+  .studio .hero-atmos > .atmos-beam.is-a {
+    animation: atmos-beam-a 128s var(--ease-in-out) infinite alternate !important;
+  }
+  .studio .hero-atmos > .atmos-beam.is-b {
+    animation: atmos-beam-b 104s var(--ease-in-out) infinite alternate !important;
+  }
+  .studio .hero-atmos > .atmos-beam.is-c {
+    animation: atmos-beam-c 152s var(--ease-in-out) infinite alternate !important;
+  }
+  .studio .hero-atmos > .atmos-beam.is-d {
+    animation: atmos-beam-d 120s var(--ease-in-out) infinite alternate !important;
+  }
+  .studio .hero-atmos[data-motion="off"] > span {
+    animation-play-state: paused !important;
+  }
+  .studio .hero .hero-badge > svg:last-child {
+    animation: none !important;
+  }
+}
+.work-hero-copy h1 .tone {
+  color: #858979;
+}
+.case-intro h1 .tone,
+.case-body h2 .tone {
+  color: var(--tone);
+}
+.bento-card h3 .tone {
+  display: block;
+  color: #83877a;
+}
+.tier h3 .tone {
+  color: #83877a;
+}
+.tier h4 .tone {
+  color: #83877a;
+}
+.process-card h3 .tone {
+  display: block;
+}
+.why-copy h3 .tone {
+  color: #858979;
+}
+.hero-credentials small::before {
+  background: var(--bronze);
+}
+.atmos-warm {
+  background: radial-gradient(
+    closest-side,
+    rgba(197, 158, 121, 0.42),
+    rgba(143, 102, 72, 0.21) 34%,
+    rgba(96, 68, 51, 0.07) 66%,
+    transparent 100%
+  );
+}
+.atmos-cool {
+  background: radial-gradient(
+    closest-side,
+    rgba(77, 107, 113, 0.28),
+    rgba(53, 76, 82, 0.13) 44%,
+    rgba(31, 49, 54, 0.04) 72%,
+    transparent 100%
+  );
+}
+.atmos-beam.is-a {
+  background: linear-gradient(
+    180deg,
+    rgba(217, 181, 147, 0.27),
+    rgba(154, 116, 84, 0.11) 45%,
+    transparent 84%
+  );
+}
+.atmos-beam.is-b {
+  background: linear-gradient(
+    180deg,
+    rgba(233, 211, 190, 0.18),
+    rgba(180, 146, 117, 0.06) 55%,
+    transparent 88%
+  );
+}
+.atmos-beam.is-c,
+.atmos-beam.is-d {
+  opacity: 0.62;
+}
+.hero .hero-word {
+  border-color: rgba(208, 173, 139, 0.34);
+  background: linear-gradient(180deg, rgba(208, 173, 139, 0.08), transparent);
+  color: var(--bronze-light);
+  --corner: #cfb08f;
+}
+.hero .status-chip {
+  border-color: rgba(208, 173, 139, 0.18);
+}
+.hero .hero-form {
+  background: rgba(180, 146, 115, 0.1);
+  border-color: rgba(208, 173, 139, 0.22);
+}
+.hero .hero-badge {
+  background: rgba(12, 22, 25, 0.86);
+  color: var(--bronze-light);
+  box-shadow:
+    0 0 0 1px rgba(208, 173, 139, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 18px 36px -14px rgba(0, 0, 0, 0.72);
+}
+.hero .hero-badge > svg:last-child {
+  color: var(--bronze-light);
+}
+@media (max-width: 720px) {
+  .hero .hero-title {
+    letter-spacing: -0.012em;
+  }
+}
+@keyframes atmos-warm {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(6%, 4%, 0) scale(1.08);
+  }
+}
+@keyframes atmos-cool {
+  from {
+    transform: translate3d(0, 0, 0) scale(1.05);
+  }
+  to {
+    transform: translate3d(-7%, 3%, 0) scale(0.95);
+  }
+}
+@keyframes atmos-beam-a {
+  from {
+    transform: rotate(-24deg) translateX(0);
+    opacity: 0.75;
+  }
+  to {
+    transform: rotate(-21deg) translateX(30%);
+    opacity: 1;
+  }
+}
+@keyframes atmos-beam-b {
+  from {
+    transform: rotate(-23deg) translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: rotate(-26deg) translateX(-80%);
+    opacity: 0.5;
+  }
+}
+@keyframes atmos-beam-c {
+  from {
+    transform: rotate(-25deg) translateX(0);
+    opacity: 0.7;
+  }
+  to {
+    transform: rotate(-22deg) translateX(-25%);
+    opacity: 1;
+  }
+}
+@keyframes atmos-beam-d {
+  from {
+    transform: rotate(-24deg) translateX(0);
+    opacity: 0.9;
+  }
+  to {
+    transform: rotate(-27deg) translateX(60%);
+    opacity: 0.45;
+  }
+}
+
+/* "Автоматизация" is wider than any English discipline word; on phones the three boxes are
+   narrow, so the Bulgarian labels step down to stay inside their box. */
+@media (max-width: 760px) {
+  :lang(bg) .hero .hero-credentials b {
+    font-size: 13.5px;
+  }
+}
+
+/* Phone layout (docs/mobile-layout.md): chip, headline, lead, two buttons, then the three
+   disciplines as 1 + 3 rows. The enquiry form is hidden here because the Enquiry section
+   further down carries the same form. */
+@media (max-width: 760px) {
+  .studio .hero {
+    padding: calc(var(--header-bar) + 32px) 0 var(--m-intro);
+  }
+  /* The stage below opens with its own padding and hairline, so the hero ends close to its list.
+     The hero is about one screen now; the lights are sized in % of this fixed box. */
+  .hero-atmos {
+    height: 920px;
+  }
+  .studio .hero .hero-form {
+    display: none;
+  }
+  .studio .hero .status-chip {
+    margin-bottom: 20px;
+    font-size: var(--m-label);
+  }
+  .studio .hero .status-chip {
+    min-height: 44px;
+  }
+  .studio .hero .status-label,
+  .studio .hero .status-action {
+    padding-inline: var(--m-inner);
+    white-space: nowrap;
+  }
+  .studio .hero .hero-title {
+    font-size: clamp(38px, 11.6vw, 46px);
+    line-height: 0.96;
+  }
+  .studio .hero .hero-lead {
+    max-width: none;
+    margin-top: var(--m-card-gap);
+    font-size: var(--m-body);
+    line-height: 1.55;
+  }
+  .studio .hero .hero-actions {
+    flex-direction: column;
+    gap: var(--m-inner);
+    margin-top: 24px;
+  }
+  .studio .hero .hero-actions .btn {
+    flex: none;
+    width: 100%;
+  }
+  .studio .hero-credentials {
+    display: block;
+    max-width: none;
+    margin-top: var(--m-intro);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .studio .hero-credentials li + li {
+    margin-left: 0;
+  }
+  .studio .hero-credentials a {
+    grid-template-columns: 124px minmax(0, 1fr);
+    align-items: center;
+    gap: 0;
+    height: auto;
+    min-height: 56px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .studio .hero-credentials a:hover {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+  .studio .hero-credentials .corners {
+    display: none;
+  }
+  /* "Направление 01" is the widest label, so the bronze dot is dropped to keep one line. */
+  .studio .hero-credentials small {
+    font-size: var(--m-label);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .studio .hero-credentials small::before {
+    display: none;
+  }
+  .studio .hero-credentials b,
+  :lang(bg) .studio .hero-credentials b {
+    font-size: var(--m-h4);
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+  .studio .hero-credentials b .tone {
+    display: inline;
+    margin-top: 0;
+  }
+}
+@media (max-width: 380px) {
+  /* The chip itself is the link; its second half would wrap at this width. */
+  .studio .hero .status-action {
+    display: none;
+  }
+  .studio .hero-credentials a {
+    grid-template-columns: 120px minmax(0, 1fr);
+  }
+  .studio .hero-credentials b,
+  :lang(bg) .studio .hero-credentials b {
+    font-size: var(--m-body);
+  }
+}
+
+/* Scale pass: the hero starts at the 65px header plus 32, so the padding lands on 96. */
+@media (max-width: 760px) {
+  .studio .hero {
+    padding-top: 96px;
+  }
+  .studio .hero .status-label,
+  .studio .hero .status-action {
+    padding-block: 8px;
+  }
+  .studio .hero .status-label {
+    gap: 8px;
+  }
+  .studio .hero-credentials small {
+    gap: 8px;
+  }
+}

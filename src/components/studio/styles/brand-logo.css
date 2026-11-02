@@ -1,0 +1,16 @@
+/* Styles for BrandLogo.tsx; imported there so they load only where it renders. */
+
+/* Brand, motion and input refinements. Every moving element has a user control. */
+.brand-logo {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+}
+.brand-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+}

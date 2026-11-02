@@ -1,0 +1,559 @@
+/* Styles for SolutionPage.tsx; imported there so they load only where it renders. */
+
+.solution-hero {
+  padding: 56px 0 104px;
+}
+.solution-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 72px;
+  align-items: center;
+}
+.solution-crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin-bottom: 28px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.solution-crumbs span {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.solution-crumbs i {
+  color: var(--line);
+  font-style: normal;
+}
+.solution-crumbs a {
+  color: var(--ink);
+  font-weight: 600;
+}
+.solution-crumbs a:hover {
+  color: var(--orange);
+}
+.solution-hero h1 {
+  font-size: clamp(46px, 5.2vw, 78px);
+}
+.solution-hero h1 .tone {
+  color: var(--tone);
+}
+.solution-hero h1 .h1-kicker {
+  display: block;
+  margin-bottom: 18px;
+  color: var(--muted);
+  font-family: var(--font-body), sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  text-transform: none;
+}
+.solution-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  margin: 36px 0 0;
+  padding: 24px 0 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+.solution-trust li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.solution-trust svg {
+  color: var(--orange);
+}
+.solution-hero-visual {
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+/* Pains */
+.solution-pain-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 40px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.solution-pain-list li {
+  padding: 28px;
+  background: var(--white);
+  border: 1px solid var(--line);
+}
+.solution-pain-index {
+  color: var(--bronze-dark);
+  font-family: var(--font-display), sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+}
+.solution-pain-list h3,
+.solution-feature-list h3,
+.solution-step-list h3 {
+  margin-top: 14px;
+  font-size: 26px;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+.solution-pain-list p,
+.solution-step-list p {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 15.5px;
+  line-height: 1.6;
+}
+
+/* Features */
+.solution-feature-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin: 44px 0 0;
+  padding: 0;
+  list-style: none;
+  background: var(--deep-line, rgba(255, 255, 255, 0.09));
+  border: 1px solid var(--deep-line, rgba(255, 255, 255, 0.09));
+}
+.solution-feature-list li {
+  padding: 30px;
+  background: var(--deep, #22251f);
+}
+.solution-feature-list p {
+  margin-top: 10px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* Steps and pricing */
+.solution-step-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 40px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: none;
+}
+.solution-step-list li {
+  padding: 28px;
+  border-top: 2px solid var(--ink);
+}
+.solution-step-list span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+.solution-pricing {
+  position: relative;
+  max-width: 820px;
+  margin-top: 40px;
+  padding: 26px 30px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  --corner: var(--ink);
+}
+.solution-pricing small {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--orange-dark);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.solution-pricing p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Proof */
+.solution-proof-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 40px 0 0;
+  padding: 0;
+  list-style: none;
+}
+/* One or two projects: a wider layout instead of a mostly empty row. */
+.solution-proof-list.is-count-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.solution-proof-list.is-count-1 {
+  grid-template-columns: minmax(0, 1fr);
+}
+.solution-proof-list.is-count-1 .solution-proof-card {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: auto;
+}
+.solution-proof-list.is-count-1 .solution-proof-media {
+  border-right: 1px solid var(--line);
+  border-bottom: 0;
+}
+.solution-proof-list.is-count-1 .solution-proof-copy {
+  align-content: center;
+  grid-template-rows: none;
+  padding: 40px;
+}
+.solution-proof-card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+  background: var(--white);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  transition:
+    border-color var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+.solution-proof-card:hover {
+  border-color: var(--ink);
+  transform: translateY(-2px);
+}
+.solution-proof-media {
+  display: block;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+.solution-proof-copy {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 10px;
+  padding: 24px;
+}
+.solution-proof-copy small {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.solution-proof-copy b {
+  font-family: var(--font-display), sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+.solution-proof-copy > span {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.solution-proof-copy em {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* Sibling services */
+.solution-siblings h2 {
+  margin-top: 18px;
+  font-size: clamp(32px, 3.6vw, 48px);
+}
+.solution-siblings h2 .tone {
+  color: var(--tone);
+}
+.solution-siblings ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.solution-siblings a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 600;
+}
+.solution-siblings a:hover {
+  border-color: var(--ink);
+}
+
+@media (max-width: 1080px) {
+  .solution-hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 48px;
+  }
+  .solution-hero-visual {
+    max-width: 720px;
+  }
+  .solution-feature-list,
+  .solution-proof-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 760px) {
+  .solution-hero {
+    padding: 32px 0 72px;
+  }
+  .solution-hero .hero-lead {
+    font-size: 16px;
+  }
+  .solution-pain-list,
+  .solution-feature-list,
+  .solution-step-list,
+  .solution-proof-list,
+  .solution-proof-list.is-count-2 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .solution-proof-list.is-count-1 .solution-proof-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .solution-proof-list.is-count-1 .solution-proof-media {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .solution-proof-list.is-count-1 .solution-proof-copy {
+    padding: 24px;
+  }
+  .solution-pain-list li,
+  .solution-feature-list li,
+  .solution-step-list li {
+    padding: 22px 20px;
+  }
+}
+
+/* Long Bulgarian words in three narrow columns: one size smaller between phone and desktop. */
+@media (max-width: 1180px) {
+  :lang(bg) .solution-pain-list h3,
+  :lang(bg) .solution-feature-list h3,
+  :lang(bg) .solution-step-list h3 {
+    font-size: 22px;
+  }
+}
+
+/* Phone: 1 + 3 rows for pains and features, one calm hero visual, single-column siblings. */
+@media (max-width: 760px) {
+  .solution-hero {
+    padding: 24px 0 48px;
+  }
+  .solution-hero-grid {
+    gap: var(--m-intro);
+  }
+  .solution-crumbs {
+    gap: 0 8px;
+    margin-bottom: var(--m-inner);
+    font-size: var(--m-small);
+  }
+  .solution-crumbs span {
+    gap: 8px;
+  }
+  .solution-crumbs a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .solution-hero h1 {
+    font-size: var(--m-h1);
+  }
+  :lang(bg) .solution-hero h1 {
+    font-size: clamp(34px, 10.6vw, 44px);
+  }
+  .solution-hero h1 .h1-kicker {
+    margin-bottom: var(--m-inner);
+    font-size: var(--m-body);
+  }
+  .solution-hero .hero-lead {
+    margin-top: var(--m-card-gap);
+    font-size: var(--m-body);
+  }
+  .solution-hero .hero-actions {
+    margin-top: 24px;
+  }
+  .solution-trust {
+    gap: 8px 24px;
+    margin-top: var(--m-intro);
+    padding-top: var(--m-card-gap);
+  }
+  .solution-trust li {
+    font-size: var(--m-small);
+  }
+  /* A 4:3 crop of the square collage, centred, so the hero image stays calm. */
+  .solution-hero-visual {
+    aspect-ratio: 4 / 3;
+  }
+  .solution-hero-visual .collage {
+    margin-top: -12.5%;
+  }
+
+  /* Pains and steps: rows with a 40px number column, divided by 1px rules, no boxes. */
+  .solution-pain-list,
+  .solution-feature-list,
+  .solution-step-list,
+  .solution-proof-list,
+  .solution-proof-list.is-count-2 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .solution-pain-list,
+  .solution-feature-list {
+    gap: 0;
+    margin-top: 0;
+  }
+  .solution-pain-list li,
+  .solution-feature-list li {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
+    column-gap: var(--m-card-gap);
+    align-items: start;
+    padding: var(--m-card-gap) 0;
+    background: none;
+    border: 0;
+    border-top: 1px solid var(--line);
+  }
+  .solution-pain-list li:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+  .solution-pain-index {
+    grid-row: 1 / span 2;
+    font-size: var(--m-h3);
+    line-height: 1.1;
+  }
+  .solution-pain-list h3,
+  .solution-feature-list h3,
+  .solution-step-list h3 {
+    margin-top: 0;
+    font-size: var(--m-h4);
+    line-height: 1.1;
+  }
+  :lang(bg) .solution-pain-list h3,
+  :lang(bg) .solution-feature-list h3 {
+    font-size: var(--m-h4);
+  }
+  .solution-pain-list p {
+    margin-top: 4px;
+    font-size: var(--m-small);
+    line-height: 1.5;
+  }
+
+  /* Features on the dark panel keep the small white icon tile at 40px. */
+  .solution-feature-list {
+    background: none;
+    border: 0;
+  }
+  .solution-feature-list li {
+    border-top-color: var(--deep-line, rgba(255, 255, 255, 0.09));
+  }
+  .solution-feature-list li:last-child {
+    border-bottom: 1px solid var(--deep-line, rgba(255, 255, 255, 0.09));
+  }
+  .solution-feature-list .icon-tile {
+    grid-row: 1 / span 2;
+    width: 40px;
+    height: 40px;
+  }
+  .solution-feature-list p {
+    margin-top: 4px;
+    font-size: var(--m-small);
+    line-height: 1.5;
+  }
+
+  /* Steps keep the 2px top rule: they are the one numbered sequence. */
+  .solution-step-list {
+    gap: 0;
+    margin-top: 0;
+  }
+  .solution-step-list li {
+    padding: var(--m-card-pad) 0;
+  }
+  .solution-step-list span {
+    font-size: var(--m-label);
+  }
+  .solution-step-list h3,
+  :lang(bg) .solution-step-list h3 {
+    margin-top: var(--m-inner);
+    font-size: var(--m-h3);
+  }
+  .solution-step-list p {
+    margin-top: var(--m-inner);
+    font-size: var(--m-body);
+    line-height: 1.55;
+  }
+  .solution-pricing {
+    margin-top: var(--m-intro);
+    padding: var(--m-card-pad);
+  }
+  .solution-pricing small {
+    font-size: var(--m-label);
+  }
+  .solution-pricing p {
+    font-size: var(--m-small);
+    line-height: 1.55;
+  }
+
+  /* Proof: one real project card, image kept, text 20px from the card edge. */
+  .solution-proof-list {
+    margin-top: 0;
+  }
+  .solution-proof-card:hover {
+    transform: none;
+  }
+  .solution-proof-media .collage {
+    aspect-ratio: 4 / 3;
+  }
+  .solution-proof-list.is-count-1 .solution-proof-copy,
+  .solution-proof-copy {
+    gap: var(--m-inner);
+    padding: var(--m-card-pad);
+  }
+  .solution-proof-copy small {
+    font-size: var(--m-label);
+  }
+  .solution-proof-copy b {
+    font-size: var(--m-h3);
+    line-height: 1.1;
+  }
+  .solution-proof-copy > span {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    font-size: var(--m-small);
+    line-height: 1.55;
+  }
+  .solution-proof-copy em {
+    gap: 8px;
+    min-height: 44px;
+    font-size: var(--m-small);
+  }
+
+  /* Siblings: equal-width 52px rows, same height as a button. */
+  .solution-siblings h2 {
+    margin-top: var(--m-card-gap);
+    font-size: var(--m-h2);
+  }
+  .solution-siblings ul {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    margin-top: var(--m-intro);
+  }
+  .solution-siblings a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 52px;
+    padding: 8px var(--m-card-gap);
+    font-size: var(--m-body);
+  }
+}

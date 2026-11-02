@@ -1,0 +1,379 @@
+/* Styles for ServicesBento.tsx; imported there so they load only where it renders. */
+
+.bento-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  grid-column: span 12;
+  overflow: hidden;
+  min-height: 600px;
+  padding: 44px 48px 48px;
+  background:
+    radial-gradient(
+      120% 80% at 0% 0%,
+      rgba(255, 255, 255, 0.035),
+      transparent 60%
+    ),
+    linear-gradient(180deg, #2c2f29 0%, #282b25 100%);
+  border: 1px solid var(--deep-line);
+  border-radius: 4px;
+  color: var(--on-deep);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  --corner: #8b8e82;
+  transition: border-color var(--dur) var(--ease-soft);
+}
+.bento-card:hover {
+  border-color: #52564c;
+}
+.bento-card.is-side {
+  grid-column: span 7;
+}
+.bento-card.is-top {
+  grid-column: span 5;
+}
+.bento-card.is-bottom {
+  grid-column: span 4;
+  min-height: 0;
+}
+.bento-card.is-wide {
+  min-height: 460px;
+}
+/* Copy */
+.bento-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.is-side .bento-copy,
+.is-wide .bento-copy {
+  max-width: 300px;
+}
+.is-wide .bento-copy {
+  max-width: 400px;
+}
+.bento-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  color: #8e9285;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+.bento-eyebrow i {
+  width: 6px;
+  height: 6px;
+  background: var(--orange);
+}
+.bento-icon {
+  display: block;
+  color: var(--on-deep);
+}
+.bento-icon svg {
+  display: block;
+}
+.bento-text {
+  margin-top: auto;
+  padding-top: 40px;
+}
+.bento-card h3 {
+  font-size: clamp(40px, 3.5vw, 52px);
+  line-height: 0.94;
+  text-transform: uppercase;
+}
+.bento-card h3 .tone {
+  display: block;
+  color: #83877a;
+}
+.bento-card.is-bottom h3 {
+  font-size: clamp(36px, 3vw, 44px);
+}
+.bento-card .bento-text > p {
+  max-width: 36ch;
+  margin-top: 18px;
+  color: var(--on-deep-muted);
+  font-size: 15px;
+  line-height: 1.65;
+}
+.bento-points {
+  display: grid;
+  gap: 9px;
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid var(--deep-line);
+}
+.bento-points li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--on-deep);
+  font-size: 14px;
+  line-height: 1.4;
+}
+.bento-points li::before {
+  content: "";
+  flex: none;
+  width: 5px;
+  height: 5px;
+  background: var(--orange);
+}
+.bento-card .text-link {
+  margin-top: 28px;
+  color: var(--on-deep);
+}
+.bento-card .text-link:hover {
+  color: #f0a07f;
+}
+/* Media: the fragment sits on the card edge and bleeds off it */
+.bento-media {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  transition: transform 0.8s var(--ease-out);
+}
+.is-top .bento-media {
+  top: 0;
+  bottom: auto;
+}
+.is-bottom .bento-media {
+  position: relative;
+  align-self: flex-end;
+  margin: 28px -48px -48px auto;
+}
+.bento-card:hover .bento-media {
+  transform: translate3d(0, -6px, 0);
+}
+.tier h3 .tone {
+  color: #83877a;
+}
+.tier h4 .tone {
+  color: #83877a;
+}
+.process-card h3 .tone {
+  display: block;
+}
+@media (max-width: 1200px) {
+  .bento-card {
+    padding: 40px;
+  }
+  .is-bottom .bento-media {
+    margin: 32px -40px -40px auto;
+  }
+}
+@media (max-width: 1080px) {
+  .bento-card.is-side,
+  .bento-card.is-top,
+  .bento-card.is-bottom {
+    grid-column: span 12;
+  }
+  .bento-card,
+  .bento-card.is-wide {
+    min-height: 480px;
+  }
+  /* wide cards: copy left, fragment right */
+  .bento-card.is-top .bento-copy,
+  .bento-card.is-bottom .bento-copy {
+    max-width: 340px;
+  }
+  .is-top .bento-media {
+    top: auto;
+    bottom: 0;
+  }
+  .is-bottom .bento-media {
+    position: absolute;
+    margin: 0;
+  }
+}
+@media (max-width: 760px) {
+  /* Phone: no per-card fragments except one calm visual per block; offers read as 1+3 rows. */
+  .services-bento .bento {
+    gap: 0;
+  }
+  .services-bento .bento-card,
+  .services-bento .bento-card.is-wide {
+    min-height: 0;
+    padding: var(--m-card-pad);
+    border-radius: 0;
+    border-top-width: 0;
+    box-shadow: none;
+  }
+  .services-bento .bento-card:first-child {
+    border-top-width: 1px;
+    border-radius: 4px 4px 0 0;
+  }
+  .services-bento .bento-card:last-child {
+    border-radius: 0 0 4px 4px;
+  }
+  .bento-card:hover .bento-media {
+    transform: none;
+  }
+
+  /* Copy as a 40px icon column plus a text column; display: contents lets the text blocks join the grid. */
+  .services-bento .bento-copy {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
+    column-gap: var(--m-card-gap);
+    align-items: start;
+    max-width: none;
+  }
+  .services-bento .bento-text {
+    display: contents;
+  }
+  .services-bento .bento-icon {
+    grid-column: 1;
+    grid-row: 1 / span 4;
+    margin: 0;
+  }
+  .services-bento .bento-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+  .services-bento .bento-eyebrow {
+    grid-column: 2;
+    margin: 0 0 4px;
+    font-size: var(--m-label);
+    letter-spacing: 0.08em;
+  }
+  .services-bento .bento .bento-card h3,
+  .services-bento .bento .bento-card.is-bottom h3 {
+    grid-column: 2;
+    font-size: var(--m-h4);
+    line-height: 1.1;
+  }
+  .services-bento .bento-card .bento-text > p {
+    grid-column: 2;
+    max-width: none;
+    margin-top: 8px;
+    font-size: var(--m-small);
+    line-height: 1.5;
+  }
+  .services-bento .bento-points {
+    display: none;
+  }
+  .services-bento .bento-card .text-link {
+    grid-column: 2;
+    justify-self: start;
+    margin-top: 0;
+  }
+
+  /* Visuals: cropped to a calm height, bleeding to the card edges. */
+  .services-bento .bento-media {
+    position: relative;
+    inset: auto;
+    order: -1;
+    height: 220px;
+    margin: calc(-1 * var(--m-card-pad)) calc(-1 * var(--m-card-pad)) var(--m-card-pad);
+    overflow: hidden;
+    align-self: stretch;
+  }
+  .services-bento .bento-card:not(.is-discipline) .bento-media {
+    display: none;
+  }
+
+  /* Home: each discipline joins its featured offer; service 2 lists its offer first on desktop. */
+  #services .bento > :nth-child(1) {
+    order: 1;
+  }
+  #services .bento > :nth-child(2) {
+    order: 2;
+  }
+  #services .bento > :nth-child(3) {
+    order: 4;
+  }
+  #services .bento > :nth-child(4) {
+    order: 3;
+  }
+  #services .bento > :nth-child(5) {
+    order: 5;
+  }
+  #services .bento > :nth-child(6) {
+    order: 6;
+  }
+  #services .bento-card,
+  #services .bento-card:first-child,
+  #services .bento-card:last-child {
+    border-radius: 0;
+  }
+  #services .bento-card.is-discipline {
+    margin-top: var(--m-card-gap);
+    border-top-width: 1px;
+    border-radius: 4px 4px 0 0;
+  }
+  #services .bento-card.is-discipline:first-child {
+    margin-top: 0;
+  }
+  #services .bento-card.is-top {
+    border-radius: 0 0 4px 4px;
+  }
+  /* Discipline: icon and eyebrow share a row, the title spans the card. */
+  #services .bento-card.is-discipline .bento-icon {
+    grid-row: 1;
+  }
+  #services .bento-card.is-discipline .bento-eyebrow {
+    align-self: center;
+    margin: 0;
+  }
+  #services .bento .bento-card.is-discipline h3 {
+    grid-column: 1 / -1;
+    margin-top: var(--m-inner);
+    font-size: var(--m-h2);
+    line-height: 1;
+  }
+  #services .bento-card.is-discipline .bento-text > p {
+    grid-column: 1 / -1;
+    margin-top: var(--m-inner);
+    font-size: var(--m-body);
+    line-height: 1.55;
+  }
+  #services .bento-card.is-discipline .text-link {
+    grid-column: 1 / -1;
+    margin-top: 4px;
+  }
+  #services .bento-card.is-top .bento-text > p {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+  }
+
+  /* Service page: the first card keeps its visual as the section's one picture; six rows share one panel. */
+  #offer .bento-card {
+    padding-block: var(--m-card-gap);
+  }
+  #offer .bento-card:first-child .bento-media {
+    display: block;
+    margin-top: calc(-1 * var(--m-card-gap));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bento-card:hover .bento-media {
+    transform: none;
+  }
+}
+.why-copy h3 .tone {
+  color: #858979;
+}
+.text-link:hover {
+  color: var(--bronze-dark);
+}
+
+/* Bulgarian card titles carry long single words ("автоматизация") that would run under the
+   fragment beside them; one step smaller keeps them clear. */
+:lang(bg) .bento-card h3 {
+  font-size: clamp(34px, 3vw, 44px);
+}
+
+/* Scale pass (phone). */
+@media (max-width: 760px) {
+  .bento-eyebrow {
+    gap: 8px;
+  }
+}

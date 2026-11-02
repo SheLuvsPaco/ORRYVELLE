@@ -1,0 +1,107 @@
+[
+  {
+    "file": "salesforce.svg",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/salesforce.svg",
+    "bytes": 8567
+  },
+  {
+    "file": "stripe.svg",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/stripe.svg",
+    "bytes": 212
+  },
+  {
+    "file": "shopify.svg",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/shopify.svg",
+    "bytes": 1714
+  },
+  {
+    "file": "slack.svg",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/slack.svg",
+    "bytes": 1497
+  },
+  {
+    "file": "google.svg",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/google.svg",
+    "bytes": 8169
+  },
+  {
+    "file": "microsoft.svg",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/microsoft.svg",
+    "bytes": 356
+  },
+  {
+    "file": "notion.svg",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/notion.svg",
+    "bytes": 1579
+  },
+  {
+    "file": "twilio.svg",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/twilio.svg",
+    "bytes": 504
+  },
+  {
+    "file": "openai.svg",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/openai.svg",
+    "bytes": 2430
+  },
+  {
+    "file": "nextjs.svg",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/nextjs_icon_dark.svg",
+    "bytes": 1091
+  },
+  {
+    "file": "react.svg",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/react_dark.svg",
+    "bytes": 6641
+  },
+  {
+    "file": "typescript.svg",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/typescript.svg",
+    "bytes": 1744
+  },
+  {
+    "file": "nodejs.svg",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/nodejs.svg",
+    "bytes": 2491
+  },
+  {
+    "file": "postgresql.svg",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/postgresql.svg",
+    "bytes": 3944
+  },
+  {
+    "file": "vercel.svg",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/vercel.svg",
+    "bytes": 169
+  },
+  {
+    "file": "aws.svg",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/aws_light.svg",
+    "bytes": 1211
+  },
+  {
+    "file": "anthropic.svg",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/anthropic_black.svg",
+    "bytes": 347
+  },
+  {
+    "file": "n8n.svg",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/n8n.svg",
+    "bytes": 1646
+  },
+  {
+    "file": "hubspot.svg",
+    "source": "https://www.vectorlogo.zone/logos/hubspot/hubspot-icon.svg",
+    "bytes": 1275
+  },
+  {
+    "file": "xero.svg",
+    "source": "https://www.vectorlogo.zone/logos/xero/xero-icon.svg",
+    "bytes": 1769
+  },
+  {
+    "file": "airtable.svg",
+    "source": "https://www.vectorlogo.zone/logos/airtable/airtable-icon.svg",
+    "bytes": 825
+  }
+]

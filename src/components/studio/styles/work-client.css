@@ -1,0 +1,305 @@
+/* Styles for WorkClient.tsx; imported there so they load only where it renders. */
+
+.rail-track {
+  display: flex;
+  gap: 24px;
+  margin-right: calc((100vw - 100%) / -2);
+  padding: 0 calc((100vw - 100%) / 2) 6px 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.rail-track::-webkit-scrollbar {
+  display: none;
+}
+.rail-track > li {
+  flex: 0 0 min(560px, 84%);
+  scroll-snap-align: start;
+}
+.rail-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+.rail-controls .concept-note {
+  margin: 0 auto 0 0;
+  padding-right: 24px;
+}
+.rail-controls button {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  background: var(--white);
+  border: 1px solid var(--ink);
+}
+.rail-controls button:hover {
+  background: var(--ink);
+  color: var(--white);
+}
+/* Work carousel: tell visitors where they are and stop promising a next item at the end. */
+.rail-position-track {
+  height: 2px;
+  background: var(--line);
+  overflow: hidden;
+  margin-top: 25px;
+}
+.rail-position-track > span {
+  display: block;
+  height: 100%;
+  width: 50%;
+  background: var(--orange);
+  transition: transform 200ms var(--ease-soft);
+}
+.rail-position {
+  display: inline-flex;
+  gap: 7px;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: var(--ink);
+}
+.rail-position > span {
+  color: var(--muted);
+}
+.rail-controls button:disabled {
+  color: var(--muted);
+  opacity: 0.35;
+  cursor: default;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+.rail-controls button:focus-visible {
+  border-color: var(--orange);
+}
+/* ════════════════════════════════════════════════════════════
+   Work rail cards (Work.tsx → WorkCard)
+   ════════════════════════════════════════════════════════════ */
+.rail-track {
+  gap: 20px;
+}
+.rail-track > li {
+  flex-basis: min(540px, 86%);
+}
+.filter-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  max-width: 1120px;
+  margin-inline: auto;
+}
+.filter-group {
+  display: contents;
+}
+.filter-label {
+  margin: 0 2px 0 22px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 48px;
+  padding: 12px 18px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.2;
+  transition:
+    background-color var(--dur-fast) var(--ease-soft),
+    border-color var(--dur-fast) var(--ease-soft),
+    color var(--dur-fast) var(--ease-soft);
+}
+.filter-chip sup {
+  top: -0.45em;
+  color: var(--tone);
+  font-size: 11px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.filter-chip:hover {
+  border-color: var(--ink);
+}
+.filter-chip[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--white);
+}
+.filter-chip[aria-pressed="true"] sup {
+  color: #d0ad8b;
+}
+.filter-status {
+  margin: 20px 0 44px;
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+}
+.work-rows {
+  display: grid;
+  gap: 28px;
+}
+.work-rows > li {
+  padding: 10px;
+  background: var(--pale-2);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  scroll-margin-top: 120px;
+}
+.work-rows > li[hidden] {
+  display: none;
+}
+@media (max-width: 760px) {
+  /* Project rows: the list item is the single bordered white card. */
+  .work-rows > li {
+    padding: 0;
+    overflow: hidden;
+    background: var(--white);
+    scroll-margin-top: 80px;
+  }
+  .work-rows {
+    gap: var(--m-card-gap);
+  }
+  /* Two chip rows, each its own horizontal scroller, both starting at the 16px margin.
+     Row 1: the "All" chip is pinned and the discipline chips scroll beside it; the group label
+     is absolutely placed so it stays above the pinned chip and is not clipped by the scroller.
+     Row 2: the sector group scrolls on its own with its label above the chips. */
+  .filter-cloud {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    gap: 24px 0;
+    max-width: none;
+    margin-inline: calc(var(--m-card-gap) * -1);
+    padding-top: 28px;
+  }
+  .filter-cloud > .filter-chip {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 0 var(--m-inner) 0 var(--m-card-gap);
+  }
+  .filter-group {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+  .filter-group::-webkit-scrollbar {
+    display: none;
+  }
+  .filter-group:nth-of-type(1) {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .filter-group:nth-of-type(1)::after {
+    content: "";
+    flex: 0 0 8px;
+  }
+  .filter-group:nth-of-type(1) .filter-label {
+    position: absolute;
+    top: 0;
+    left: var(--m-card-gap);
+  }
+  .filter-group:nth-of-type(2) {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    /* Spare zero-width tracks give the label a containing block as wide as the row, so it can
+       stay pinned at the margin while the chips scroll. */
+    grid-template-columns: repeat(24, max-content);
+    grid-template-rows: 16px 44px;
+    gap: var(--m-inner) 0;
+    padding-inline: var(--m-card-gap);
+  }
+  .filter-group:nth-of-type(2)::after {
+    content: "";
+    grid-row: 2;
+    width: 8px;
+  }
+  .filter-group:nth-of-type(2) .filter-label {
+    position: sticky;
+    left: 0;
+    grid-column: 1 / -1;
+    grid-row: 1;
+    justify-self: start;
+  }
+  .filter-group:nth-of-type(2) .filter-chip {
+    grid-row: 2;
+    margin-right: 8px;
+  }
+  .filter-label {
+    margin: 0;
+    font-size: var(--m-label);
+    line-height: 16px;
+    white-space: nowrap;
+  }
+  .filter-chip:focus-visible {
+    outline-offset: -2px;
+  }
+  .filter-chip {
+    min-height: 44px;
+    gap: var(--m-inner);
+    padding: 0 var(--m-card-gap);
+    font-size: var(--m-small);
+    white-space: nowrap;
+  }
+  .filter-status {
+    margin: var(--m-card-gap) 0 var(--m-intro);
+    font-size: var(--m-small);
+    text-align: left;
+  }
+}
+@media (max-width: 760px) {
+  /* Work rail: 84% cards leave a visible peek of the next one. */
+  .rail-track {
+    gap: var(--m-inner);
+    padding-bottom: 0;
+  }
+  .rail-track > li {
+    flex-basis: 84%;
+  }
+  /* Counter left, arrows right; the concept note drops to its own line. */
+  .rail-controls {
+    flex-wrap: wrap;
+    margin-top: var(--m-card-gap);
+  }
+  .rail-controls .concept-note {
+    order: 3;
+    flex-basis: 100%;
+    margin: var(--m-inner) 0 0;
+    padding-right: 0;
+    font-size: var(--m-small);
+  }
+  .rail-position {
+    gap: 8px;
+    margin-right: auto;
+    font-size: var(--m-label);
+  }
+  .rail-controls button {
+    width: 44px;
+    height: 44px;
+  }
+  .rail-position-track {
+    margin-top: var(--m-card-gap);
+  }
+  .filter-chip sup {
+    font-size: var(--m-label);
+  }
+  /* The chips' visually hidden labels are positioned; anchoring them to the chip keeps them
+     inside the scrolling row instead of widening the page. */
+  .filter-chip {
+    position: relative;
+  }
+}

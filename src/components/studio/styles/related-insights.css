@@ -1,0 +1,143 @@
+/* Styles for RelatedInsights.tsx; imported there so they load only where it renders. */
+
+.related-insights-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px 32px;
+}
+.related-insights-head h2 {
+  margin-top: 18px;
+  font-size: clamp(36px, 4vw, 56px);
+}
+.related-insights-head h2 .tone {
+  color: var(--tone);
+}
+.related-insights-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.related-insights-list a {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 12px;
+  height: 100%;
+  padding: 24px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  transition:
+    border-color var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+.related-insights-list a:hover {
+  border-color: var(--ink);
+  transform: translateY(-2px);
+}
+.related-insights-list small {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.related-insights-list b {
+  font-family: var(--font-display), sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+.related-insights-list span {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.55;
+}
+.related-insights-list svg {
+  color: var(--muted);
+}
+
+@media (max-width: 900px) {
+  .related-insights-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Phone: a horizontal snap rail (84% cards, 16% peek) bleeding to the screen edges. */
+@media (max-width: 760px) {
+  /* The head's heading stays first; the "all insights" link moves below the rail. */
+  .related-insights > .container {
+    display: flex;
+    flex-direction: column;
+  }
+  .related-insights-head {
+    display: contents;
+  }
+  .related-insights-head > div {
+    order: 1;
+  }
+  .related-insights-head h2 {
+    margin-top: var(--m-card-gap);
+    font-size: var(--m-h2);
+  }
+  .related-insights-head .text-link {
+    order: 3;
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-top: var(--m-inner);
+  }
+  .related-insights-list {
+    order: 2;
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 84%;
+    gap: var(--m-inner);
+    margin: var(--m-intro) -16px 0;
+    padding: 0 16px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 16px;
+    scrollbar-width: none;
+  }
+  .related-insights-list::-webkit-scrollbar {
+    display: none;
+  }
+  .related-insights-list li {
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+  .related-insights-list a {
+    gap: var(--m-inner);
+    padding: var(--m-card-pad);
+  }
+  .related-insights-list a:hover {
+    transform: none;
+  }
+  .related-insights-list small {
+    font-size: var(--m-label);
+    letter-spacing: 0.08em;
+  }
+  .related-insights-list b {
+    font-size: var(--m-h3);
+    line-height: 1.1;
+  }
+  .related-insights-list span {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    font-size: var(--m-small);
+    line-height: 1.55;
+  }
+  .related-insights-list svg {
+    justify-self: end;
+  }
+}

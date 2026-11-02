@@ -1,0 +1,189 @@
+/* Styles for Collage.tsx; imported there so they load only where it renders. */
+
+.cl-plane {
+  /* 1% of the collage width, computed here once (registered, so it inherits as a length). */
+  --u: 1cqw;
+  --shade: color-mix(in srgb, var(--field-b) 28%, #0b0a08);
+  --radius: calc(var(--u) * 0.7);
+  --sh-page:
+    0 0 0 1px color-mix(in srgb, var(--shade) 16%, transparent),
+    calc(var(--u) * 0.2) calc(var(--u) * 0.4) calc(var(--u) * 0.8)
+      color-mix(in srgb, var(--shade) 22%, transparent),
+    calc(var(--u) * 1.2) calc(var(--u) * 2.6) calc(var(--u) * 4.5)
+      calc(var(--u) * -0.6) color-mix(in srgb, var(--shade) 42%, transparent);
+  --sh-float:
+    0 0 0 1px color-mix(in srgb, var(--shade) 12%, transparent),
+    calc(var(--u) * 0.25) calc(var(--u) * 0.5) calc(var(--u) * 1)
+      color-mix(in srgb, var(--shade) 24%, transparent),
+    calc(var(--u) * 2) calc(var(--u) * 4.2) calc(var(--u) * 6.5)
+      calc(var(--u) * -1) color-mix(in srgb, var(--shade) 50%, transparent);
+  position: absolute;
+  inset: 0;
+}
+.collage.is-tilted .cl-plane {
+  transform: perspective(240cqw) rotateX(var(--tx)) rotateY(var(--ty))
+    rotateZ(var(--tz)) scale(1.06);
+  transform-origin: 50% 46%;
+  transform-style: preserve-3d;
+}
+.cl-layer {
+  position: absolute;
+  left: calc(var(--x) * var(--u));
+  top: calc(var(--y) * var(--u));
+  z-index: var(--z);
+  width: calc(var(--w) * var(--u));
+  container-type: inline-size;
+  transform: rotate(var(--r));
+}
+.collage.is-tilted .cl-layer {
+  transform: translateZ(calc(var(--lift) * var(--u))) rotate(var(--r));
+}
+/* Page views: a region of the desktop product. */
+.cl-page {
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: #10110f;
+  box-shadow: var(--sh-page);
+}
+.cl-view {
+  position: relative;
+  aspect-ratio: 1 / var(--ar);
+  overflow: hidden;
+}
+.cl-view::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    140deg,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(255, 255, 255, 0) 36%
+  );
+}
+.cl-view .mk-wrap,
+.cl-view .mk {
+  height: 100%;
+}
+.cl-view .mk {
+  aspect-ratio: auto;
+}
+/* Scroll the page (sites) or the main column (apps, whose sidebar stays put). */
+.cl-view .mk-site {
+  margin-top: calc(var(--at) * -62.5cqw);
+}
+.cl-view .mk-main > :first-child {
+  margin-top: calc(var(--at) * -62.5cqw);
+}
+.cl-page.is-long .mk-app {
+  height: auto;
+  min-height: 100%;
+}
+.cl-page.is-long .mk-main {
+  height: auto;
+}
+.cl-page.is-main .mk-side {
+  display: none;
+}
+.cl-page.is-main .mk-main {
+  padding-top: 1.8em;
+}
+/* Screenshots scroll by screen heights too; `main` crops the app's sidebar off the left. */
+.cl-view .mk-shot-page {
+  margin-top: calc(var(--at) * -62.5cqw);
+}
+.cl-page.is-main .mk-shot-page {
+  width: calc(100% / (1 - var(--sidebar)));
+  margin-left: calc(-100% * var(--sidebar) / (1 - var(--sidebar)));
+}
+.cl-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.9cqw;
+  height: 3.6cqw;
+  padding: 0 1.9cqw;
+  background: linear-gradient(#f9f8f4, #ecebe4);
+  border-bottom: 1px solid rgba(37, 39, 33, 0.1);
+}
+.cl-bar i {
+  flex: none;
+  width: 1.15cqw;
+  height: 1.15cqw;
+  border-radius: 50%;
+  background: #ff5f57;
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.18);
+}
+.cl-bar i:nth-child(2) {
+  background: #febc2e;
+}
+.cl-bar i:nth-child(3) {
+  background: #28c840;
+}
+.cl-bar em {
+  display: block;
+  min-width: 28%;
+  margin: 0 auto;
+  padding: 0.35cqw 2.4cqw;
+  border-radius: 0.6cqw;
+  background: rgba(37, 39, 33, 0.07);
+  color: #5a5d54;
+  font-family: var(--font-body), sans-serif;
+  font-size: 1.3cqw;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.3;
+  text-align: center;
+  transform: translateX(-2.6cqw);
+}
+/* Phone and pieces float above the pages. */
+.cl-phone .device-phone {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.35),
+    var(--sh-float);
+}
+.cl-piece .mk-piece {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    var(--sh-float);
+}
+/* Lifted screenshot elements have their own rounded (transparent) corners, so the shadow follows the alpha. */
+.cl-shot {
+  filter: drop-shadow(
+      0 calc(var(--u) * 0.4) calc(var(--u) * 0.6)
+        color-mix(in srgb, var(--shade) 26%, transparent)
+    )
+    drop-shadow(
+      calc(var(--u) * 1.2) calc(var(--u) * 2.6) calc(var(--u) * 2.4)
+        color-mix(in srgb, var(--shade) 38%, transparent)
+    );
+}
+.cl-piece .mk-piece-bubble,
+.cl-piece .mk-piece-booking,
+.cl-piece .mk-piece-adviser {
+  box-shadow: none;
+}
+.cl-piece .mk-piece-bubble .from-agent,
+.cl-piece .mk-piece-booking .mk-booking,
+.cl-piece .mk-piece-adviser .mk-adviser {
+  box-shadow: var(--sh-float);
+}
+/* Hover depth: floating layers rise a touch more than the pages beneath them. */
+.cl-layer {
+  transition: translate 0.8s var(--ease-out);
+}
+.work-card:hover .cl-page,
+.work-row:hover .cl-page {
+  translate: 0 calc(var(--u) * -0.5);
+}
+.work-card:hover .cl-phone,
+.work-card:hover .cl-shot,
+.work-row:hover .cl-phone,
+.work-row:hover .cl-shot {
+  translate: 0 calc(var(--u) * -1.4);
+}
+@media (prefers-reduced-motion: reduce) {
+  .work-card:hover .cl-layer,
+  .work-row:hover .cl-layer {
+    translate: none;
+  }
+}

@@ -1,0 +1,374 @@
+/* Styles used only by the WorkPage template (both languages). */
+
+.section-tight {
+  padding-block: 56px 120px;
+}
+@media (max-width: 760px) {
+  .section {
+    padding-block: var(--m-sec);
+  }
+  .section-tight {
+    padding-block: 32px var(--m-sec);
+  }
+}
+/* Section rhythm: panels carry their own padding; plain sections that meet don't double up */
+.section-panel {
+  padding-top: 72px;
+}
+/* ════════════════════════════════════════════════════════════
+   /work: hero card, filter cloud, rows
+   ════════════════════════════════════════════════════════════ */
+.work-hero {
+  padding-top: 32px;
+}
+.work-hero-rim {
+  padding: 10px;
+  background: var(--pale-2);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+.work-hero-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  align-items: center;
+  gap: 40px;
+  min-height: 640px;
+  overflow: hidden;
+  padding: 88px 0 88px 88px;
+  border-radius: 3px;
+  background:
+    radial-gradient(
+      70% 90% at 0% 100%,
+      rgba(173, 137, 104, 0.22),
+      transparent 60%
+    ),
+    radial-gradient(
+      60% 80% at 100% 0%,
+      rgba(126, 150, 160, 0.2),
+      transparent 62%
+    ),
+    linear-gradient(160deg, #262923 0%, #1b1d19 55%, #141512 100%);
+  color: var(--on-deep);
+  --corner: rgba(238, 237, 230, 0.55);
+}
+.work-hero-light {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      115deg,
+      transparent 38%,
+      rgba(255, 214, 180, 0.07) 44%,
+      transparent 52%
+    ),
+    linear-gradient(
+      115deg,
+      transparent 56%,
+      rgba(190, 214, 224, 0.06) 61%,
+      transparent 68%
+    );
+  filter: blur(18px);
+}
+.work-hero-copy {
+  position: relative;
+  z-index: 2;
+}
+.work-hero-copy .chip {
+  margin-bottom: 30px;
+}
+.work-hero-copy h1 {
+  font-size: clamp(56px, 6.2vw, 96px);
+  line-height: 0.92;
+}
+.work-hero-copy h1 .tone {
+  color: #858979;
+}
+.work-hero-copy > p:not(.concept-note) {
+  max-width: 470px;
+  margin-top: 28px;
+  color: var(--on-deep-muted);
+  font-size: 18px;
+}
+.work-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 28px;
+  margin-top: 36px;
+}
+.work-hero-link {
+  color: var(--on-deep);
+}
+.work-hero-link:hover {
+  color: #d0ad8b;
+}
+.work-hero-copy .concept-note {
+  max-width: 400px;
+  margin-top: 32px;
+  color: #8d9084;
+}
+.work-hero-visual {
+  position: relative;
+  align-self: stretch;
+  min-height: 460px;
+}
+.wh-tablet {
+  position: absolute;
+  padding: 1.1%;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #34362f, #0d0e0c 40%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.14),
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    0 40px 80px -30px rgba(0, 0, 0, 0.8);
+}
+.wh-tablet .mk-wrap {
+  overflow: hidden;
+  border-radius: 11px;
+}
+.wh-tablet.is-back {
+  top: 8%;
+  left: 4%;
+  width: 88%;
+}
+.wh-tablet.is-front {
+  right: -6%;
+  bottom: 4%;
+  width: 52%;
+  z-index: 2;
+}
+.wh-tablet.is-front .mk-wrap {
+  border-radius: 9px;
+}
+.wh-phone {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  bottom: -2%;
+  width: 17%;
+}
+.wh-stat {
+  position: absolute;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 22px 16px 20px;
+  background: rgba(38, 41, 35, 0.52);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 20px 40px -20px rgba(0, 0, 0, 0.6);
+  color: var(--on-deep);
+}
+.wh-stat b {
+  font-family: var(--font-display), sans-serif;
+  font-size: 46px;
+  font-weight: 600;
+  line-height: 0.9;
+  font-variant-numeric: tabular-nums;
+}
+.wh-stat span {
+  font-size: 14px;
+  line-height: 1.35;
+}
+.wh-stat small {
+  display: block;
+  margin-top: 3px;
+  color: var(--on-deep-muted);
+  font-size: 11px;
+}
+.wh-stat.is-top {
+  top: 3%;
+  right: 12%;
+}
+.wh-stat.is-top span {
+  max-width: 130px;
+}
+.wh-stat.is-bottom {
+  bottom: 9%;
+  left: 20%;
+}
+.wh-stat .corners i {
+  transform: scale(0.75);
+}
+.work-index {
+  padding-top: 64px;
+}
+.case-intro h1 .tone,
+.case-body h2 .tone {
+  color: var(--tone);
+}
+@media (max-width: 1200px) {
+  .work-hero-card {
+    padding: 72px 0 72px 64px;
+  }
+}
+@media (max-width: 1080px) {
+  .work-hero-card {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    min-height: 0;
+    padding: 64px 48px 0;
+  }
+  .work-hero-visual {
+    min-height: 0;
+    aspect-ratio: 1.25;
+    margin: 0 -48px 0 0;
+  }
+}
+@media (max-width: 760px) {
+  .work-hero {
+    padding-top: 16px;
+  }
+  .work-hero-rim {
+    padding: 6px;
+  }
+  .work-hero-card {
+    padding: 48px 22px 0;
+  }
+  .work-hero-copy .chip {
+    margin-bottom: 22px;
+  }
+  .work-hero-copy h1 {
+    font-size: clamp(44px, 13vw, 64px);
+  }
+  .work-hero-copy > p:not(.concept-note) {
+    font-size: 16px;
+  }
+  .work-hero-visual {
+    aspect-ratio: 1.05;
+    margin-right: -22px;
+  }
+  .wh-stat {
+    gap: 10px;
+    padding: 10px 14px 10px 12px;
+  }
+  .wh-stat b {
+    font-size: 32px;
+  }
+  .wh-stat span {
+    font-size: 12px;
+  }
+  .wh-stat small {
+    display: none;
+  }
+  .wh-stat.is-top {
+    top: 0;
+    right: 8%;
+  }
+  .wh-stat.is-top span {
+    max-width: 96px;
+  }
+  .wh-stat.is-bottom {
+    left: 22%;
+    bottom: 10%;
+  }
+  .wh-tablet {
+    border-radius: 12px;
+  }
+  .wh-tablet .mk-wrap {
+    border-radius: 7px;
+  }
+  .wh-phone {
+    width: 22%;
+  }
+  .work-index {
+    padding-top: 44px;
+  }
+}
+.bento-card h3 .tone {
+  display: block;
+  color: #83877a;
+}
+.tier h3 .tone {
+  color: #83877a;
+}
+.tier h4 .tone {
+  color: #83877a;
+}
+.process-card h3 .tone {
+  display: block;
+}
+/* ── Client logo wall ─────────────────────────────────── */
+.client-logos {
+  padding-block: 104px 96px;
+}
+/* ── Reviews wall ─────────────────────────────────────── */
+.reviews {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 104px;
+}
+.why-copy h3 .tone {
+  color: #858979;
+}
+@media (max-width: 760px) {
+  .client-logos {
+    padding-block: var(--m-sec);
+  }
+}
+.text-link:hover {
+  color: var(--bronze-dark);
+}
+
+/* ── Phone layout (760px and below) ───────────────────── */
+@media (max-width: 760px) {
+  .work-hero {
+    padding-top: var(--m-card-gap);
+  }
+  /* One border: the pale rim around the dark card goes. */
+  .work-hero-rim {
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 4px;
+  }
+  .work-hero-card {
+    padding: var(--m-intro) var(--m-card-pad);
+    border-radius: 4px;
+  }
+  .work-hero-copy .chip {
+    margin-bottom: var(--m-card-gap);
+  }
+  .work-hero-copy h1 {
+    font-size: var(--m-h1);
+    line-height: 1.02;
+  }
+  .work-hero-copy > p:not(.concept-note) {
+    max-width: none;
+    margin-top: var(--m-card-gap);
+    font-size: var(--m-body);
+  }
+  .work-hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--m-inner);
+    margin-top: 24px;
+  }
+  .work-hero-actions .btn {
+    width: 100%;
+  }
+  .work-hero-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+  }
+  .work-hero-copy .concept-note {
+    max-width: none;
+    margin-top: var(--m-card-gap);
+    font-size: var(--m-small);
+  }
+  /* The project list below shows ten real images; the hero collage only repeats them. */
+  .work-hero-visual {
+    display: none;
+  }
+  .work-index {
+    padding-top: var(--m-intro);
+  }
+}

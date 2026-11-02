@@ -1,0 +1,171 @@
+/* Styles for ContactExperience.tsx; imported there so they load only where it renders. */
+
+.contact-experience {
+  padding: 8px;
+  background: var(--pale-2);
+  border: 1px solid var(--line);
+}
+.contact-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.contact-tabs button {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 4px 12px;
+  padding: 18px 20px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  text-align: left;
+  font-size: 15px;
+  font-weight: 600;
+}
+.contact-tabs button > span {
+  grid-column: 2;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+.contact-tabs button[aria-selected="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--white);
+}
+.contact-tabs button[aria-selected="true"] > span {
+  color: var(--on-deep-muted);
+}
+.booking-panel,
+#panel-enquiry {
+  padding: 28px;
+  background: var(--white);
+  border: 1px solid var(--line);
+}
+#panel-enquiry .enquiry-light .field input,
+#panel-enquiry .enquiry-light .field select,
+#panel-enquiry .enquiry-light .field textarea {
+  background: var(--paper);
+}
+.booking-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+  font-weight: 600;
+}
+.booking-caption a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.booking-frame {
+  position: relative;
+  height: 680px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.calendar-status {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  padding: 24px;
+  background: var(--white);
+  text-align: center;
+}
+.calendar-status h3 {
+  font-size: 32px;
+  text-transform: uppercase;
+}
+.calendar-status p {
+  max-width: 360px;
+  color: var(--muted);
+}
+.booking-help {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.booking-help a {
+  color: var(--ink);
+  text-decoration: underline;
+}
+@media (max-width: 760px) {
+  /* One flat tool: no pale frame around the tabs and panel. */
+  .contact-experience {
+    padding: 0;
+    background: none;
+    border: 0;
+    box-shadow: none;
+  }
+  /* Two equal tabs as one segmented control; the sub-labels stay in the panels. */
+  .contact-tabs {
+    gap: 0;
+    margin-bottom: var(--m-card-gap);
+  }
+  .contact-tabs button {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0 var(--m-inner);
+    min-height: 56px;
+    padding: var(--m-inner) var(--m-card-gap);
+    border-radius: 0;
+    font-size: var(--m-small);
+    line-height: 1.2;
+  }
+  .contact-tabs button:first-child {
+    border-radius: 4px 0 0 4px;
+  }
+  .contact-tabs button:last-child {
+    margin-left: -1px;
+    border-radius: 0 4px 4px 0;
+  }
+  .contact-tabs button > span {
+    display: none;
+  }
+  .booking-panel {
+    padding: 0;
+    background: none;
+    border: 0;
+  }
+  #panel-enquiry {
+    padding: var(--m-card-pad);
+    border-radius: 4px;
+  }
+  .booking-caption {
+    align-items: center;
+    margin-bottom: var(--m-inner);
+    font-size: var(--m-body);
+  }
+  .booking-caption a {
+    flex: none;
+    gap: 8px;
+    min-height: 44px;
+  }
+  .booking-frame {
+    height: min(620px, 78svh);
+    border-radius: 4px;
+  }
+  .booking-help {
+    font-size: var(--m-small);
+  }
+  /* Inline links in the sentence get a 44px box, offset so the lines keep their spacing. */
+  .booking-help a {
+    display: inline-block;
+    padding-block: var(--m-card-gap);
+    margin-block: calc(var(--m-card-gap) * -1);
+  }
+  .calendar-status h3 {
+    font-size: var(--m-h3);
+  }
+}
+/* Surfaces with depth */
+.contact-experience {
+  box-shadow: var(--shadow-1);
+}

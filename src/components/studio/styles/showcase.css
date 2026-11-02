@@ -1,0 +1,165 @@
+/* Styles for Showcase.tsx; imported there so they load only where it renders. */
+
+.scroll-device::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 10%;
+  right: 10%;
+  bottom: -6%;
+  height: 26%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(208, 173, 139, 0.18),
+    transparent 70%
+  );
+  filter: blur(30px);
+}
+
+.scroll-showcase {
+  position: relative;
+  max-width: 1120px;
+  margin-inline: auto;
+}
+
+.scroll-device {
+  position: relative;
+}
+
+/* Phone-only products: a line-up of real screens in place of the scrolling laptop. */
+
+.phone-lineup {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: clamp(10px, 2.2vw, 32px);
+  max-width: 1120px;
+  margin-inline: auto;
+}
+
+.phone-lineup::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 15%;
+  right: 15%;
+  bottom: -4%;
+  height: 30%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(208, 173, 139, 0.16),
+    transparent 70%
+  );
+  filter: blur(30px);
+}
+
+.lineup-phone {
+  flex: none;
+}
+
+.lineup-phone.is-d0 {
+  width: clamp(130px, 21vw, 280px);
+}
+
+.lineup-phone.is-d1 {
+  width: clamp(100px, 17vw, 236px);
+  margin-top: clamp(24px, 4vw, 56px);
+}
+
+.lineup-phone.is-d2 {
+  width: clamp(90px, 14vw, 196px);
+  margin-top: clamp(48px, 8vw, 112px);
+}
+
+@media (max-width: 900px) {
+  .lineup-phone.is-d2 {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .lineup-phone.is-d0 {
+    width: 36vw;
+  }
+  .lineup-phone.is-d1 {
+    width: 25vw;
+  }
+}
+
+.scroll-device .mk-scroller:focus-visible {
+  outline: 2px solid #d0ad8b;
+  outline-offset: -2px;
+}
+
+.scroll-rail {
+  position: absolute;
+  top: 4%;
+  right: -44px;
+  width: 2px;
+  height: 78%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.scroll-rail span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(#d0ad8b, var(--orange));
+  transform-origin: top;
+  transition: transform 0.12s linear;
+}
+
+.scroll-hint {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 36px;
+  color: var(--on-deep-muted);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  transition:
+    opacity 0.6s var(--ease-soft),
+    transform 0.6s var(--ease-out);
+}
+
+.scroll-hint svg {
+  color: #d0ad8b;
+  animation: hint-nudge 1.8s var(--ease-in-out) infinite;
+}
+
+.hint-touch {
+  display: none;
+}
+
+@media (hover: none) {
+  .hint-pointer {
+    display: none;
+  }
+  .hint-touch {
+    display: inline;
+  }
+}
+
+.scroll-hint.is-hidden {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+@media (max-width: 1080px) {
+  .scroll-rail {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .scroll-hint {
+    margin-top: 24px;
+  }
+}
+
+@keyframes hint-nudge {
+  50% {
+    transform: translateY(4px);
+  }
+}

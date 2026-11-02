@@ -1,0 +1,395 @@
+/* Styles for WhyUs.tsx; imported there so they load only where it renders. */
+
+/* Let the browser postpone layout and paint for substantial sections that are
+   well below the opening viewport. Intrinsic sizes keep scroll geometry stable. */
+.studio .why-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+/* Glass tile language shared by the photo compositions. */
+.why-stat,
+.why-tag {
+  backdrop-filter: blur(16px) saturate(1.15);
+  -webkit-backdrop-filter: blur(16px) saturate(1.15);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 18px 40px -22px rgba(0, 0, 0, 0.65);
+}
+/* ── Why us (dark panel carousel) ─────────────────────── */
+.why-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+.why-head-copy {
+  max-width: 760px;
+}
+.why-head-copy .chip {
+  margin-bottom: 24px;
+}
+.why-head-copy h2 {
+  margin-bottom: 22px;
+}
+.why-head-copy p {
+  max-width: 520px;
+  color: var(--muted);
+}
+.why-controls {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 10px;
+}
+.why-counter {
+  margin-right: 12px;
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+}
+.why-counter b {
+  color: var(--ink);
+  font-weight: 600;
+}
+.why-controls button {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 3px;
+  color: var(--white);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 6px 14px -8px rgba(37, 39, 33, 0.5);
+  transition:
+    background-color var(--dur-fast) var(--ease-soft),
+    border-color var(--dur-fast) var(--ease-soft),
+    color var(--dur-fast) var(--ease-soft),
+    transform 140ms var(--ease-soft);
+}
+.why-controls button:hover:not(:disabled) {
+  background: var(--orange);
+  border-color: var(--orange);
+}
+.why-controls button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+.why-controls button:disabled {
+  background: transparent;
+  border-color: #cdcdc1;
+  box-shadow: none;
+  color: #a3a598;
+  cursor: default;
+}
+.why-panel {
+  position: relative;
+  overflow: hidden;
+  background: var(--deep);
+  border-radius: 6px;
+  color: var(--on-deep);
+  box-shadow: var(--shadow-3);
+}
+.why-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    46% 60% at 78% 40%,
+    rgba(173, 137, 104, 0.1),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+.why-track {
+  position: relative;
+  display: flex;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.why-track::-webkit-scrollbar {
+  display: none;
+}
+.why-slide {
+  display: grid;
+  flex: 0 0 100%;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  min-height: 580px;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+.why-media {
+  position: relative;
+  min-height: 420px;
+}
+.why-photo {
+  position: absolute;
+  inset: 72px 0 0 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-width: 1px 1px 0 0;
+  border-radius: 0 6px 0 0;
+  background: var(--deep-2);
+}
+.why-photo img {
+  object-fit: cover;
+}
+.why-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    200deg,
+    rgba(34, 37, 31, 0) 40%,
+    rgba(34, 37, 31, 0.45)
+  );
+  pointer-events: none;
+}
+.why-tag {
+  position: absolute;
+  left: 48px;
+  top: 40px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  background: rgba(43, 46, 40, 0.66);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--on-deep);
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.why-tag i {
+  width: 26px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.4);
+}
+.why-stat {
+  position: absolute;
+  right: -56px;
+  bottom: 64px;
+  z-index: 2;
+  display: grid;
+  gap: 6px;
+  min-width: 210px;
+  padding: 20px 24px 20px;
+  background: rgba(43, 46, 40, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  --corner: #b7baad;
+}
+.why-stat b {
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 56px;
+  font-weight: 600;
+  line-height: 0.92;
+  font-variant-numeric: tabular-nums;
+}
+.why-stat b small {
+  margin-left: 4px;
+  color: #cfd0c5;
+  font-size: 24px;
+  font-weight: 500;
+}
+.why-stat > span {
+  color: #d6d7cc;
+  font-size: 14px;
+  line-height: 1.35;
+}
+.why-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 88px 96px 136px;
+}
+.why-copy .icon-tile {
+  margin-bottom: 36px;
+}
+.why-copy h3 {
+  font-size: clamp(40px, 4.1vw, 60px);
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+.why-copy h3 .tone {
+  color: #858979;
+}
+.why-copy p {
+  max-width: 440px;
+  margin-top: 24px;
+  color: var(--on-deep-muted);
+  font-size: 16px;
+}
+.why-copy > * {
+  transition:
+    opacity 0.6s var(--ease-soft),
+    transform 0.8s var(--ease-out);
+}
+.why-copy > :nth-child(2) {
+  transition-delay: 60ms;
+}
+.why-copy > :nth-child(3) {
+  transition-delay: 120ms;
+}
+html.js .why-slide[data-active="false"] .why-copy > * {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  transition-delay: 0ms;
+}
+.why-progress {
+  position: absolute;
+  left: calc(50% + 136px);
+  bottom: 44px;
+  display: flex;
+  gap: 6px;
+}
+.why-progress i {
+  width: 24px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.16);
+  transition:
+    width 0.5s var(--ease-out),
+    background-color var(--dur) var(--ease-soft);
+}
+.why-progress i[data-active="true"] {
+  width: 44px;
+  background: var(--orange);
+}
+@media (max-width: 1200px) {
+  .why-copy {
+    padding: 72px 56px 96px 112px;
+  }
+  .why-progress {
+    left: calc(50% + 112px);
+  }
+}
+@media (max-width: 900px) {
+  .why-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+  }
+  .why-slide {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+  .why-media {
+    min-height: 0;
+    aspect-ratio: 4 / 3.2;
+  }
+  .why-photo {
+    inset: 56px 16px 0 0;
+    border-radius: 0 6px 0 0;
+  }
+  .why-tag {
+    left: 20px;
+    top: 28px;
+    padding: 11px 15px;
+    font-size: 24px;
+  }
+  .why-stat {
+    right: 32px;
+    bottom: 24px;
+    min-width: 0;
+    padding: 16px 18px;
+  }
+  .why-stat b {
+    font-size: 44px;
+  }
+  .why-copy {
+    padding: 44px 24px 72px;
+  }
+  .why-copy .icon-tile {
+    margin-bottom: 24px;
+  }
+  .why-progress {
+    left: 24px;
+    bottom: 32px;
+  }
+}
+@media (max-width: 760px) {
+  .why-controls button {
+    width: 48px;
+    height: 48px;
+  }
+  /* Phone layout: one photo with its tag, then the reason; the stat tile repeats the studio intro. */
+  .why-head {
+    gap: var(--m-card-gap);
+    margin-bottom: var(--m-card-gap);
+  }
+  .why-head-copy .chip {
+    margin-bottom: var(--m-inner);
+  }
+  .why-head-copy h2 {
+    margin-bottom: var(--m-card-gap);
+  }
+  .why-head-copy p {
+    max-width: none;
+    font-size: var(--m-body);
+  }
+  .why-counter {
+    font-size: var(--m-label);
+  }
+  .why-panel {
+    border-radius: 4px;
+    box-shadow: none;
+  }
+  .why-media {
+    aspect-ratio: 16 / 10;
+  }
+  .why-photo {
+    inset: 0;
+    border-width: 0;
+    border-radius: 0;
+  }
+  .why-tag {
+    left: var(--m-card-gap);
+    top: var(--m-card-gap);
+    padding: var(--m-inner) var(--m-card-gap);
+    font-size: var(--m-h3);
+  }
+  .why-stat {
+    display: none;
+  }
+  .why-copy {
+    padding: var(--m-card-pad) var(--m-card-pad) var(--m-intro);
+  }
+  .why-copy .icon-tile {
+    margin-bottom: var(--m-card-gap);
+  }
+  .why-copy h3 {
+    font-size: var(--m-h2);
+    line-height: 1;
+  }
+  .why-copy p {
+    max-width: none;
+    margin-top: var(--m-inner);
+  }
+  .why-progress {
+    left: var(--m-card-pad);
+    bottom: var(--m-card-pad);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js .why-slide[data-active="false"] .why-copy > * {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Scale pass (phone). */
+@media (max-width: 760px) {
+  .why-controls {
+    gap: 8px;
+  }
+}

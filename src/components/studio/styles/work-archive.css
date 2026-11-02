@@ -1,0 +1,156 @@
+/* Styles for WorkArchive.tsx; imported there so they load only where it renders. */
+
+.work-row:hover .cl-page {
+  translate: 0 calc(var(--u) * -0.5);
+}
+.work-row:hover .cl-piece,
+.work-row:hover .cl-phone,
+.work-row:hover .cl-shot {
+  translate: 0 calc(var(--u) * -1.4);
+}
+.work-row {
+  display: grid;
+  grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr);
+  align-items: center;
+  gap: clamp(36px, 5vw, 80px);
+  padding: 16px 64px 16px 16px;
+  background: var(--white);
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(37, 39, 33, 0.05);
+}
+.work-row-media {
+  display: block;
+}
+.work-row-media .collage {
+  border-radius: 3px;
+}
+.work-row-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.work-row-index {
+  color: var(--tone);
+  font-family: var(--font-display), sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.work-row-copy h2 {
+  margin: 22px 0 24px;
+  font-size: clamp(40px, 4.2vw, 62px);
+}
+.work-row-copy p {
+  max-width: 640px;
+  color: var(--muted);
+  font-size: 17px;
+}
+.work-row-copy p + p {
+  margin-top: 14px;
+}
+.work-row-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 28px;
+  margin-top: 36px;
+}
+.work-row-foot .btn {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 8px 18px -10px rgba(37, 39, 33, 0.6);
+}
+.work-row-meta {
+  color: var(--muted);
+  font-size: 13px;
+}
+@media (max-width: 1200px) {
+  .work-row {
+    padding-right: 40px;
+  }
+}
+@media (max-width: 1080px) {
+  .work-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    padding: 12px 12px 32px;
+  }
+  .work-row-copy {
+    padding: 0 16px;
+  }
+}
+@media (max-width: 760px) {
+  /* Image first, flush to the card edge; copy padded 20 like every card. */
+  .work-row {
+    gap: 0;
+    padding: 0;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  /* Crop the square collage to 4:3 around its centre. */
+  .work-row-media .collage {
+    aspect-ratio: 4 / 3;
+    border-radius: 0;
+  }
+  .work-row-media .collage > .cl-plane {
+    inset: auto 0 auto 0;
+    top: calc(var(--u) * -12.5);
+    height: auto;
+    aspect-ratio: 1;
+  }
+  .work-row-copy {
+    padding: var(--m-card-pad);
+  }
+  .work-row-index {
+    display: none;
+  }
+  .work-row-copy .tags {
+    gap: 8px;
+  }
+  .work-row-copy h2 {
+    margin: var(--m-inner) 0;
+    font-size: var(--m-h2);
+    line-height: 1.05;
+  }
+  .work-row-copy p {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+    font-size: var(--m-body);
+  }
+  /* The second paragraph repeats the case study; it stays in the HTML. */
+  .work-row-copy p + p {
+    display: none;
+  }
+  .work-row-foot {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--m-inner);
+    margin-top: var(--m-card-gap);
+  }
+  /* Ten primary buttons on one page is too loud: the row action is an outline button. */
+  .work-row-foot .btn {
+    width: 100%;
+    background: transparent;
+    border-color: var(--ink);
+    color: var(--ink);
+    box-shadow: none;
+  }
+  .work-row-foot .btn:hover {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--white);
+  }
+  .work-row-meta {
+    font-size: var(--m-label);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .work-row:hover .cl-layer {
+    translate: none;
+  }
+}

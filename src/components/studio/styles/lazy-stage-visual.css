@@ -1,0 +1,19 @@
+/* Styles for LazyStageVisual.tsx; imported there so they load only where it renders. */
+
+.lazy-stage-visual {
+  position: relative;
+  width: 100%;
+  min-height: 0;
+  aspect-ratio: 1.48 / 1;
+}
+.lazy-stage-visual > .device-laptop {
+  position: absolute;
+  inset: 0 auto auto 0;
+}
+.lazy-stage-visual > span {
+  position: absolute;
+  inset: 3.2% 5% 5%;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.018);
+}

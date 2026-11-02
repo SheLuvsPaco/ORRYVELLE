@@ -1,0 +1,45 @@
+/* Privacy and cookie policies; layout and prose come from article.css. */
+
+.legal-page .insight-meta a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--orange);
+  text-underline-offset: 3px;
+}
+
+.legal-actions {
+  margin-top: 28px;
+}
+
+/* The first section follows the header directly. */
+.legal-page .prose > h2:first-child {
+  margin-top: 0;
+}
+
+/* Cookie and storage names. */
+.legal-page .prose code {
+  padding: 1px 5px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.86em;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Long legal tables read better slightly smaller than article tables. */
+.legal-page .prose table {
+  font-size: 14px;
+}
+
+@media (max-width: 760px) {
+  .legal-actions {
+    margin-top: 24px;
+  }
+
+  .legal-page .prose table {
+    font-size: var(--m-small);
+  }
+}

@@ -1,0 +1,45 @@
+/* Styles for EnquirySection.tsx; imported there so they load only where it renders. */
+
+/* Let the browser postpone layout and paint for substantial sections that are
+   well below the opening viewport. Intrinsic sizes keep scroll geometry stable. */
+.studio #enquire {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+.assure-stack {
+  display: flex;
+  flex: none;
+}
+.assure-stack i {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  color: var(--ink);
+  box-shadow: 0 0 0 3px var(--pale);
+}
+.assure-stack i + i {
+  margin-left: -8px;
+}
+.assure-stack i:nth-child(1) {
+  color: var(--orange);
+}
+.enquiry-block.is-dark .assure-stack i {
+  background: #30332c;
+  border-color: rgba(255, 255, 255, 0.14);
+  color: var(--on-deep);
+  box-shadow: 0 0 0 3px var(--deep);
+}
+.enquiry-block.is-dark .assure-stack i:nth-child(1) {
+  color: #d0ad8b;
+}
+
+/* Phones: the icon stack is decoration, the text line stays. */
+@media (max-width: 760px) {
+  .assure-stack {
+    display: none;
+  }
+}
