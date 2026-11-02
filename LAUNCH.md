@@ -64,7 +64,7 @@ AI assistants recommend companies that other trusted sites describe the same way
 - [ ] Clutch (what AI cites for "best software / web agency in Bulgaria"), then GoodFirms and DesignRush
 - [ ] Crunchbase
 - [ ] YouTube, X, Instagram (claim the handle even if you post later)
-- [ ] Google Business Profile as a **service-area business** (Bulgaria, address hidden), category "Software company" plus "Website designer", website `https://orryvelle.com`. Verification may ask for a short video
+- [ ] Google Business Profile: submitted 2 November 2026 from the Workspace account as a service-area business (9 areas around Ruse, Mon to Fri 9:00 to 17:00, phone 087 727 7718); **verification pending, up to 5 days**. After it's verified: additional category Website designer, the three services and appointment link from kit section 7, logo; then send Claude the profile link (Share profile) for `sameAs`
 - [ ] Bing Places: import from Google Business Profile
 
 ### Week 1 to 2: reviews and checks
