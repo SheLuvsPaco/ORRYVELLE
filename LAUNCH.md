@@ -60,7 +60,7 @@ Order matters for search: Google and Bing should first meet the site on its fina
 AI assistants recommend companies that other trusted sites describe the same way. Use the exact name, one-line description, URL and logo from `docs/brand/profile-kit.md` everywhere, and send every profile URL to Claude (they go into the site's structured data as `sameAs`).
 
 ### Week 1: entity profiles
-- [ ] LinkedIn company page (the first thing assistants and buyers check)
+- [x] LinkedIn company page: linkedin.com/company/orryvelle, in `sameAs` since 2 November 2026 (finish About, specialties, cover, button; one intro post)
 - [ ] Clutch (what AI cites for "best software / web agency in Bulgaria"), then GoodFirms and DesignRush
 - [ ] Crunchbase
 - [ ] YouTube, X, Instagram (claim the handle even if you post later)
