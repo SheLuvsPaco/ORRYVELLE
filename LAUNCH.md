@@ -26,11 +26,11 @@ Tasks that need your accounts or decisions. Tick them off as you go; anything th
 Order matters for search: Google and Bing should first meet the site on its final address, with mail, verification and analytics already working, so nothing gets indexed twice or measured late.
 
 ### 1. Go live on the real domain (before any search engine sees it)
-- [ ] Vercel: import `SheLuvsPaco/ORRYVELLE` as a **new** project, add `ENQUIRY_WEBHOOK_URL` (all environments), deploy. Don't switch on Vercel Web Analytics, Speed Insights or Firewall bot rules: they aren't in the privacy policy, and bot rules can block search and AI crawlers
-- [ ] Vercel → Domains: add `orryvelle.com` (primary) and `www.orryvelle.com` (redirect to `orryvelle.com`)
-- [ ] Cloudflare → DNS: replace the current records with the ones Vercel shows, all **DNS only** (grey cloud). Proxied records would put Cloudflare's bot and AI-crawler blocking in front of the site and stop Vercel issuing the certificate
-- [ ] Vercel → Domains: set the project's `*.vercel.app` address to **redirect** to `orryvelle.com`, so the same pages never exist on two addresses
-- [ ] Tell Claude: Claude checks the live site end to end (https and www redirects, every page returns 200 or a real 404, canonical and hreflang tags point at orryvelle.com, no `noindex` anywhere, robots.txt, sitemap, llms.txt, structured data, the Bulgarian redirect leaves bots alone, the consent banner, the enquiry form with one real test)
+- [x] Vercel: import `SheLuvsPaco/ORRYVELLE` as a **new** project, add `ENQUIRY_WEBHOOK_URL` (all environments), deploy. Don't switch on Vercel Web Analytics, Speed Insights or Firewall bot rules: they aren't in the privacy policy, and bot rules can block search and AI crawlers
+- [x] Vercel → Domains: add `orryvelle.com` (primary) and `www.orryvelle.com` (redirect to `orryvelle.com`)
+- [x] Cloudflare → DNS: replace the current records with the ones Vercel shows, all **DNS only** (grey cloud). Proxied records would put Cloudflare's bot and AI-crawler blocking in front of the site and stop Vercel issuing the certificate
+- [x] Vercel → Domains: set the project's `*.vercel.app` address to **redirect** to `orryvelle.com`, so the same pages never exist on two addresses
+- [x] Tell Claude: Claude checks the live site end to end (passed 2 November 2026: 86 URLs, 0 issues) (https and www redirects, every page returns 200 or a real 404, canonical and hreflang tags point at orryvelle.com, no `noindex` anywhere, robots.txt, sitemap, llms.txt, structured data, the Bulgarian redirect leaves bots alone, the consent banner, the enquiry form with one real test)
 
 ### 2. Email on the domain (accounts below verify by email)
 - [ ] **Email for `hello@orryvelle.com`**: no MX records yet, so mail bounces. Cloudflare Email Routing (free, forwards to your Gmail) is enough to start; Google Workspace or Zoho if you want to send from the address. Send a test both ways

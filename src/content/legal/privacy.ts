@@ -72,13 +72,13 @@ We share personal data only with the service providers below, who process it on 
 | Our own automation server (n8n) | Receives enquiries from the website and passes them to our team. It runs on a server we rent in Germany | European Union |
 | Cal.com, Inc. | Provides the booking calendar and its confirmation emails. It uses Cloudflare for security and Sentry for error reports | United States |
 | Google | Google Analytics, only if you accept it | European Union collection servers, then Google’s servers worldwide |
-| Our email provider | Stores our business email and delivers our replies | Depends on the provider |
+| Google (Google Workspace) | Our business email: stores the emails you send us and delivers our replies | European Union and the United States |
 
 Beyond these, we disclose personal data only when the law requires it, for example to a court or a public authority, or when it’s needed to establish, exercise or defend legal claims.
 
 ## Transfers outside the EU
 
-Vercel, Cal.com and Google may process data in the United States. Each of them states that it is certified under the EU-U.S. Data Privacy Framework, which the European Commission found to provide an adequate level of protection (Article 45 GDPR). Where the framework doesn’t cover a transfer, they rely on the European Commission’s Standard Contractual Clauses (Article 46 GDPR). Enquiries received by our automation server stay in the European Union.
+Vercel, Cal.com and Google (for Google Analytics and our Google Workspace email) may process data in the United States. Each of them states that it is certified under the EU-U.S. Data Privacy Framework, which the European Commission found to provide an adequate level of protection (Article 45 GDPR). Where the framework doesn’t cover a transfer, they rely on the European Commission’s Standard Contractual Clauses (Article 46 GDPR). Enquiries received by our automation server stay in the European Union.
 
 ## How long we keep it
 
