@@ -21,6 +21,19 @@ When a profile is live, send me its URL. I'll add it to the site's structured da
 | Registered address (only where a field requires one; hide it on public profiles if you can) | 10 Mihail Hadjikostov St, 7000 Ruse, Bulgaria |
 | Service area | Worldwide, remote |
 | Language | English |
+| Organisation type | Privately held (Ltd / ООД) |
+
+**Industry or category, per platform** (each site has its own list; pick these exact options):
+
+| Platform | Industry / category |
+|---|---|
+| LinkedIn | Software Development |
+| Google Business Profile | Primary: Software company. Additional: Website designer, Internet marketing service |
+| Bing Places | Same as Google Business Profile (imported) |
+| Crunchbase | Software, Artificial Intelligence (AI), Web Development, Automation |
+| Clutch, GoodFirms, DesignRush | The service lines in section 4 |
+| Google Analytics | Computers & Electronics |
+| X, Instagram (business category) | Software company or Product/service if that's missing |
 | Tagline | The engine for businesses that refuse to stall. |
 
 **Always:** spell it "Orryvelle" in text (the all-caps ORRYVELLE is only the logo), link to https://orryvelle.com (not a subpage, unless a field asks for a booking link), use the same logo everywhere.
