@@ -239,3 +239,123 @@ Eligible because Orryvelle visits clients in person when a project needs it. Goo
 | Varna Royal | Web Design | `portfolio/06-varna-royal-website.jpg` | A premium website for a window and door repair company in Varna: a calm, interior-led look, every service shown with photography, a three-step process, and a free-quote form. |
 
 **Reviews:** Clutch ranks firms by verified client reviews. Ask your clients (Nantucket Events Company, Five-Star Priorities, Varna Royal, the grooming studios, the advisory firm) to leave one through Clutch's review link; Clutch verifies each reviewer. Never write or arrange reviews yourself.
+
+---
+
+## 9. Portfolio items in full (Clutch, GoodFirms, DesignRush)
+
+Real client work only, word for word from the case studies on the site. Paste the description as plain text (Cmd+Shift+Option+V). If a field is short, use the one-line summary from section 8. Unnamed clients stay unnamed.
+
+### Nantucket Events Company
+
+- **Client:** Nantucket Events Company
+- **Service line:** Custom Software Development
+- **Industry:** Hospitality & leisure (event rentals)
+- **Image:** `portfolio/01-nantucket-events-platform.jpg`
+- **Link:** https://orryvelle.com/work/nantucket-events
+- **Description (1157 characters):**
+
+```
+The operations system behind a Nantucket event-rental company: one season calendar, a job card for every event, and a field brief each crew member reads before leaving the warehouse.
+
+Tents, tables, trucks, and crews move between branches all season, and schedules arrive as WhatsApp messages and PDF picklists. The platform puts every event on one calendar, filterable by branch. Each job card holds crew call times, a timeline, a pack list drawn from live inventory, vehicles and drivers, and the notes the crew needs on site.
+
+Two audiences, two views. Owners and leads get dense desk tools: AI Quick Add turns a pasted message into job cards and checks it against what is already booked before anything changes, PDF picklists are matched to inventory, and invoices and team access sit behind roles. Crews get a phone-first brief: read-this-first notes, the day’s timeline, who drives what, and a live pack list they tick off as they load.
+
+Delivered: Season calendar across branches, Job cards: crew, timeline, vehicles, pack list, AI Quick Add from pasted messages, PDF picklist import, Inventory & fleet with photos, Crew field brief & live pack list.
+```
+
+### Five-Star Priorities
+
+- **Client:** Five-Star Priorities
+- **Service line:** Mobile App Development
+- **Industry:** Real estate (property services)
+- **Image:** `portfolio/02-five-star-priorities-app.jpg`
+- **Link:** https://orryvelle.com/work/five-star-priorities
+- **Description (942 characters):**
+
+```
+An iPhone app for a property-services team: each crew’s day laid out as a route of stops, every job approved by the owner, and the week on one calendar.
+
+The owner plans the day as routes. Each two-person team gets an ordered run of jobs (move-in walkthroughs, turnover cleans, bathroom details) that the crew taps through like stories, stop by stop. Jobs carry photos, access instructions, and notes for the team, and the owner approves each one before it goes out. Day, week, and month calendars and a tenant directory complete the picture.
+
+We built it phone-first and kept close to iOS conventions: native sheets, a familiar tab bar, and forms that behave the way people expect. Routes, jobs, and notes are stored on the device, so the team’s plan is there when the crew is on site.
+
+Delivered: iPhone app, Team routes & job stories, Owner approval flow, Photos, access notes & team comments, Day, week & month calendar, Tenant directory.
+```
+
+### AI Voice Receptionist
+
+- **Client:** Undisclosed (service business)
+- **Service line:** AI Development
+- **Industry:** Consumer products & services
+- **Image:** `portfolio/03-ai-voice-receptionist.jpg`
+- **Link:** https://orryvelle.com/work/ai-voice-receptionist
+- **Description (1424 characters):**
+
+```
+Two voice agents on one calendar: an inbound receptionist that answers every call and books, reschedules, or cancels appointments, and an outbound agent that calls every new booking to say thank you and set expectations.
+
+Missed calls are missed bookings, and booked calls that nobody follows up are where no-shows come from. The inbound agent answers every call in a natural voice, looks up the caller's booking and live availability, and schedules, moves, or cancels the appointment while they are still on the line, against the business's own calendar. The outbound agent picks up every new booking, researches who booked, and calls to thank them, explain what the meeting will cover, and tell them what to prepare.
+
+Both agents run on n8n with Vapi handling the call and ElevenLabs the voice. Inbound requests are routed by intent (schedule, reschedule, or cancel), checked against Cal.com and Google Calendar, and answered back to the call in real time. The outbound agent uses xAI Grok to research the lead and write a personal opener and prompt for each call, then reads the finished call to record the outcome: a calendar event, an Airtable record, a text to the lead, and a Telegram alert to the team.
+
+Delivered: Inbound voice receptionist, Schedule, reschedule & cancel by phone, Live Cal.com & Google Calendar sync, Outbound confirmation calls, Per-lead research & personal opener, Outcome logging & team alerts.
+```
+
+### Sales Pipeline System
+
+- **Client:** Undisclosed (international tax & residency advisory)
+- **Service line:** AI Agent Development
+- **Industry:** Financial services
+- **Image:** `portfolio/04-sales-pipeline-automation.jpg`
+- **Link:** https://orryvelle.com/work/sales-pipeline-system
+- **Description (1757 characters):**
+
+```
+Three automated email and SMS sequences around the CRM of a firm advising on tax, second passports, and banking: pre-sell every booked call, win back no-shows while they are still warm, and revive leads that went cold.
+
+Every lead this firm buys arrives in the CRM, and three things decide whether it turns into a client: the first contact, the call itself, and what happens when someone goes quiet. The confirmation sequence starts the moment a form is filled or a call is booked, with emails and texts that answer common questions and build trust, so prospects arrive at the call already pre-sold and fewer miss it. The no-show sequence catches anyone who skips their call and works to rebook them while the decision is fresh. The recovery sequence finds leads who engaged once and then went silent, and reaches back out, so contacts the firm has already paid for stop going to waste.
+
+Each sequence is an n8n workflow triggered by GoHighLevel. Confirmation messages are timed to the appointment (immediately, then 19 hours, 12 hours, 5 hours, and 10 minutes before), with an AI step that normalises the booked date and time, and every send first checks that the booking still stands and the time has not moved. No-shows get six follow-ups spaced days apart, each stopping as soon as a new booking appears. Reactivation filters out do-not-disturb contacts and unqualified tags, reads the conversation history, and only writes to leads silent past the cut-off. Every touch is noted on the contact in GoHighLevel, and recovered bookings are logged to Supabase.
+
+Delivered: Confirmation sequence: 5 timed touches, Booking checks before every send, No-show recovery: 6 follow-ups, Cold-lead reactivation, AI date & time parsing, CRM notes & Supabase lead log.
+```
+
+### Magnolia Blooms
+
+- **Client:** Magnolia Blooms, Bendigo
+- **Service line:** E-Commerce Development
+- **Industry:** Retail (florist)
+- **Image:** `portfolio/05-magnolia-blooms-shopify.jpg`
+- **Link:** https://orryvelle.com/work/magnolia-blooms
+- **Description (1178 characters):**
+
+```
+A Shopify storefront for a boutique florist in Bendigo: fresh and preserved blooms and gifts to buy online, with weddings and floral workshops given their own place on the page.
+
+The florist sells in three ways: bouquets and gifts online, wedding flowers by enquiry, and floral workshops. The home page gives each its own path, starting from a hero with Shop Blooms and Wedding Enquiry side by side, then three category tiles, a wedding banner, rows of fresh blooms, preserved and dried blooms, and gifts that can be added to the cart straight from the row, a workshop feature, Google reviews, and a newsletter sign-up.
+
+Soft blush, ivory, and deep plum with Cormorant Garamond headings keep the store feeling like a boutique, not a catalogue. The flowers carry the design: large, bright product photography on quiet grounds, with prices and add-to-cart kept small beneath each one. Same-day delivery sits in the announcement bar, and the phone layout stacks every row for one-thumb shopping.
+
+Delivered: Shopify storefront, Category tiles: blooms, workshops, gifts, Product rows with add to cart, Wedding enquiry & workshop features, Google reviews section, Newsletter sign-up.
+```
+
+### Varna Royal
+
+- **Client:** Varna Royal, Varna
+- **Service line:** Web Design
+- **Industry:** Consumer products & services (home services)
+- **Image:** `portfolio/06-varna-royal-website.jpg`
+- **Link:** https://orryvelle.com/work/varna-royal
+- **Description (1142 characters):**
+
+```
+A premium website for a window and door repair company in Varna: a calm, interior-led look, every service shown with photography, a three-step process, and a free-quote form.
+
+Window repair is usually sold with stock photos and loud offers. This site takes the opposite route: warm interiors and quiet typography that make the company look as careful as the work it promises. It sets out why to choose the company (same-day repairs, a precise diagnosis with an honest price, and a two-year guarantee), the full range of services, a three-step process from inspection to finished repair, a gallery of finished projects, and a free-quote form.
+
+Deep forest green, warm cream, and a soft gold accent, with Cormorant Garamond headings, give a trade business the voice of an interiors brand. Each service gets a full photograph rather than an icon, the process reads in three numbered steps, and the free-quote form asks only for a name, phone, the type of problem, and a good time to call.
+
+Delivered: Brand-led one-page website, Services with photography, Why-us & guarantee section, Three-step process, Project gallery, Free-quote request form.
+```
