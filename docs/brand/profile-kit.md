@@ -152,3 +152,41 @@ Custom Software Development, AI Development, Business Process Automation, Web De
 | `banner-youtube-2560x1440.png` | YouTube banner; content inside the 1546×423 safe area shown on every device |
 
 Colours: charcoal #0E171B, bronze #D0AD8B, paper #ECE8DF, ink #172126. Fonts: Barlow Condensed (headings), DM Sans (text).
+
+---
+
+## 7. Google Business Profile (service-area business)
+
+Eligible because Orryvelle visits clients in person when a project needs it. Google requires that; online-only businesses are suspended. Copy these exactly.
+
+| Field | Value |
+|---|---|
+| Business name | Orryvelle |
+| Primary category | Software company |
+| Additional category | Website designer |
+| Location customers can visit? | **No** (service-area business; the address is hidden) |
+| Business address (for verification only, hidden) | ул. Михаил Хаджикостов 10, 7000 Русе, България (or: ul. Mihail Hadjikostov 10, 7000 Ruse, Bulgaria) |
+| Service areas (Google's guideline: within about 2 hours' drive) | Ruse, Razgrad, Silistra, Targovishte, Veliko Tarnovo, Shumen, Pleven |
+| Phone | Leave empty (or add a real business number and send it to Claude so the site shows the same one) |
+| Website | https://orryvelle.com |
+| Appointment link | https://orryvelle.com/bg/kontakti |
+| Opening date | The registration date of Orryvelle Ltd |
+| Hours | Only hours when you really answer; Google may check |
+| Logo | `avatar-charcoal-800.png` |
+| Attributes | Online appointments: yes |
+
+**Description in Bulgarian (669 of 750 characters; recommended, since local searchers search in Bulgarian):**
+> Orryvelle е студио за дизайн и разработка от Русе, което работи с клиенти в цяла България и по света. Повечето клиенти идват при нас с проблем, като пропуснати обаждания, часове, изгубени в администрация, или уебсайт, който не продава, а ние проектираме и изграждаме решението: софтуер по поръчка (клиентски портали, вътрешни системи, оперативни платформи и мобилни приложения), AI асистенти и автоматизация (гласови асистенти, които отговарят и записват часове, автоматични съобщения през CRM и интеграции) и премиум уебсайтове и Shopify магазини. Всеки проект започва с безплатна 30-минутна консултация и писмена оферта с обхват, срок и цена, преди да започне работа.
+
+**Description in English (633 of 750 characters; use only if you prefer English):**
+> Orryvelle is a design and engineering studio based in Ruse, working with clients across Bulgaria and worldwide. Most clients come to us with a problem, such as missed calls, hours lost to admin or a website that doesn’t sell, and we design and build what fixes it: custom software (client portals, internal tools, operations platforms and mobile apps), AI agents and automation (voice receptionists that answer and book calls, CRM follow-up and integrations) and premium websites and Shopify stores. Every project starts with a free 30-minute consultation and a written proposal with scope, timeline and price before any work begins.
+
+**Services (Edit services → Add custom service; same wording as the site):**
+
+| Service | Description |
+|---|---|
+| Софтуер по поръчка | Софтуер по поръчка за бизнеси, надраснали таблиците и готовите програми: клиентски портали, вътрешни системи, оперативни платформи и мобилни приложения. |
+| AI асистенти и автоматизация | AI агенти и автоматизация за бизнеса: гласови AI асистенти, които отговарят и записват часове, автоматични последващи съобщения през CRM и интеграции между инструментите ви. |
+| Уебсайтове и онлайн магазини | Премиум уебсайтове и Shopify магазини, проектирани от нулата: бързи, готови за Google и лесни за обновяване, създадени да печелят клиенти, а не просто да съществуват. |
+
+**Never add:** keywords or a city in the business name, prices, or a description that promises things the site doesn't.
