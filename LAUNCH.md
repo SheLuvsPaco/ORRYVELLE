@@ -61,7 +61,8 @@ AI assistants recommend companies that other trusted sites describe the same way
 
 ### Week 1: entity profiles
 - [x] LinkedIn company page: linkedin.com/company/orryvelle, in `sameAs` since 2 November 2026 (finish About, specialties, cover, button; one intro post)
-- [ ] Clutch (what AI cites for "best software / web agency in Bulgaria"), then GoodFirms and DesignRush
+- [ ] Clutch: profile created 2 November 2026 from hello@, **under review**; send Claude the public link when approved. Portfolio items didn't save (Clutch glitch; retry later with Brave Shields off). Request reviews from past clients
+- [ ] GoodFirms and DesignRush (reuse kit sections 8 and 9)
 - [ ] Crunchbase
 - [ ] YouTube, X, Instagram (claim the handle even if you post later)
 - [ ] Google Business Profile: submitted 2 November 2026 from the Workspace account as a service-area business (9 areas around Ruse, Mon to Fri 9:00 to 17:00, phone 087 727 7718); **verification pending, up to 5 days**. After it's verified: additional category Website designer, the three services and appointment link from kit section 7, logo; then send Claude the profile link (Share profile) for `sameAs`
