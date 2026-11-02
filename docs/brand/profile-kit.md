@@ -16,7 +16,9 @@ When a profile is live, send me its URL. I'll add it to the site's structured da
 | Email | hello@orryvelle.com |
 | Booking link | https://orryvelle.com/contact |
 | Location wording | Based in Bulgaria, working with clients worldwide |
-| Location field (when a city/country is required) | Bulgaria |
+| Location field (when a city/country is required) | Ruse, Bulgaria |
+| Legal name (only where a field asks for it) | Orryvelle Ltd (Orryvelle ООД) |
+| Registered address (only where a field requires one; hide it on public profiles if you can) | 10 Mihail Hadjikostov St, 7000 Ruse, Bulgaria |
 | Service area | Worldwide, remote |
 | Language | English |
 | Tagline | The engine for businesses that refuse to stall. |
@@ -92,7 +94,7 @@ Custom software development, Client portals, Internal tools, Mobile apps, AI age
 |---|---|---|---|---|
 | **LinkedIn company page** | The profile AIs and buyers trust most for B2B | `avatar-charcoal-800.png` | `banner-linkedin-2256x382.png` | One line as tagline, long description as About, specialties, website |
 | **YouTube** | Strongest correlation with AI visibility in Ahrefs’ data | `avatar-charcoal-800.png` | `banner-youtube-2560x1440.png` | YouTube channel description, website and email in links |
-| **X** | Fast-moving mentions and conversations | `avatar-charcoal-800.png` | `banner-x-1500x500.png` | Bio, website, location field: Bulgaria |
+| **X** | Fast-moving mentions and conversations | `avatar-charcoal-800.png` | `banner-x-1500x500.png` | Bio, website, location field: Ruse, Bulgaria |
 | **Instagram** | Visual proof of the work | `avatar-charcoal-800.png` | none | Bio, website |
 | **Clutch** | Directory AIs cite for agency recommendations; reviews | `avatar-paper-800.png` | none | Long description; service lines below |
 | **GoodFirms** | Directory with reviews | `avatar-paper-800.png` | none | Long description |
