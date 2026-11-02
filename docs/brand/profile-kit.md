@@ -28,7 +28,7 @@ When a profile is live, send me its URL. I'll add it to the site's structured da
 | Platform | Industry / category |
 |---|---|
 | LinkedIn | Software Development |
-| Google Business Profile | Primary: Software company. Additional: Website designer, Internet marketing service |
+| Google Business Profile | Primary: Software company. Additional: Website designer |
 | Bing Places | Same as Google Business Profile (imported) |
 | Crunchbase | Software, Artificial Intelligence (AI), Web Development, Automation |
 | Clutch, GoodFirms, DesignRush | The service lines in section 4 |
