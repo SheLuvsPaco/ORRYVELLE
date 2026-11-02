@@ -22,6 +22,7 @@ When a profile is live, send me its URL. I'll add it to the site's structured da
 | Service area | Worldwide, remote |
 | Language | English |
 | Organisation type | Privately held (Ltd / ООД) |
+| Company size | 2-10 employees (pick the matching band where a directory groups sizes differently) |
 
 **Industry or category, per platform** (each site has its own list; pick these exact options):
 
