@@ -20,7 +20,7 @@ export const coverSizes = {
 export type CoverRatio = keyof typeof coverSizes;
 
 const fontsDir = join(process.cwd(), "src/app/fonts/og");
-const markSvg = join(process.cwd(), "src/app/icon.svg");
+const markSvg = join(fontsDir, "mark.svg");
 
 // Bulgarian cards use the Cyrillic-capable pair, as the pages do (see app/fonts.ts).
 const fontFiles = {
