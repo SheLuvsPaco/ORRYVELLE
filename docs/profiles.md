@@ -9,9 +9,11 @@ Every profile copies its text, categories and images from [brand/profile-kit.md]
 
 ## Waiting on approval
 
-- [ ] Google Business Profile: verification pending (submitted 2 November 2026, up to 5 days). Then: additional category Website designer, the three services and appointment link (kit section 7), logo, trim service areas to about 2 hours from Ruse; send Claude the profile link
-- [ ] Clutch: under review. Then send Claude the public link; retry the portfolio (kit section 9) with Brave Shields off; request reviews
-- [ ] Bing Places: import from Google Business Profile once it's verified
+- [x] Google Business Profile: verified, in `sameAs` since 8 November 2026 (`https://www.google.com/search?kgmid=/g/11p2jd2zlv`)
+- [ ] Finish Google Business Profile: additional category Website designer, the three services and appointment link (kit section 7), logo, trim service areas to about 2 hours from Ruse
+- [x] Clutch: https://clutch.co/profile/orryvelle (in `sameAs` since 8 November 2026)
+- [ ] Finish Clutch: retry the portfolio (kit section 9) with Brave Shields off; request reviews
+- [ ] Bing Places: import from Google Business Profile (it's verified now)
 
 ## To create
 
