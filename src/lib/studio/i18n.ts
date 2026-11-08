@@ -55,6 +55,7 @@ const bgChildren: Record<string, Record<string, string>> = {
     "custom-software-vs-off-the-shelf": "softuer-po-porachka-ili-gotov",
     "custom-website-vs-wordpress-webflow-shopify": "uebsait-po-porachka-ili-wordpress",
     "get-recommended-by-chatgpt": "kak-da-vi-preporachva-chatgpt",
+    "shopify-store-cost": "kolko-struva-onlain-magazin-shopify",
   },
 };
 const invert = (table: Record<string, string>) => Object.fromEntries(Object.entries(table).map(([key, value]) => [value, key]));

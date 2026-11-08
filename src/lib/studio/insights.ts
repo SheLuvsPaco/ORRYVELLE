@@ -8,6 +8,7 @@ import automationPlatforms from "@/content/insights/n8n-vs-zapier-vs-make";
 import customVsOffTheShelf from "@/content/insights/custom-software-vs-off-the-shelf";
 import websitePlatforms from "@/content/insights/custom-website-vs-wordpress-webflow-shopify";
 import aiRecommendations from "@/content/insights/get-recommended-by-chatgpt";
+import shopifyCost from "@/content/insights/shopify-store-cost";
 
 /**
  * Insights: buyer guides written to be quoted by search and AI assistants. Each article opens
@@ -43,6 +44,7 @@ export const insights: Insight[] = [
   customVsOffTheShelf,
   websitePlatforms,
   aiRecommendations,
+  shopifyCost,
 ].sort((a, b) => b.published.localeCompare(a.published) || a.title.localeCompare(b.title));
 
 /* Bulgarian articles are overlays of the English ones (src/content/bg/insights); sources are shared. */
