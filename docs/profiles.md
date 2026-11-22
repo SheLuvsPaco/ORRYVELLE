@@ -17,7 +17,7 @@ Every profile copies its text, categories and images from [brand/profile-kit.md]
 
 ## To create
 
-- [ ] Crunchbase: short description, website, Ruse, Bulgaria, founding year, industries from the kit, logo `avatar-paper-800.png`
+- [ ] Crunchbase: submitted 14 November 2026 (free listing, under review); send Claude the public link when approved. Finish later: logo, industries and headquarters if the review leaves gaps
 - [ ] GoodFirms: kit sections 8 and 9
 - [ ] DesignRush: kit sections 8 and 9
 - [ ] YouTube: claim `@orryvelle`, channel description, avatar and banner from the kit

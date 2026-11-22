@@ -65,7 +65,7 @@ Tracked in [docs/profiles.md](docs/profiles.md); dated follow-ups are in the Rem
 - [x] LinkedIn company page: linkedin.com/company/orryvelle, in `sameAs` since 2 November 2026 (finish About, specialties, cover, button; one intro post)
 - [x] Clutch: live at clutch.co/profile/orryvelle, in `sameAs` since 8 November 2026. Still to do: Portfolio items didn't save (Clutch glitch; retry later with Brave Shields off). Request reviews from past clients
 - [ ] GoodFirms and DesignRush (reuse kit sections 8 and 9)
-- [ ] Crunchbase
+- [ ] Crunchbase: submitted 14 November 2026, under review
 - [ ] YouTube, X, Instagram (claim the handle even if you post later)
 - [x] Google Business Profile: verified by 8 November 2026 (service-area business, 9 areas around Ruse, Mon to Fri 9:00 to 17:00, phone 087 727 7718), in `sameAs` as its Knowledge Graph ID `/g/11p2jd2zlv`. Still to do: additional category Website designer, the three services and appointment link from kit section 7, logo and photos
 - [ ] Bing Places: import from Google Business Profile (possible now that it's verified)
