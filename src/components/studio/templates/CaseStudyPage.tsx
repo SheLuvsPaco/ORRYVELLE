@@ -16,6 +16,9 @@ import { ButtonLink, Corners, SectionIntro } from "../ui";
 import { ProjectTags, WorkRail } from "../Work";
 import "./case-study.css";
 
+/** Letters in the heading's longest word: the desktop heading shrinks so that word fits its column. */
+const longestWord = (parts: string[]) => Math.max(...parts.join(" ").split(/\s+/).map((word) => word.length));
+
 const text = {
   en: {
     kind: { "custom-software": "Custom Software", "enterprise-solutions": "AI & Automation", websites: "Website" } as Record<ServiceSlug, string>,
@@ -133,7 +136,7 @@ export default function CaseStudyPage({ project, locale }: { project: Project; l
       <section className="container case-intro">
         <div data-reveal>
           <ProjectTags project={project} discipline locale={locale} />
-          <h1>
+          <h1 style={{ "--word": longestWord(project.titleParts) } as React.CSSProperties}>
             {project.titleParts[0]} <span className="tone">{project.titleParts[1]}</span>
           </h1>
         </div>

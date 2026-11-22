@@ -15,6 +15,17 @@
   margin-top: 18px;
   font-size: clamp(56px, 6.4vw, 100px);
 }
+/* Bulgarian desktop: a long single word (e.g. "АВТОМАТИЗАЦИЯ") must fit its column, so the heading
+   shrinks to the column width divided by its longest word (--word, set in CaseStudyPage). The
+   Bulgarian display face averages about 0.49em per capital; 0.53 leaves room for wide letters. */
+@media (min-width: 1081px) {
+  :lang(bg) .case-intro > div:first-child {
+    container-type: inline-size;
+  }
+  :lang(bg) .case-intro h1 {
+    font-size: min(clamp(56px, 6.4vw, 100px), calc(100cqi / (var(--word, 1) * 0.53)));
+  }
+}
 .case-summary {
   font-size: 19px;
   line-height: 1.6;
