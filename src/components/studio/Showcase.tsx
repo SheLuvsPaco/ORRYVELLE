@@ -3,7 +3,7 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, MousePointer2 } from "lucide-react";
+import { ArrowUpRight, Maximize2, MousePointer2, Play, X } from "lucide-react";
 import { href, serviceLinksIn, type Locale } from "@/lib/studio/i18n";
 import type { Project } from "@/lib/studio/projects";
 import LazyStageVisual from "./LazyStageVisual";
@@ -50,10 +50,233 @@ const text = {
   },
 };
 
-/** The case-study preview: a scrolling laptop, or a line-up of screens for phone-only products. */
+/** The case-study preview: a film, a scrolling laptop, or a line-up of screens for phone-only products. */
 export function ScrollShowcase({ project, locale = "en" }: { project: Project; locale?: Locale }) {
+  if (project.film) return <FilmShowcase project={project} film={project.film} locale={locale} />;
   if (project.shots && !project.shots.screen) return <PhoneLineup project={project} />;
   return <LaptopShowcase project={project} locale={locale} />;
+}
+
+const filmText = {
+  en: {
+    title: (name: string) => `Film: how ${name} works`,
+    hintPointer: "Scroll inside the screen to play the film",
+    hintTouch: "Swipe inside the screen to play the film",
+    full: "Watch full screen",
+    play: "Play the film",
+    close: "Close",
+  },
+  bg: {
+    title: (name: string) => `Филм: как работи ${name}`,
+    hintPointer: "Превъртете в екрана, за да пуснете филма",
+    hintTouch: "Плъзнете в екрана, за да пуснете филма",
+    full: "Гледайте на цял екран",
+    play: "Пуснете филма",
+    close: "Затвори",
+  },
+};
+
+/** Films with a Bulgarian edition; the others play in English on Bulgarian pages. */
+const BULGARIAN_FILMS = new Set<string>(["ai-receptionist", "no-lead-left-behind", "ai-cold-caller", "ai-amazon-store-manager"]);
+
+/** The film's own landscape layout starts here; narrower screens show it scaled down. */
+const FILM_WIDTH = 960;
+
+/** How far through the film an iframe is scrolled, from 0 to 1. */
+const filmProgress = (frame: HTMLIFrameElement | null) => {
+  const doc = frame?.contentDocument?.documentElement;
+  if (!doc) return 0;
+  const max = doc.scrollHeight - doc.clientHeight;
+  return max > 0 ? Math.min(1, doc.scrollTop / max) : 0;
+};
+
+/** Moves an iframe's film to a point between 0 and 1. */
+const seekFilm = (frame: HTMLIFrameElement | null, at: number) => {
+  const doc = frame?.contentDocument?.documentElement;
+  if (!doc || at <= 0) return;
+  doc.scrollTop = at * (doc.scrollHeight - doc.clientHeight);
+};
+
+/**
+ * A laptop playing the system's film. The film is its own page, driven by its own scroll, so
+ * it plays by scrolling inside the screen. It always uses its landscape layout: narrower
+ * screens scale it down, and "Watch full screen" opens it at the device's own size, where
+ * phones get the layout the film was designed for.
+ */
+function FilmShowcase({ project, film, locale }: { project: Project; film: string; locale: Locale }) {
+  const copy = filmText[locale];
+  const src = `/films/${locale === "bg" && BULGARIAN_FILMS.has(film) ? "bg" : "en"}/${film}.html`;
+  // A callback ref: the laptop is loaded lazily, so the screen appears after the first render.
+  const [screen, setScreen] = useState<HTMLDivElement | null>(null);
+  const frame = useRef<HTMLIFrameElement>(null);
+  const overlayFrame = useRef<HTMLIFrameElement>(null);
+  const closeButton = useRef<HTMLButtonElement>(null);
+  const openButton = useRef<HTMLButtonElement>(null);
+  const resume = useRef(0);
+  const [scale, setScale] = useState(1);
+  const [progress, setProgress] = useState(0);
+  const [touched, setTouched] = useState(false);
+  const [open, setOpen] = useState(false);
+  // Full screen on a short landscape screen (a phone turned sideways) has no room for the
+  // film's own phone layout: it shows the landscape layout, scaled to fit, like the laptop.
+  const [stage, setStage] = useState<HTMLDivElement | null>(null);
+  const [stageScale, setStageScale] = useState<number | null>(null);
+  useEffect(() => {
+    if (!stage) return;
+    const fit = () => {
+      const { clientWidth: w, clientHeight: h } = stage;
+      setStageScale(h < 520 && w > h ? Math.min(w / FILM_WIDTH, h / (FILM_WIDTH * 0.625)) : null);
+    };
+    fit();
+    const observer = new ResizeObserver(fit);
+    observer.observe(stage);
+    return () => observer.disconnect();
+  }, [stage]);
+
+  // Fit the film's landscape layout to the screen.
+  useEffect(() => {
+    if (!screen) return;
+    const fit = () => setScale(Math.min(1, screen.clientWidth / FILM_WIDTH));
+    fit();
+    const observer = new ResizeObserver(fit);
+    observer.observe(screen);
+    return () => observer.disconnect();
+  }, [screen]);
+
+  // Follow the film's own scroll for the progress rail and the hint.
+  const onFrameLoad = () => {
+    const win = frame.current?.contentWindow;
+    if (!win) return;
+    // The first scroll inside a laptop that is partly off screen (or under the header) brings
+    // the whole device into view first, so the film is never watched half hidden.
+    const center = () => {
+      const device = screen?.closest(".scroll-device");
+      if (!device) return;
+      const rect = device.getBoundingClientRect();
+      const top = document.querySelector(".site-header")?.getBoundingClientRect().bottom ?? 0;
+      const room = window.innerHeight - top;
+      if (rect.top >= top - 1 && rect.bottom <= window.innerHeight + 1) return;
+      const target = window.scrollY + rect.top - top - Math.max(0, (room - rect.height) / 2);
+      window.scrollTo({ top: target, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+    };
+    win.addEventListener("wheel", center, { passive: true, once: true });
+    win.addEventListener("keydown", center, { once: true });
+    win.addEventListener(
+      "scroll",
+      () => {
+        const at = filmProgress(frame.current);
+        setProgress(at);
+        if (at > 0.01) setTouched(true);
+      },
+      { passive: true },
+    );
+  };
+
+  // Full screen: lock the page behind, close on Escape, carry the position both ways.
+  useEffect(() => {
+    if (!open) return;
+    const root = document.documentElement;
+    const previous = root.style.overflow;
+    root.style.overflow = "hidden";
+    closeButton.current?.focus();
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      root.style.overflow = previous;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  const openFull = () => {
+    resume.current = filmProgress(frame.current);
+    setOpen(true);
+  };
+  const closeFull = () => {
+    const at = filmProgress(overlayFrame.current);
+    setOpen(false);
+    seekFilm(frame.current, at);
+    openButton.current?.focus();
+  };
+
+  const width = FILM_WIDTH;
+  return (
+    <div className="scroll-showcase film-showcase">
+      <div className="scroll-device">
+        <Laptop tone="black">
+          <div className="film-screen" ref={setScreen}>
+            <iframe
+              ref={frame}
+              src={src}
+              title={copy.title(project.title)}
+              loading="lazy"
+              onLoad={onFrameLoad}
+              style={
+                scale < 1
+                  ? { width: `${width}px`, height: `${width * 0.625}px`, transform: `scale(${scale})` }
+                  : undefined
+              }
+            />
+            {/* Phones: the laptop is a picture (no scroll trap); tapping it plays the film full screen. */}
+            <button type="button" className="film-play" onClick={openFull} aria-label={copy.full}>
+              <span>
+                <Play size={18} aria-hidden="true" />
+                {copy.play}
+              </span>
+            </button>
+          </div>
+        </Laptop>
+      </div>
+      <div className="scroll-rail" aria-hidden="true">
+        <span style={{ transform: `scaleY(${Math.max(progress, 0.04)})` }} />
+      </div>
+      <div className="film-controls">
+        <p className={`scroll-hint ${touched ? "is-hidden" : ""}`}>
+          <MousePointer2 size={14} aria-hidden="true" />
+          <span className="hint-pointer">{copy.hintPointer}</span>
+          <span className="hint-touch">{copy.hintTouch}</span>
+        </p>
+        <button ref={openButton} type="button" className="film-full" onClick={openFull}>
+          <Maximize2 size={15} aria-hidden="true" />
+          {copy.full}
+        </button>
+      </div>
+      {open ? (
+        <div className="film-overlay" role="dialog" aria-modal="true" aria-label={copy.title(project.title)}>
+          <div className="film-overlay-bar">
+            <span>{project.title}</span>
+            <button ref={closeButton} type="button" onClick={closeFull}>
+              <X size={18} aria-hidden="true" />
+              {copy.close}
+            </button>
+          </div>
+          <div className="film-overlay-stage" ref={setStage}>
+            <iframe
+              ref={overlayFrame}
+              src={src}
+              title={copy.title(project.title)}
+              style={
+                stageScale
+                  ? {
+                      width: `${FILM_WIDTH}px`,
+                      height: `${FILM_WIDTH * 0.625}px`,
+                      transform: `translate(-50%, -50%) scale(${stageScale})`,
+                    }
+                  : undefined
+              }
+              className={stageScale ? "is-scaled" : undefined}
+              onLoad={() => {
+                const at = resume.current;
+                // Let the film measure itself before jumping to where the laptop was.
+                window.setTimeout(() => seekFilm(overlayFrame.current, at), 120);
+              }}
+            />
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
 }
 
 /** The phone screen in the middle, `shots.lineup` fanning out either side. */

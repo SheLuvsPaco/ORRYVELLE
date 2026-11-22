@@ -1,0 +1,532 @@
+---
+import Film from '../../layouts/Film.astro';
+import Reveal from '../../components/Reveal.astro';
+import Icon from '../../components/Icon.astro';
+import BranchMap, { type Lane } from '../../components/BranchMap.astro';
+import MiniMap from '../../components/MiniMap.astro';
+import { getDetails, getEntry, getGraph, nodeByName } from '../../lib/data';
+import { outline, regions } from '../../lib/regions';
+import * as F from '../../film/fixtures';
+import shot from '../../assets/shots/vapi-inbound.png';
+
+// Bulgarian edition: the same machine and data, with a Bulgarian caller and plain-language words.
+const CALLER = 'Мария Петрова';
+const BOOK_ARGS = { ...F.BOOK_ARGS, user_name: CALLER };
+const MOVE_ARGS = { ...F.MOVE_ARGS, user_name: CALLER };
+
+const g = getGraph('vapi-inbound');
+const d = getDetails('vapi-inbound');
+const e = getEntry('vapi-inbound');
+const code = (node: string) => {
+  const b = d[nodeByName(g, node).id].find((x) => x.type === 'code');
+  if (!b || b.type !== 'code') throw new Error(`No code on ${node}`);
+  return b.text;
+};
+const kv = (node: string) => (d[nodeByName(g, node).id].find((x) => x.type === 'kv') as { rows: string[][] }).rows;
+const kvOf = (node: string, key: string) => kv(node).find((r) => r[0] === key)?.[1] ?? '';
+
+// The workflow's own code, run here at build time on the film's tool calls,
+// so the page's text matches what it computes live in the browser.
+const runCode = (src: string, args: Record<string, string>, slots: typeof F.SLOTS_BOOK) => {
+  const webhook = [{ json: { body: { message: { toolCalls: [{ function: { arguments: args } }] } } } }];
+  const nodes: Record<string, unknown[]> = { Webhook: webhook, 'HTTP Request': [{ json: { data: slots } }], 'HTTP Request1': [{ json: { data: slots } }] };
+  const $ = (n: string) => ({ item: nodes[n][0], first: () => nodes[n][0] });
+  // The window code reads the webhook as its input; the slot checks read Cal.com's answer.
+  const input = /\$input\.item\.json\.body/.test(src) ? webhook : [{ json: { data: slots } }];
+  // eslint-disable-next-line no-new-func
+  const fn = new Function('$input', '$', src) as (i: unknown, d: unknown) => { json: Record<string, any> };
+  return fn({ item: input[0], first: () => input[0], all: () => input }, $).json;
+};
+const SRC = { window: code('Code in JavaScript'), exact: code('Code in JavaScript1'), nearest: code('Code in JavaScript5'), nearestMove: code('Code in JavaScript4') };
+const win = runCode(SRC.window, BOOK_ARGS, F.SLOTS_BOOK);
+const exact = runCode(SRC.exact, BOOK_ARGS, F.SLOTS_BOOK);
+const near = runCode(SRC.nearest, BOOK_ARGS, F.SLOTS_BOOK);
+const taken = { ...BOOK_ARGS, booking_time: near.closest_available_slot as string };
+const exact2 = runCode(SRC.exact, taken, F.SLOTS_BOOK);
+const moveTry = { ...MOVE_ARGS, new_booking: '2026-11-13 10:00' };
+const nearMove = runCode(SRC.nearestMove, moveTry, F.SLOTS_BOOK);
+const windowHours = Number(SRC.window.match(/getHours\(\) \+ (\d+)/)?.[1]);
+
+// The real answers, filled with the film's arguments. Two typos in the live
+// templates are corrected for the film.
+const result = (node: string) => code(node).match(/"result":\s*"([\s\S]*?)"\s*\n/)?.[1] ?? '';
+const say = (node: string, a: Record<string, string>) => result(node)
+  .replace(/\{\{[^}]*arguments\.(\w+)\s*\}\}/g, (_, k) => a[k] ?? '')
+  .replace(/\{\{\s*\$json\.closest_available_slot\s*\}\}/g, a.closest ?? '')
+  .replace('Unfortunatelly', 'Unfortunately').replace('anothe date', 'another date').replace(/\s{2,}/g, ' ');
+const WRONG = 'Мария Петкова';
+// What the AI voice says, in Bulgarian, filled with the same values the workflow's answers use.
+const sayBg = {
+  booked: (t: string) => `Часът ви е запазен за ${t}. Мога ли да помогна с нещо друго?`,
+  taken: (t: string, n: string) => `За съжаление ${t} е зает. Имаме свободен час в ${n}. Удобно ли ви е?`,
+  moved: (t: string) => `Часът ви е преместен за ${t}. Мога ли да помогна с нещо друго?`,
+  notFound: (t: string, who: string) => `Няма запазен час в ${t} на името ${who}. Може би друга дата, час или име?`,
+  cancelled: (t: string) => `Часът ви за ${t} е отказан. Мога ли да помогна с нещо друго?`,
+  notYours: (t: string, who: string) => `Няма запазен час в ${t} на ваше име, ${who}. Може би друга дата или име?`,
+};
+// Each answer is still one of the workflow's own reply nodes (checked below); the words are Bulgarian.
+void say;
+const answers = [
+  { lane: 'Schedule', ok: true, text: sayBg.booked(taken.booking_time) },
+  { lane: 'Schedule', ok: false, text: sayBg.taken(BOOK_ARGS.booking_time, near.closest_available_slot as string) },
+  { lane: 'Reschedule', ok: true, text: sayBg.moved(MOVE_ARGS.new_booking) },
+  { lane: 'Reschedule', ok: false, text: sayBg.taken(moveTry.new_booking, nearMove.closest_available_slot as string) },
+  { lane: 'Reschedule', ok: false, text: sayBg.notFound(MOVE_ARGS.booked_date, WRONG) },
+  { lane: 'Cancel', ok: true, text: sayBg.cancelled(MOVE_ARGS.new_booking) },
+  { lane: 'Cancel', ok: false, text: sayBg.notYours(MOVE_ARGS.new_booking, WRONG) },
+];
+const laneName: Record<string, string> = { Schedule: 'Запазване', Reschedule: 'Преместване', Cancel: 'Отказване' };
+const replies = g.nodes.filter((n) => n.type === 'respondToWebhook').length;
+if (replies !== answers.length) throw new Error('Reply count moved');
+
+// Route: the Switch's own rules.
+const rules = kv('Switch').map(([out, rule]) => [out, rule.replace(/^.*equals\s+/, ''), rule.replace(/\s+equals.*$/, '').replace(/^\{\{\s*\$json\.|\s*\}\}$/g, '')]);
+// Book: the event's end, by its own expression (+1 hour), and what it stores.
+const plus = kvOf('Create an event', 'End').match(/plus\(\{ (\w+): (\d+) \}\)/);
+const addMin = (t: string, m: number) => { const [dd, hm] = t.split(' '); const [h, mi] = hm.split(':').map(Number); const v = h * 60 + mi + m; return `${dd} ${String(Math.floor(v / 60)).padStart(2, '0')}:${String(v % 60).padStart(2, '0')}`; };
+const endOf = (t: string) => addMin(t, Number(plus?.[2]) * (plus?.[1] === 'hours' ? 60 : 1)).split(' ')[1];
+const calQuery = kvOf('HTTP Request3', 'Query').split(', ');
+const slotQuery = kvOf('HTTP Request', 'Query').split(', ');
+kvOf('If3', 'Condition'); // read at build: the verify rule must still exist
+const dayOf = (iso: string) => new Date(`${iso.slice(0, 10)}T12:00:00Z`).toLocaleDateString('bg-BG', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' });
+
+// The real graph, cut into the six steps the rail follows.
+const R = regions(g, [
+  ['Обаждане', ['Webhook']],
+  ['Насочване', ['Switch']],
+  ['Проверка', ['Code in JavaScript', 'HTTP Request', 'Code in JavaScript1', 'If', 'Code in JavaScript5', 'Code in JavaScript2', 'HTTP Request1', 'Code in JavaScript3', 'If1', 'Code in JavaScript4']],
+  ['Записване', ['Create an event', 'Create an event1']],
+  ['Сверяване', ['HTTP Request3', 'If3', 'Delete an event', 'HTTP Request2', 'If2', 'Delete an event1']],
+  ['Отговор', g.nodes.filter((n) => n.type === 'respondToWebhook').map((n) => n.name)],
+], 10);
+// "The fix": the same graph, by tool.
+const lanes = regions(g, [
+  ['Schedule', ['Code in JavaScript', 'HTTP Request', 'Code in JavaScript1', 'If', 'Create an event', 'Code in JavaScript5']],
+  ['Reschedule', ['HTTP Request3', 'If3', 'Delete an event', 'Code in JavaScript2', 'HTTP Request1', 'Code in JavaScript3', 'If1', 'Create an event1', 'Code in JavaScript4']],
+  ['Cancel', ['HTTP Request2', 'If2', 'Delete an event1']],
+], 10);
+const laneSubs: Record<string, string> = {
+  Schedule: 'свободен ли е → запазва го',
+  Reschedule: 'негов ли е → мести го',
+  Cancel: 'негов ли е → трие го',
+};
+const LANES: Lane[] = lanes.map((l) => ({ name: laneName[l.step], sub: laneSubs[l.step], thumb: outline(g, l.ids) }));
+
+const path = ['Webhook', 'Switch', 'Code in JavaScript', 'HTTP Request', 'Code in JavaScript1', 'If', 'Code in JavaScript5', 'Respond to Webhook3'].map((n) => nodeByName(g, n).id);
+
+const liveSource = { window: SRC.window, exact: SRC.exact, nearest: SRC.nearest };
+const liveFixtures = { toolArgs: BOOK_ARGS, newBooking: BOOK_ARGS.booking_time, slots: F.SLOTS_BOOK };
+
+const call: [number, string, string?][] = [
+  [0, '"message": { "toolCalls": [{'],
+  [1, `"id": <em>"${F.TOOL_CALL_ID}"</em>,`, 'номер на въпроса'],
+  [1, '"function": {'],
+  [2, '"name": <em>"Schedule"</em>,', 'какво иска'],
+  [2, '"arguments": {'],
+  [3, `"booking_time": <em>"${BOOK_ARGS.booking_time}"</em>,`, 'кога'],
+  [3, `"user_name": <em>"${CALLER}"</em>`, 'кой'],
+  [2, '}'],
+  [1, '}'],
+  [0, '}] }'],
+];
+const reqTime = BOOK_ARGS.booking_time.split(' ')[1];
+
+const STEPS = R.map((r) => r.step);
+const SCENES = [
+  ['open', 130], ['problem', 260], ['fix', 300],
+  ['ask', 280, 'Обаждане'], ['route', 220, 'Насочване'], ['check', 340, 'Проверка'], ['book', 340, 'Записване'],
+  ['verify', 360, 'Сверяване'], ['replies', 300, 'Отговор'],
+  ['machine', 290], ['end', 150],
+] as const;
+const io = (a: number, b: number, c = 2, dd = 2) => `--a:${a};--b:${b};--c:${c};--d:${dd}`;
+const missed: [string, string, string][] = [
+  ['19:42', CALLER, 'иска час в четвъртък следобед'],
+  ['21:10', 'Непознат номер', 'не остави съобщение'],
+  ['07:55', 'Иван С.', 'иска да премести часа си'],
+  ['08:20', 'Непознат номер', 'не остави съобщение'],
+];
+---
+<Film
+  title="Гласов AI асистент · Orryvelle"
+  film="Гласов AI асистент"
+  description="Кратък филм за гласов AI асистент, който запазва, мести и отказва часове, докато човекът е още на телефона."
+  runtime={190}
+  steps={STEPS}
+  lang="bg"
+>
+  <div class="stage">
+    <section class="layer hold-start on" id="open">
+      <div class="center">
+        <div class="o-wrap">
+          <h1 class="title-x o-title" style="view-transition-name: film-title; --em: 15.2; --em-m: 8.6"><span>Гласов AI</span> <span>асистент</span></h1>
+          <p class="narr io" style={io(0.25, 0.4)}>Кратък филм за рецепция, която никога не затваря.</p>
+          <p class="invented io" style={io(0.4, 0.55)}>Хората са измислени. Системата е истинска.</p>
+        </div>
+      </div>
+      <p class="cue">Превъртете, за да започне</p>
+    </section>
+
+    <!-- The problem -->
+    <section class="layer" id="problem">
+      <p class="kicker io" style={io(0.02, 0.08)}>Проблемът</p>
+      <div class="center safe">
+        <div class="pb">
+          <div class="phone-l in" style={io(0.04, 0.1)}>
+            <p class="who">Пропуснати обаждания</p>
+            {missed.map(([t, who, what], i) => (
+              <p class="ms in" style={io(0.08 + i * 0.07, 0.12 + i * 0.07)}><Icon name="phone" /><span><b>{who}</b><small>{what}</small></span><time>{t}</time></p>
+            ))}
+          </div>
+          <div class="desk in" style={io(0.5, 0.56)}>
+            <p class="who">Рецепция</p>
+            <p class="closed hit-text">Затворено</p>
+            <p class="desk-s">Отваряме в 09:00. Никой не вдига телефона.</p>
+          </div>
+        </div>
+      </div>
+      <div class="subs">
+        <p class="narr io" style={io(0.04, 0.1, 0.44, 0.48)}>Хората звънят, за да си запазят час. Често когато никой не може да вдигне.</p>
+        <p class="narr io" style={io(0.52, 0.58, 0.93, 0.97)}>Всяко пропуснато обаждане е клиент, който отива при друг.</p>
+      </div>
+    </section>
+
+    <!-- The fix -->
+    <section class="layer" id="fix">
+      <p class="kicker io" style={io(0.02, 0.08)}>Решението · истинската система</p>
+      <div class="center safe">
+        <BranchMap entry={['Обаждане', 'човекът казва']} route={['Разпределяне', 'какво иска?']} lanes={LANES} exit={['Отговор', 'казан веднага']} />
+      </div>
+      <div class="subs">
+        <p class="narr io" style={io(0.04, 0.1, 0.5, 0.56)}>Вдига компютър, който говори като човек. Когато трябва да погледне календара, пита тази програма.</p>
+        <p class="narr io" style={io(0.6, 0.66, 0.93, 0.97)}>Тя може три неща: да запази час, да го премести и да го откаже. И отговаря за секунди.</p>
+      </div>
+    </section>
+
+    <!-- 1 · Call -->
+    <section class="layer" id="ask">
+      <div class="center safe">
+        <div class="ak">
+          <div class="ak-l">
+            <p class="bub them in" style={io(0.04, 0.1)}><b>{CALLER}</b><span data-type="0.06 0.2">Здравейте, може ли да си запазя час за четвъртък, към два?</span></p>
+            <p class="arrow-d in" style={io(0.22, 0.26)}>Компютърът разбира: трябва му календарът</p>
+            <p class="tool in hit" style={io(0.26, 0.32)}><Icon name="route" />праща кратка бележка → на програмата</p>
+          </div>
+          <pre class="body in" style={io(0.32, 0.38)}><code>{call.map(([ind, line, note], i) => (
+            <span class:list={['bl in', { noted: note }]} style={`${io(0.36 + i * 0.025, 0.39 + i * 0.025)};--ind:${ind}`}><span set:html={line} />{note && <b class="nt hit-text">{note}</b>}</span>
+          ))}</code></pre>
+        </div>
+      </div>
+      <div class="subs">
+        <p class="narr io" style={io(0.04, 0.1, 0.46, 0.5)}>Човекът просто говори. Компютърът записва какво иска в кратка бележка.</p>
+        <p class="narr io" style={io(0.54, 0.6, 0.93, 0.97)}>В бележката пише три неща: какво иска, за кога и кой е.</p>
+      </div>
+    </section>
+
+    <!-- 2 · Route -->
+    <section class="layer" id="route">
+      <div class="center safe">
+        <div class="rt">
+          <p class="incoming in hit" style={io(0.04, 0.1)}><small>function.name</small><b>“Schedule”</b></p>
+          <div class="rules">
+            <p class="rl-h in" style={io(0.1, 0.14)}>Разпределител · {rules[0][2]}</p>
+            {rules.map(([out, value], i) => (
+              <p class:list={['rl in', { on: i === 0 }]} style={io(0.14 + i * 0.05, 0.18 + i * 0.05)}><code>е ли “{value}”</code><span>→</span><b>{laneName[value] ?? out}</b>{i === 0 && <em class="in hit-text" style={io(0.32, 0.36)}>това е</em>}</p>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div class="subs">
+        <p class="narr io" style={io(0.04, 0.1, 0.46, 0.5)}>Всички бележки идват на едно и също място.</p>
+        <p class="narr io" style={io(0.54, 0.6, 0.93, 0.97)}>Програмата чете какво иска човекът и тръгва по правилния път.</p>
+      </div>
+    </section>
+
+    <!-- 3 · Check -->
+    <section class="layer" id="check">
+      <div class="center safe">
+        <div class="ck">
+          <div class="ck-top">
+            <p class="step in" style={io(0.04, 0.08)}><small>поискан час</small><b class="hit-text">{BOOK_ARGS.booking_time}</b></p>
+            <i class="sep in" style={io(0.08, 0.1)}>→</i>
+            <p class="step in" style={io(0.1, 0.14)}><small>следващите {windowHours} часа · на живо</small><b data-live="win">{win.start_date} → {win.end_date}</b></p>
+            <i class="sep in" style={io(0.14, 0.16)}>→</i>
+            <p class="step in" style={io(0.16, 0.2)}><small>GET api.cal.com/v2/slots</small><b>{slotQuery.join(' · ')}</b></p>
+          </div>
+          <div class="grid">
+            {Object.entries(F.SLOTS_BOOK).map(([day, list], di) => (
+              <div class="col in" style={io(0.22 + di * 0.04, 0.26 + di * 0.04)}>
+                <p class="col-h">{dayOf(day)}</p>
+                {day === BOOK_ARGS.booking_time.slice(0, 10) && <p class="slot ghost in" style={io(0.36, 0.4)}>{reqTime}<small>зает</small></p>}
+                {list.map((s) => <p class="slot" data-slot={s.start}>{s.start.slice(11, 16)}</p>)}
+              </div>
+            ))}
+          </div>
+          <div class="ck-out">
+            <p class="res in" style={io(0.4, 0.44)}><small>свободен ли е · на живо</small><code data-live="exact">available: {String(exact.available)}</code></p>
+            <p class="res in hit" style={io(0.54, 0.6)}><small>най-близкият свободен час · на живо</small><code class="near" data-live="nearest">{near.closest_available_slot}</code></p>
+            <p class="stamp in" style={io(0.6, 0.64)}>Истинският ѝ код току-що се изпълни в браузъра ви · <b data-live="slot-ms">…</b></p>
+          </div>
+        </div>
+      </div>
+      <div class="subs">
+        <p class="narr io" style={io(0.04, 0.1, 0.46, 0.5)}>Програмата поглежда календара за следващите {windowHours} часа. Свободен ли е поисканият час?</p>
+        <p class="narr io" style={io(0.54, 0.6, 0.93, 0.97)}>Зает е? Тя сама намира най-близкия свободен час.</p>
+      </div>
+    </section>
+
+    <!-- 4 · Book -->
+    <section class="layer" id="book">
+      <div class="center safe">
+        <div class="bk">
+          <div class="talk">
+            <p class="bub ai in" style={io(0.03, 0.08)}><b>AI асистент</b>{answers[1].text}</p>
+            <p class="bub them in" style={io(0.12, 0.17)}><b>{CALLER}</b>Четири и половина ми е удобно.</p>
+            <p class="tool sm in" style={io(0.2, 0.25)}><Icon name="route" />Schedule · booking_time “{taken.booking_time}” → available: {String(exact2.available)}</p>
+            <p class="bub ai in" style={io(0.62, 0.68)}><b>AI асистент</b>{answers[0].text}</p>
+          </div>
+          <div class="event in hit" style={io(0.3, 0.36)}>
+            <p class="who"><Icon name="calendar" />Google Календар · нов час</p>
+            <p class="ev-d">{dayOf(taken.booking_time)}</p>
+            <p class="ev-t">{taken.booking_time.split(' ')[1]} → <b>{endOf(taken.booking_time)}</b></p>
+            <p class="ev-s">край = начало + {plus?.[2]} {plus?.[1] === 'hours' ? 'час' : 'мин.'}</p>
+            <p class="ev-k in hit" style={io(0.44, 0.5)}><small>име</small><b>{CALLER}</b></p>
+            <p class="ev-n in" style={io(0.5, 0.56)}>Записва се името на човека. То ще потрябва по-късно.</p>
+          </div>
+        </div>
+      </div>
+      <div class="subs">
+        <p class="narr io" style={io(0.04, 0.1, 0.46, 0.5)}>Компютърът предлага свободния час. Човекът казва „да“ и часът е запазен.</p>
+        <p class="narr io" style={io(0.54, 0.6, 0.93, 0.97)}>В календара се записва и името на човека. Запомнете това.</p>
+      </div>
+    </section>
+
+    <!-- 5 · Verify -->
+    <section class="layer" id="verify">
+      <div class="center safe">
+        <div class="vf">
+          <div class="vf-l">
+            <p class="bub them in" style={io(0.03, 0.08)}><b>{CALLER} · два дни по-късно</b>Може ли да преместя часа си от четвъртък за петък в единайсет?</p>
+            <p class="tool sm in" style={io(0.1, 0.14)}><Icon name="route" />Преместване · от “{MOVE_ARGS.booked_date}” → на “{MOVE_ARGS.new_booking}”</p>
+            <p class="q in" style={io(0.16, 0.2)}><small>търси в календара по име</small><code>q = “{CALLER}” · {calQuery.slice(1).join(' · ')}</code></p>
+            <p class="match in hit" style={io(0.24, 0.3)}><small>името съвпада ли?</small><span><b>“{CALLER}”</b> = <b>“{CALLER}”</b> ✓</span></p>
+            <ol class="seq">
+              <li class="in" style={io(0.34, 0.38)}>Старият час е изтрит</li>
+              <li class="in" style={io(0.38, 0.42)}>Същата проверка за {MOVE_ARGS.new_booking}</li>
+              <li class="in" style={io(0.42, 0.46)}>Нов час · {MOVE_ARGS.new_booking.split(' ')[1]} → {endOf(MOVE_ARGS.new_booking)} · “{CALLER}”</li>
+            </ol>
+          </div>
+          <div class="vf-r">
+            <div class="out ok in" style={io(0.5, 0.56)}><p class="who">Преместване · неговият час</p><p>{answers[2].text}</p></div>
+            <div class="out ok in" style={io(0.58, 0.64)}><p class="who">Отказване · неговият час</p><p>{answers[5].text}</p></div>
+            <div class="out no in" style={io(0.66, 0.72)}><p class="who">Друг човек · “{WRONG}”</p><p>{answers[4].text}</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="subs">
+        <p class="narr io" style={io(0.04, 0.1, 0.46, 0.5)}>За да премести или откаже час, програмата първо го търси по името на човека.</p>
+        <p class="narr io" style={io(0.54, 0.6, 0.93, 0.97)}>Пипа календара само ако името съвпадне. Никой не може да отмени чужд час.</p>
+      </div>
+    </section>
+
+    <!-- 6 · Reply -->
+    <section class="layer" id="replies">
+      <div class="center safe">
+        <div class="rp">
+          {['Schedule', 'Reschedule', 'Cancel'].map((lane, li) => (
+            <div class="rp-col">
+              <p class="rp-h in" style={io(0.04 + li * 0.06, 0.08 + li * 0.06)}>{laneName[lane]}</p>
+              {answers.filter((a) => a.lane === lane).map((a, i) => (
+                <p class:list={['ans in', { ok: a.ok }]} style={io(0.08 + li * 0.06 + i * 0.05, 0.12 + li * 0.06 + i * 0.05)}>{a.text}</p>
+              ))}
+            </div>
+          ))}
+        </div>
+        <p class="echo in" style={io(0.5, 0.56)}><code>toolCallId: “{F.TOOL_CALL_ID}”</code><span>всеки отговор носи номера на въпроса, за да знае компютърът на какво отговаря</span></p>
+      </div>
+      <div class="subs">
+        <p class="narr io" style={io(0.04, 0.1, 0.46, 0.5)}>Всеки път завършва с изречение, което компютърът казва на глас.</p>
+        <p class="narr io" style={io(0.54, 0.6, 0.93, 0.97)}>{replies} готови отговора. Човекът никога не чака служител.</p>
+      </div>
+    </section>
+
+    <Reveal id="machine" graph={g} shot={shot} title="Гласов AI асистент" facts={[`${e.stats.nodes} стъпки`, '3 задачи', `${replies} готови отговора`]} path={path} />
+
+    <section class="layer hold-end" id="end">
+      <div class="center">
+        <div class="end">
+          <p class="fin">— Край —</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <MiniMap graph={g} regions={R} />
+
+  <div class="track" aria-hidden="true">
+    {SCENES.map(([id, len, ch]) => <div data-scene={id} data-chapter={ch} style={`--len:${len}`}></div>)}
+  </div>
+  <script type="application/json" id="live-source" set:html={JSON.stringify(liveSource)} />
+  <script type="application/json" id="live-fixtures" set:html={JSON.stringify(liveFixtures)} />
+</Film>
+
+<style>
+  .stamp { text-align: left; }
+  .phone-l, .desk, .ev, .event, .q, .match, .out, .rp-col, .step, .res { background: var(--night-2); border: 1px solid var(--line); border-radius: 12px; }
+
+  /* Problem */
+  .pb { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(28px, 5vw, 72px); align-items: center; width: min(900px, 100%); }
+  .phone-l { display: grid; gap: 2px; padding: 14px 16px; }
+  .ms { display: grid; grid-template-columns: 18px 1fr auto; gap: 12px; align-items: center; padding: 9px 0; border-top: 1px solid #1d2025; }
+  .ms :global(svg) { width: 15px; color: var(--live); }
+  .ms span { display: grid; }
+  .ms b { font-weight: 500; font-size: 0.92rem; color: var(--live); }
+  .ms small { font-size: 0.76rem; color: var(--text-3); }
+  .ms time { font-family: var(--mono); font-size: 0.76rem; color: var(--text-3); }
+  .desk { display: grid; gap: 6px; padding: 18px 20px; text-align: center; }
+  .closed { font-size: 2.2rem; font-weight: 300; font-stretch: 120%; letter-spacing: 0.12em; text-transform: uppercase; }
+  .desk-s { font-size: 0.86rem; color: var(--text-2); }
+
+  /* Ask */
+  .ak { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.2fr); gap: clamp(24px, 4vw, 56px); align-items: center; width: min(1060px, 100%); }
+  .ak-l { display: grid; gap: 14px; justify-items: start; }
+  .bub { display: grid; gap: 3px; max-width: 32rem; padding: 10px 14px; border-radius: 14px 14px 14px 4px; background: #1d2a1f; font-size: 0.95rem; line-height: 1.4; }
+  .bub b { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #7fd6a4; }
+  .bub.ai { background: #241b0d; border: 1px solid rgb(244 195 90 / 0.35); }
+  .bub.ai b { color: #f4c35a; }
+  .arrow-d { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); }
+  .tool { display: flex; align-items: center; gap: 10px; padding: 9px 14px; border: 1px solid var(--live); border-radius: 999px; font-family: var(--mono); font-size: 0.78rem; color: var(--live); }
+  .tool :global(svg) { width: 15px; flex: none; }
+  .tool.sm { font-size: 0.7rem; padding: 6px 12px; box-shadow: none; }
+  .body { margin: 0; padding: 16px 18px; background: #0d0f12; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .body code { display: grid; gap: 4px; font-size: 0.82rem; line-height: 1.5; }
+  .bl { display: flex; justify-content: space-between; gap: 16px; padding-left: calc(var(--ind) * 1.4em); color: var(--text-3); }
+  .bl :global(em) { font-style: normal; color: var(--text); }
+  .bl.noted :global(em) { color: var(--live); }
+  .nt { flex: none; font: 600 0.6rem var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--live); padding-top: 3px; }
+
+  /* Route */
+  .rt { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: center; width: min(820px, 100%); }
+  .incoming { display: grid; gap: 4px; padding: 16px 22px; border: 1px solid var(--live); border-radius: 14px; background: #160f0c; text-align: center; }
+  .incoming small { font-family: var(--mono); font-size: 0.7rem; color: var(--text-3); }
+  .incoming b { font-size: 1.5rem; font-weight: 500; }
+  .rules { display: grid; gap: 8px; }
+  .rl-h { font-family: var(--mono); font-size: 0.72rem; color: var(--text-3); }
+  .rl { display: grid; grid-template-columns: 1fr auto 8.5em auto; gap: 14px; align-items: center; padding: 12px 16px; border: 1px solid #2a2d33; border-radius: 10px; background: var(--night-2); }
+  .rl code { font-size: 0.86rem; }
+  .rl span { color: var(--text-3); }
+  .rl b { font-weight: 600; letter-spacing: 0.12em; font-size: 0.78rem; }
+  .rl em { font-style: normal; font-family: var(--mono); font-size: 0.72rem; color: #7fd6a4; }
+  .rl.on { --k: clamp(0, (var(--p) - 0.32) / 0.04, 1); border-color: color-mix(in srgb, var(--live) calc(var(--k) * 100%), #2a2d33); background: color-mix(in srgb, #160f0c calc(var(--k) * 100%), var(--night-2)); }
+
+  /* Check */
+  .ck { display: grid; gap: clamp(14px, 2.6vh, 22px); justify-items: center; width: min(1080px, 100%); }
+  .ck-top { display: flex; align-items: stretch; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .step { display: grid; gap: 3px; padding: 9px 14px; }
+  .step small, .res small { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); }
+  .step b { font-family: var(--mono); font-weight: 400; font-size: 0.82rem; }
+  .sep { align-self: center; font-style: normal; color: var(--live); }
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 150px)); gap: 14px; }
+  .col { display: grid; gap: 6px; align-content: start; }
+  .col-h { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); text-align: center; padding-bottom: 4px; border-bottom: 1px solid #2a2d33; }
+  .slot { display: flex; justify-content: center; gap: 8px; padding: 6px 10px; border: 1px solid #2a2d33; border-radius: 8px; font-family: var(--mono); font-size: 0.86rem; transition: none; }
+  .slot:global(.nearest) { --k: clamp(0, (var(--p) - 0.54) / 0.06, 1); border-color: color-mix(in srgb, #7fd6a4 calc(var(--k) * 100%), #2a2d33); background: color-mix(in srgb, #0f1a13 calc(var(--k) * 100%), transparent); color: color-mix(in srgb, #7fd6a4 calc(var(--k) * 100%), var(--text)); }
+  .slot.ghost { border-style: dashed; border-color: var(--live); color: var(--live); text-decoration: line-through; }
+  .slot.ghost small { text-decoration: none; font-size: 0.66rem; }
+  .ck-out { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: center; }
+  .res { display: grid; gap: 3px; padding: 9px 14px; }
+  .res code { font-size: 0.9rem; }
+  .res .near { color: #7fd6a4; }
+
+  /* Book */
+  .bk { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.8fr); gap: clamp(24px, 4vw, 56px); align-items: center; width: min(1060px, 100%); }
+  .talk { display: grid; gap: 10px; justify-items: start; }
+  .talk .bub.them { justify-self: end; border-radius: 14px 14px 4px 14px; }
+  .event { display: grid; gap: 4px; padding: 16px 18px; border-top: 3px solid var(--live); }
+  .event .who { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .event .who :global(svg) { width: 14px; color: var(--live); }
+  .ev-d { font-size: 1.3rem; font-weight: 500; }
+  .ev-t { font-family: var(--mono); font-size: 1rem; }
+  .ev-t b { font-weight: 400; color: var(--live); }
+  .ev-s { font-family: var(--mono); font-size: 0.68rem; color: var(--text-3); }
+  .ev-k { display: grid; gap: 2px; margin-top: 10px; padding: 8px 12px; border: 1px solid #7fd6a4; border-radius: 10px; background: #0f1a13; box-shadow: none; }
+  .ev-k small { font-family: var(--mono); font-size: 0.66rem; color: var(--text-3); }
+  .ev-k b { font-weight: 500; color: #7fd6a4; }
+  .ev-n { font: italic 0.86rem/1.35 var(--serif); color: var(--text-2); }
+
+  /* Verify */
+  .vf { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(20px, 3.4vw, 48px); align-items: center; width: min(1120px, 100%); }
+  .vf-l, .vf-r { display: grid; gap: 8px; justify-items: start; }
+  .q, .match { display: grid; gap: 3px; padding: 8px 12px; width: 100%; }
+  .q small, .match small { font-family: var(--mono); font-size: 0.64rem; color: var(--text-3); }
+  .q code { font-size: 0.8rem; }
+  .match { border-color: #7fd6a4; background: #0f1a13; box-shadow: none; }
+  .match span { font-size: 0.92rem; color: #7fd6a4; }
+  .match b { font-weight: 500; }
+  .seq { margin: 0; padding-left: 1.3em; display: grid; gap: 3px; font-size: 0.84rem; color: var(--text-2); }
+  .out { display: grid; gap: 4px; padding: 10px 14px; width: 100%; font-size: 0.86rem; line-height: 1.4; }
+  .out.ok { border-color: rgb(127 214 164 / 0.6); }
+  .out.no { border-color: rgb(255 107 61 / 0.6); }
+  .out.no .who { color: var(--live); }
+
+  /* Replies */
+  .rp { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; width: min(1120px, 100%); align-items: start; }
+  .rp-col { display: grid; gap: 8px; padding: 12px; }
+  .rp-h { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--live); }
+  .ans { padding: 9px 12px; border-radius: 12px 12px 12px 4px; background: #241b0d; border: 1px solid rgb(244 195 90 / 0.25); font-size: 0.82rem; line-height: 1.4; }
+  .ans.ok { border-color: rgb(127 214 164 / 0.45); }
+  .echo { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; align-items: baseline; gap: 12px; flex-wrap: wrap; padding-inline: var(--gutter); }
+  .echo code { font-size: 0.8rem; color: var(--live); }
+  .echo span { font: italic 0.88rem var(--serif); color: var(--text-2); }
+
+  @media (max-width: 760px) {
+    .pb { grid-template-columns: 1fr; gap: 12px; }
+    .ms { padding: 6px 0; }
+    .closed { font-size: 1.6rem; }
+
+    .ak { grid-template-columns: 1fr; gap: 12px; }
+    .ak-l { gap: 8px; }
+    .arrow-d { display: none; }
+    .bub { font-size: 0.82rem; padding: 8px 12px; }
+    .body { padding: 10px 12px; }
+    .body code { font-size: 0.62rem; gap: 2px; }
+    .nt { font-size: 0.5rem; }
+
+    .rt { grid-template-columns: 1fr; gap: 14px; justify-items: center; }
+    .rl { grid-template-columns: 1fr auto auto; gap: 8px; padding: 9px 12px; }
+    .rl span { display: none; }
+    .rl code { font-size: 0.74rem; }
+
+    .ck-top { display: grid; grid-template-columns: 1fr; gap: 6px; width: 100%; }
+    .sep { display: none; }
+    .step { padding: 6px 10px; }
+    .step:last-child b { font-size: 0.66rem; }
+    .grid { gap: 6px; width: 100%; grid-template-columns: repeat(3, 1fr); }
+    .slot { font-size: 0.74rem; padding: 4px 6px; }
+    .ck-out { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: 100%; }
+    .ck-out .stamp { grid-column: 1 / -1; text-align: center; }
+    .res { padding: 6px 10px; }
+    .res code { font-size: 0.76rem; }
+
+    .bk { grid-template-columns: 1fr; gap: 10px; }
+    .talk { gap: 6px; }
+    .talk .tool { display: none; }
+    .event { padding: 10px 14px; }
+    .ev-d { font-size: 1.05rem; }
+    .ev-s, .ev-n { display: none; }
+    .talk .bub:last-child { display: none; }
+
+    .vf { grid-template-columns: 1fr; gap: 8px; }
+    .vf-l .bub { display: none; }
+    .q code { font-size: 0.68rem; }
+    .seq { font-size: 0.74rem; }
+    .out { padding: 7px 10px; font-size: 0.74rem; }
+    .vf-l { opacity: calc(1 - clamp(0, (var(--p) - 0.48) / 0.04, 1)); }
+    .vf-l, .vf-r { grid-area: 1 / 1; }
+
+    .rp { grid-template-columns: 1fr; gap: 6px; }
+    .rp-col { padding: 8px 10px; gap: 4px; }
+    .ans { font-size: 0.72rem; padding: 6px 10px; }
+    .ans:not(.ok) { display: none; }
+    .echo span { display: none; }
+  }
+</style>
