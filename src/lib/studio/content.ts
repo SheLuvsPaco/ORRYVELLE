@@ -230,7 +230,7 @@ export const services: Service[] = [
     ...link("enterprise-solutions"),
     seo: {
       title: "AI Receptionists, AI Agents & Business Automation",
-      heading: "AI receptionists, AI agents and business automation",
+      heading: "AI and automation for small and medium businesses",
       description:
         "AI receptionists that answer and book calls 24/7, plus n8n and CRM automation that removes manual work. Built by hand, scoped up front. Book a free call.",
     },

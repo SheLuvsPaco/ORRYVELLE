@@ -178,31 +178,12 @@
 /* Proof */
 .solution-proof-list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* A fixed card size, whatever the count: a page with two projects shows two cards, not two half-page panels. */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
   margin: 40px 0 0;
   padding: 0;
   list-style: none;
-}
-/* One or two projects: a wider layout instead of a mostly empty row. */
-.solution-proof-list.is-count-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-.solution-proof-list.is-count-1 {
-  grid-template-columns: minmax(0, 1fr);
-}
-.solution-proof-list.is-count-1 .solution-proof-card {
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  grid-template-rows: auto;
-}
-.solution-proof-list.is-count-1 .solution-proof-media {
-  border-right: 1px solid var(--line);
-  border-bottom: 0;
-}
-.solution-proof-list.is-count-1 .solution-proof-copy {
-  align-content: center;
-  grid-template-rows: none;
-  padding: 40px;
 }
 .solution-proof-card {
   display: grid;
@@ -297,9 +278,11 @@
   .solution-hero-visual {
     max-width: 720px;
   }
-  .solution-feature-list,
-  .solution-proof-list {
+  .solution-feature-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .solution-proof-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 @media (max-width: 760px) {
@@ -312,19 +295,8 @@
   .solution-pain-list,
   .solution-feature-list,
   .solution-step-list,
-  .solution-proof-list,
-  .solution-proof-list.is-count-2 {
+  .solution-proof-list {
     grid-template-columns: minmax(0, 1fr);
-  }
-  .solution-proof-list.is-count-1 .solution-proof-card {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .solution-proof-list.is-count-1 .solution-proof-media {
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-  }
-  .solution-proof-list.is-count-1 .solution-proof-copy {
-    padding: 24px;
   }
   .solution-pain-list li,
   .solution-feature-list li,

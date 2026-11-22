@@ -36,6 +36,8 @@ export const enterpriseSolutions: Solution[] = [
     ],
     proof: [
       { slug: "ai-voice-receptionist", note: "An inbound agent that books, reschedules and cancels appointments against Cal.com and Google Calendar, plus an outbound agent that calls every new booking to confirm it." },
+      { slug: "ai-cold-caller", note: "The same voice technology, used to call out: it researches each business first, then calls and books the meeting." },
+      { slug: "sales-pipeline-system", note: "What happens after the booking: reminders before every call and follow-up when someone doesn't show up." },
     ],
     faqs: [
       { question: "How much does an AI receptionist cost?", answer: "There are two parts. Building it is scoped and priced in a written proposal after a free consultation. Running it has usage costs you pay directly to the providers, such as call minutes and AI usage, which depend on your call volume. Our guide to AI receptionist costs breaks those running costs down." },
@@ -79,6 +81,8 @@ export const enterpriseSolutions: Solution[] = [
     ],
     proof: [
       { slug: "ai-cold-caller", note: "Built to sell websites: it audits each lead’s current site, finds the owner on LinkedIn, writes a personal opener and books meetings, logging every outcome." },
+      { slug: "ai-voice-receptionist", note: "The inbound side: an AI that answers every call and books, moves or cancels appointments while the caller is on the line." },
+      { slug: "sales-pipeline-system", note: "Once a meeting is booked: timed reminders before it and follow-up if the person doesn't turn up." },
     ],
     faqs: [
       { question: "Is AI cold calling legal?", answer: "It depends on where and whom you call. Many countries regulate automated calls, consent and do-not-call lists, and EU law requires telling people they’re speaking to an AI. We design the agent around the rules of the markets you call, and you should confirm the specifics with legal advice for your market." },
@@ -92,7 +96,7 @@ export const enterpriseSolutions: Solution[] = [
     slug: "n8n-automation",
     kind: "service",
     service: "enterprise-solutions",
-    name: "n8n Automation",
+    name: "AI & Automation",
     seo: {
       title: "n8n Automation Agency: Workflows Built by Hand",
       description:
@@ -125,6 +129,7 @@ export const enterpriseSolutions: Solution[] = [
       { slug: "sales-pipeline-system", note: "Three n8n workflows triggered by GoHighLevel: timed confirmations before every call, six no-show follow-ups and reactivation of cold leads." },
       { slug: "ai-voice-receptionist", note: "Voice agents orchestrated in n8n, routing each call by intent and syncing bookings with Cal.com and Google Calendar in real time." },
       { slug: "ai-cold-caller", note: "An n8n workflow that loops through a lead list, researches each business and passes a personal script to every call." },
+      { slug: "amazon-store-automation", note: "Thirteen n8n workflows sharing one database: keyword research, listing rewrites, ad campaigns and daily sales reports for an online store." },
     ],
     faqs: [
       { question: "Why n8n instead of Zapier or Make?", answer: "n8n bills per complete workflow run rather than per step, handles complex branching and AI agents well, and can be self-hosted for full control of your data. For short, simple automations Zapier or Make can be the better fit, and we’ll say so." },
@@ -168,6 +173,8 @@ export const enterpriseSolutions: Solution[] = [
     ],
     proof: [
       { slug: "sales-pipeline-system", note: "For a tax and residency advisory firm: five timed confirmation touches before each call, six no-show follow-ups and reactivation of cold leads, all triggered by GoHighLevel." },
+      { slug: "ai-voice-receptionist", note: "Every call ends up in the system: bookings go to the calendar and outcomes to Airtable, with an alert to the team." },
+      { slug: "ai-cold-caller", note: "Every outcome of every call is written back to the lead list, and booked meetings create a CRM record." },
     ],
     faqs: [
       { question: "Do you work with GoHighLevel?", answer: "Yes. Our Sales Pipeline System is built around GoHighLevel, with n8n running the sequences and every touch noted on the contact." },
@@ -213,6 +220,8 @@ export const enterpriseSolutions: Solution[] = [
     proof: [
       { slug: "sales-pipeline-system", note: "Follow-up work that used to depend on people, from call confirmations to no-show recovery, now runs on its own around the CRM." },
       { slug: "ai-voice-receptionist", note: "Calls, bookings and confirmations handled automatically, with outcomes logged to Airtable and alerts sent to the team." },
+      { slug: "ai-cold-caller", note: "Prospecting that used to take a salesperson all day: research, a personal opener, the call and the follow-up." },
+      { slug: "amazon-store-automation", note: "The daily running of an online store, from keyword research and ads to sales reports, done by thirteen workflows." },
     ],
     faqs: [
       { question: "What should we automate first?", answer: "Start with the tasks that repeat most often and cost the most hours: data entry between tools, reminders and follow-ups, and recurring reports are the usual winners. We pinpoint yours in the consultation." },
