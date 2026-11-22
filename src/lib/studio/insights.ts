@@ -9,6 +9,7 @@ import customVsOffTheShelf from "@/content/insights/custom-software-vs-off-the-s
 import websitePlatforms from "@/content/insights/custom-website-vs-wordpress-webflow-shopify";
 import aiRecommendations from "@/content/insights/get-recommended-by-chatgpt";
 import shopifyCost from "@/content/insights/shopify-store-cost";
+import automationForSmb from "@/content/insights/automation-for-small-business";
 
 /**
  * Insights: buyer guides written to be quoted by search and AI assistants. Each article opens
@@ -36,6 +37,8 @@ export type Insight = {
   sources: { title: string; url: string }[];
   /** Two-tone heading for the share image. */
   titleParts: [string, string];
+  /** Case studies shown as a rail right after the article (slugs, in order). */
+  projects?: string[];
 };
 
 export const insights: Insight[] = [
@@ -45,6 +48,7 @@ export const insights: Insight[] = [
   websitePlatforms,
   aiRecommendations,
   shopifyCost,
+  automationForSmb,
 ].sort((a, b) => b.published.localeCompare(a.published) || a.title.localeCompare(b.title));
 
 /* Bulgarian articles are overlays of the English ones (src/content/bg/insights); sources are shared. */

@@ -56,6 +56,7 @@ const bgChildren: Record<string, Record<string, string>> = {
     "custom-website-vs-wordpress-webflow-shopify": "uebsait-po-porachka-ili-wordpress",
     "get-recommended-by-chatgpt": "kak-da-vi-preporachva-chatgpt",
     "shopify-store-cost": "kolko-struva-onlain-magazin-shopify",
+    "automation-for-small-business": "avtomatizatsiya-za-malak-i-sreden-biznes",
   },
 };
 const invert = (table: Record<string, string>) => Object.fromEntries(Object.entries(table).map(([key, value]) => [value, key]));

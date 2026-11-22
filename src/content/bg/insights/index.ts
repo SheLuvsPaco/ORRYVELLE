@@ -6,6 +6,7 @@ import websitePlatforms from "./custom-website-vs-wordpress-webflow-shopify";
 import aiRecommendations from "./get-recommended-by-chatgpt";
 import automationPlatforms from "./n8n-vs-zapier-vs-make";
 import shopifyCost from "./shopify-store-cost";
+import automationForSmb from "./automation-for-small-business";
 
 /** Bulgarian articles, keyed by the English slug. Sources and dates are shared with the English. */
 export const bgInsights: Record<string, Overlay<Insight>> = {
@@ -15,4 +16,5 @@ export const bgInsights: Record<string, Overlay<Insight>> = {
   "custom-website-vs-wordpress-webflow-shopify": websitePlatforms,
   "get-recommended-by-chatgpt": aiRecommendations,
   "shopify-store-cost": shopifyCost,
+  "automation-for-small-business": automationForSmb,
 };

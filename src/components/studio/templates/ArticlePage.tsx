@@ -5,11 +5,13 @@ import { serviceBySlug } from "@/lib/studio/content";
 import { href, inSentence, t, type Locale } from "@/lib/studio/i18n";
 import { formatDate, headings, insightBySlug, readingMinutes, renderBody, type Insight } from "@/lib/studio/insights";
 import { setRequestLocale } from "@/lib/studio/localize";
+import { projectBySlug } from "@/lib/studio/projects";
 import { articleSchema, breadcrumbSchema, faqSchema, graph, pageMetadata } from "@/lib/studio/seo";
 import FAQSection from "../FAQSection";
 import JsonLd from "../JsonLd";
 import RelatedInsights from "../RelatedInsights";
-import { ButtonLink, Corners } from "../ui";
+import { ButtonLink, Corners, SectionIntro } from "../ui";
+import { WorkRail } from "../Work";
 import "./article.css";
 
 const text = {
@@ -28,6 +30,11 @@ const text = {
       "Figures were checked against these sources when the guide was last updated. Prices change often, so confirm current rates with each provider.",
     faq: ["Questions", "people also ask"] as [string, string],
     more: ["More", "insights"] as [string, string],
+    showcaseChip: "See it working",
+    showcaseTitle: ["Systems", "we have built"] as [string, string],
+    showcaseText: "Each one closes a leak from this guide. Open any of them to see how it works, step by step.",
+    showcaseLabel: "Automation systems we have built",
+    viewAll: "All work",
   },
   bg: {
     insights: "Статии",
@@ -44,6 +51,11 @@ const text = {
       "Числата са проверени спрямо тези източници при последното обновяване на статията. Цените се променят често, затова потвърдете актуалните тарифи при всеки доставчик.",
     faq: ["Въпроси, които", "хората задават"] as [string, string],
     more: ["Още", "статии"] as [string, string],
+    showcaseChip: "Вижте ги в действие",
+    showcaseTitle: ["Системи,", "които сме изградили"] as [string, string],
+    showcaseText: "Всяка затваря загуба от тази статия. Отворете която и да е, за да видите как работи, стъпка по стъпка.",
+    showcaseLabel: "Системи за автоматизация, които сме изградили",
+    viewAll: "Всички проекти",
   },
 };
 
@@ -67,6 +79,7 @@ export default function ArticlePage({ insight, locale }: { insight: Insight; loc
   const ui = t(locale);
   const service = serviceBySlug(insight.service, locale)!;
   const toc = headings(insight);
+  const showcase = (insight.projects ?? []).map((slug) => projectBySlug(slug, locale)).filter((project) => project !== undefined);
 
   return (
     <main id="main-content" className="insight-page">
@@ -164,6 +177,26 @@ export default function ArticlePage({ insight, locale }: { insight: Insight; loc
           </div>
         </div>
       </article>
+
+      {showcase.length ? (
+        <section className="section section-pale insight-showcase" aria-label={copy.showcaseLabel}>
+          <div className="container">
+            <SectionIntro
+              chip={copy.showcaseChip}
+              title={copy.showcaseTitle}
+              text={copy.showcaseText}
+              action={
+                <ButtonLink href={href(locale, "/work")} variant="outline">
+                  {copy.viewAll}
+                </ButtonLink>
+              }
+            />
+          </div>
+          <div className="container rail-container">
+            <WorkRail projects={showcase} label={copy.showcaseLabel} locale={locale} />
+          </div>
+        </section>
+      ) : null}
 
       <FAQSection faqs={insight.faqs} title={copy.faq} locale={locale} />
 
