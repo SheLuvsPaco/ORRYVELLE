@@ -9,7 +9,7 @@ const privacy: LegalDoc = {
   title: "Privacy policy",
   description:
     "What personal data Orryvelle collects through this website, why, who receives it, how long we keep it and how to use your rights under the GDPR.",
-  updated: "2026-11-02",
+  updated: "2026-11-22",
   body: `## Who we are
 
 This website, ${site.url.replace("https://", "")}, is run by ${company}, a company registered in Bulgaria. We decide how the personal data described here is used, which makes us its controller under the EU General Data Protection Regulation (GDPR).
@@ -29,8 +29,9 @@ This policy covers the website and the conversations that start on it. If someth
 | You send an enquiry | Name, email, company, chosen service, message | Article 6(1)(b) or 6(1)(f) | Until the enquiry is handled |
 | You book a call | Name, email, the time you pick, anything you add to the booking | Article 6(1)(b) or 6(1)(f) | Until the call has taken place or been cancelled |
 | You email us | Your email address and what you write | Article 6(1)(f) | Until the conversation is closed |
-| You accept analytics | Pages viewed, how you arrived, approximate location, device and browser, a random visitor ID | Article 6(1)(a), your consent | 14 months |
+| You accept Google Analytics | Pages viewed, how you arrived, approximate location, device and browser, a random visitor ID | Article 6(1)(a), your consent | 14 months |
 | You visit any page | IP address, browser, page requested, time | Article 6(1)(f) | Short-lived hosting logs |
+| You visit any page | Pages viewed, how you arrived, country and city, device, browser, language, a visitor code that changes daily (no cookies) | Article 6(1)(f) | See below |
 
 We don’t sell personal data, we don’t use it for advertising, and we don’t make automated decisions about you.
 
@@ -58,9 +59,11 @@ If you write to ${site.email}, we receive your email address and whatever your m
 
 **Language.** Visitors from Bulgaria are shown the Bulgarian version of a page. Our host works out your country from your IP address for that one request; we don’t store it. If you choose a language with the language switch, a small cookie remembers your choice. The legal basis is our legitimate interest in showing you the site in your language (Article 6(1)(f)).
 
-**Analytics, only if you accept.** With your consent we use Google Analytics to understand which pages are useful and which lead to an enquiry or a booked call. It records the pages you view, how you arrived (for example, from a search engine), how far you scroll, clicks on links to other websites (such as the booking calendar), whether you start filling in a form, your approximate location at city level, your device and browser, and a random ID stored in a cookie. We also record two events: a sent enquiry (with the service chosen) and a booked call. We never send your name, email or message to Google.
+**Visit statistics, without cookies.** We use Ahrefs Web Analytics to count visits and see which pages people read. For each page view it records the page address, the page or search engine you came from, your country and city (worked out from your IP address), your device, operating system and browser, your language and screen size, and clicks on links and form submissions. It stores nothing on your device: no cookies and no local storage, so it doesn’t need the cookie banner. To count unique visitors, Ahrefs combines your IP address and browser details with a key that changes every 24 hours and keeps only the resulting one-way code. According to Ahrefs, IP addresses are never stored in its database or logs and the old keys are deleted every day, so your visits can’t be linked from one day to the next. The legal basis is our legitimate interest in knowing how the website is used, with as little data as possible (Article 6(1)(f)). You can object at any time (see Your rights), and blocking the script in your browser stops it.
 
-We have switched off Google’s advertising features, Google signals and ad personalisation. According to Google, Google Analytics does not log or store the IP addresses of visitors from the EU. Nothing loads before you choose, and if you decline, nothing loads at all. The legal basis is your consent (Article 6(1)(a) GDPR and Article 4a of the Bulgarian Electronic Commerce Act). You can withdraw it at any time with **Cookie settings** at the bottom of every page; withdrawing doesn’t affect what was collected before. The [cookie policy](/cookies) lists every cookie in detail.
+**Google Analytics, only if you accept.** With your consent we use Google Analytics to understand which pages are useful and which lead to an enquiry or a booked call. It records the pages you view, how you arrived (for example, from a search engine), how far you scroll, clicks on links to other websites (such as the booking calendar), whether you start filling in a form, your approximate location at city level, your device and browser, and a random ID stored in a cookie. We also record two events: a sent enquiry (with the service chosen) and a booked call. We never send your name, email or message to Google.
+
+We have switched off Google’s advertising features, Google signals and ad personalisation. According to Google, Google Analytics does not log or store the IP addresses of visitors from the EU. Google Analytics doesn’t load before you choose, and if you decline, it doesn’t load at all. The legal basis is your consent (Article 6(1)(a) GDPR and Article 4a of the Bulgarian Electronic Commerce Act). You can withdraw it at any time with **Cookie settings** at the bottom of every page; withdrawing doesn’t affect what was collected before. The [cookie policy](/cookies) lists every cookie in detail.
 
 ## Who receives your data
 
@@ -71,6 +74,7 @@ We share personal data only with the service providers below, who process it on 
 | Vercel Inc. | Hosts the website and runs the code that receives the enquiry form | United States and a global network |
 | Our own automation server (n8n) | Receives enquiries from the website and passes them to our team. It runs on a server we rent in Germany | European Union |
 | Cal.com, Inc. | Provides the booking calendar and its confirmation emails. It uses Cloudflare for security and Sentry for error reports | United States |
+| Ahrefs Pte. Ltd. | Ahrefs Web Analytics: counts visits without cookies | Singapore company; data stored in the United States |
 | Google | Google Analytics, only if you accept it | European Union collection servers, then Google’s servers worldwide |
 | Google (Google Workspace) | Our business email: stores the emails you send us and delivers our replies | European Union and the United States |
 
@@ -78,13 +82,14 @@ Beyond these, we disclose personal data only when the law requires it, for examp
 
 ## Transfers outside the EU
 
-Vercel, Cal.com and Google (for Google Analytics and our Google Workspace email) may process data in the United States. Each of them states that it is certified under the EU-U.S. Data Privacy Framework, which the European Commission found to provide an adequate level of protection (Article 45 GDPR). Where the framework doesn’t cover a transfer, they rely on the European Commission’s Standard Contractual Clauses (Article 46 GDPR). Enquiries received by our automation server stay in the European Union.
+Vercel, Cal.com and Google (for Google Analytics and our Google Workspace email) may process data in the United States. Each of them states that it is certified under the EU-U.S. Data Privacy Framework, which the European Commission found to provide an adequate level of protection (Article 45 GDPR). Where the framework doesn’t cover a transfer, they rely on the European Commission’s Standard Contractual Clauses (Article 46 GDPR). Ahrefs, a Singapore company, stores visit statistics in the United States; that transfer relies on the European Commission’s Standard Contractual Clauses (Article 46 GDPR), which Ahrefs includes in its data processing addendum. Enquiries received by our automation server stay in the European Union.
 
 ## How long we keep it
 
 - **Enquiries and email:** until we have handled them, that is, answered your questions and either agreed next steps or closed the conversation. Then we delete them. If an enquiry becomes a project, it becomes part of the client file, which we keep for as long as we work together and afterwards for as long as Bulgarian accounting and tax law requires for contracts and invoices.
 - **Bookings:** until the call has taken place or been cancelled, then we remove them.
 - **Analytics:** Google Analytics keeps visitor-level data for 14 months and then deletes it automatically. The analytics cookies on your device expire after 13 months.
+- **Visit statistics (Ahrefs):** Ahrefs keeps no IP addresses and sets no cookies, and the visitor code changes every day. Ahrefs doesn’t publish a fixed retention period for the statistics themselves.
 - **Hosting logs:** for the short period set by Vercel’s own retention rules.
 - **Your cookie choice:** six months, on your own device. Then we ask again.
 

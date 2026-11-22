@@ -19,5 +19,7 @@ declare namespace NodeJS {
     GOOGLE_SITE_VERIFICATION?: string;
     /** Optional Bing Webmaster Tools ownership tag (msvalidate.01). */
     BING_SITE_VERIFICATION?: string;
+    /** Set by Vercel at build time ("production", "preview" or "development"). */
+    VERCEL_ENV?: "production" | "preview" | "development";
   }
 }

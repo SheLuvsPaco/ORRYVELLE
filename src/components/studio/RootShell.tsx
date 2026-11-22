@@ -9,6 +9,14 @@ import JsonLd from "./JsonLd";
 import { t as dictionary, type Locale } from "@/lib/studio/i18n";
 import { graph, organizationSchema, websiteSchema } from "@/lib/studio/seo";
 
+/**
+ * Ahrefs Web Analytics: cookieless (it stores nothing on the visitor's device), so it counts
+ * every visit without the consent banner. Production deploy only, like Google Analytics, so
+ * local development and preview deploys never send page views. The privacy policy names it.
+ */
+const AHREFS_KEY = "JuivXNQEg0NWdsLsm3f+dg";
+const ahrefsAnalytics = process.env.VERCEL_ENV === "production";
+
 /** The document both root layouts share: (en) for English pages, (bg) for /bg. */
 export default function RootShell({
   locale,
@@ -27,6 +35,7 @@ export default function RootShell({
       <head>
         {/* Marks that JS runs (used by the why-us slider styles) before first paint. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        {ahrefsAnalytics ? <script src="https://analytics.ahrefs.com/analytics.js" data-key={AHREFS_KEY} async /> : null}
       </head>
       <body className="studio" id="top">
         <a href="#main-content" className="skip-link">

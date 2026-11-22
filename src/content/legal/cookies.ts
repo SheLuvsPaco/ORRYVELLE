@@ -6,7 +6,7 @@ const cookies: LegalDoc = {
   title: "Cookie policy",
   description:
     "Every cookie and similar technology on the Orryvelle website: what it does, who sets it, how long it lasts, and how to accept, refuse or withdraw analytics.",
-  updated: "2026-11-02",
+  updated: "2026-11-22",
   body: `## What cookies are
 
 Cookies are small text files a website stores in your browser. Similar technologies, such as local storage and session storage, keep small pieces of information on your device in the same way. This policy uses “cookies” for all of them.
@@ -15,7 +15,7 @@ Under Article 4a of the Bulgarian Electronic Commerce Act and the EU ePrivacy Di
 
 ## Your choice
 
-On your first visit, a banner asks whether you accept analytics cookies. Accepting and refusing take one click each, and the site works the same either way. Until you choose, no analytics cookies are set and no analytics code loads.
+On your first visit, a banner asks whether you accept analytics cookies. Accepting and refusing take one click each, and the site works the same either way. Until you choose, no analytics cookies are set and Google Analytics doesn’t load.
 
 You can change your mind at any time with **Cookie settings** at the bottom of every page, or with the button at the top of this page. If you withdraw consent, analytics stops straight away and we delete the analytics cookies from your browser. We remember your choice for six months and then ask again.
 
@@ -39,6 +39,10 @@ These make the website and the booking calendar work. They don’t need consent,
 | \`_ga_<ID>\` | Google Analytics | Keeps the state of your current visit | 13 months |
 
 We set both to expire after 13 months instead of Google’s default of two years. Google’s advertising features, Google signals and ad personalisation are switched off, and we never send Google your name, email or anything you type into our forms. What Google Analytics records, and who receives it, is described in our [privacy policy](/privacy).
+
+## Visit statistics without cookies
+
+We also count visits with Ahrefs Web Analytics. It sets no cookies and stores nothing on your device, not even in local storage, so it isn’t part of the banner and doesn’t appear in the tables above. What it records is described in our [privacy policy](/privacy).
 
 ## The booking calendar
 
