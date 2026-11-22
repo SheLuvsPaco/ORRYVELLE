@@ -133,7 +133,8 @@ export type Project = {
   summary: string;
   /** Meta description (≤155 characters) when the summary is too long for search results. */
   seoDescription?: string;
-  overview: string;
+  /** The overview, in four plain lines: the problem, what it costs, how we fix it, the expected result. */
+  brief: [string, string, string, string];
   approach: string;
   deliverables: string[];
   /** Two-tone title for large headings: [ink, tone]. */
@@ -153,6 +154,11 @@ export type Project = {
     domain?: string;
   };
   shots?: ProductShots;
+  /**
+   * A scroll-driven film of the system (built from films/ into public/films/<locale>/<film>.html).
+   * When set, the case study's laptop plays it in place of the scrolling page.
+   */
+  film?: string;
   collage: CollageSet;
 };
 
@@ -169,10 +175,14 @@ export const projects: Project[] = [
       "Case study: custom operations software for a Nantucket event-rental company, with one season calendar, a job card per event and crew briefs on the phone.",
     summary:
       "The operations system behind a Nantucket event-rental company: one season calendar, a job card for every event, and a field brief each crew member reads before leaving the warehouse.",
-    overview:
-      "Tents, tables, trucks, and crews move between branches all season, and schedules arrive as WhatsApp messages and PDF picklists. The platform puts every event on one calendar, filterable by branch. Each job card holds crew call times, a timeline, a pack list drawn from live inventory, vehicles and drivers, and the notes the crew needs on site.",
+    brief: [
+      "Event crews got their plans through WhatsApp messages and paper lists, so things got missed.",
+      "A missing tent or a late crew means an unhappy client and a lost booking next year.",
+      "We built one app where every event, crew, truck and packing list lives in one place. Crews see their day on their phone.",
+      "Everyone works from the same plan, so there are fewer mistakes and less time chasing messages.",
+    ],
     approach:
-      "Two audiences, two views. Owners and leads get dense desk tools: AI Quick Add turns a pasted message into job cards and checks it against what is already booked before anything changes, PDF picklists are matched to inventory, and invoices and team access sit behind roles. Crews get a phone-first brief: read-this-first notes, the day’s timeline, who drives what, and a live pack list they tick off as they load.",
+      "The office sees everything on a computer. Crews get a simple phone view: where to go, when, and what to load. A pasted message turns into a ready job in seconds.",
     deliverables: [
       "Season calendar across branches",
       "Job cards: crew, timeline, vehicles, pack list",
@@ -264,10 +274,14 @@ export const projects: Project[] = [
       "Case study: an iPhone app for a property-services team, with each crew’s day as a route of stops, owner approval for every job and a weekly calendar.",
     summary:
       "An iPhone app for a property-services team: each crew’s day laid out as a route of stops, every job approved by the owner, and the week on one calendar.",
-    overview:
-      "The owner plans the day as routes. Each two-person team gets an ordered run of jobs (move-in walkthroughs, turnover cleans, bathroom details) that the crew taps through like stories, stop by stop. Jobs carry photos, access instructions, and notes for the team, and the owner approves each one before it goes out. Day, week, and month calendars and a tenant directory complete the picture.",
+    brief: [
+      "The owner planned every day's jobs by hand and sent the details to each team one by one.",
+      "Hours were lost every week, and teams arrived without the notes and photos they needed.",
+      "We built an iPhone app. The owner plans each team's route, and the team taps through their jobs one stop at a time.",
+      "Every team knows where to go and what to do, and the owner approves each job before it goes out.",
+    ],
     approach:
-      "We built it phone-first and kept close to iOS conventions: native sheets, a familiar tab bar, and forms that behave the way people expect. Routes, jobs, and notes are stored on the device, so the team’s plan is there when the crew is on site.",
+      "It looks and works like any other iPhone app, so nobody needs training. The day's plan is saved on the phone, so it is there on site.",
     deliverables: [
       "iPhone app",
       "Team routes & job stories",
@@ -360,10 +374,14 @@ export const projects: Project[] = [
       "Case study: n8n email and SMS sequences on GoHighLevel that pre-sell booked calls, win back no-shows and revive cold leads for an advisory firm.",
     summary:
       "Three automated email and SMS sequences around the CRM of a firm advising on tax, second passports, and banking: pre-sell every booked call, win back no-shows while they are still warm, and revive leads that went cold.",
-    overview:
-      "Every lead this firm buys arrives in the CRM, and three things decide whether it turns into a client: the first contact, the call itself, and what happens when someone goes quiet. The confirmation sequence starts the moment a form is filled or a call is booked, with emails and texts that answer common questions and build trust, so prospects arrive at the call already pre-sold and fewer miss it. The no-show sequence catches anyone who skips their call and works to rebook them while the decision is fresh. The recovery sequence finds leads who engaged once and then went silent, and reaches back out, so contacts the firm has already paid for stop going to waste.",
+    brief: [
+      "People booked a call with the firm, then forgot or didn't show up. Old leads were never contacted again.",
+      "Every missed call and forgotten lead is money the firm already spent on ads, wasted.",
+      "We set up automatic messages: reminders before every call, follow-ups when someone misses it, and new messages to people who went quiet.",
+      "More people show up, missed calls get rebooked and old leads turn into new calls, with no extra work for the team.",
+    ],
     approach:
-      "Each sequence is an n8n workflow triggered by GoHighLevel. Confirmation messages are timed to the appointment (immediately, then 19 hours, 12 hours, 5 hours, and 10 minutes before), with an AI step that normalises the booked date and time, and every send first checks that the booking still stands and the time has not moved. No-shows get six follow-ups spaced days apart, each stopping as soon as a new booking appears. Reactivation filters out do-not-disturb contacts and unqualified tags, reads the conversation history, and only writes to leads silent past the cut-off. Every touch is noted on the contact in GoHighLevel, and recovered bookings are logged to Supabase.",
+      "It runs by itself, day and night. Before each message it checks the call is still booked, and it stops the moment the person books again. Every message is saved in the firm's client list.",
     deliverables: [
       "Confirmation sequence: 5 timed touches",
       "Booking checks before every send",
@@ -404,6 +422,7 @@ export const projects: Project[] = [
         "p-note": shot("sales-pipeline/p-note", 220, 114),
       },
     },
+    film: "no-lead-left-behind",
     collage: {
       field: ["#dde2e9", "#8894a8"],
       pairFields: ["#1c1f25", "#9aa7ba"],
@@ -450,10 +469,14 @@ export const projects: Project[] = [
       "Case study: an AI voice receptionist that answers every call and books, moves or cancels appointments, plus an outbound agent that confirms new bookings.",
     summary:
       "Two voice agents on one calendar: an inbound receptionist that answers every call and books, reschedules, or cancels appointments, and an outbound agent that calls every new booking to say thank you and set expectations.",
-    overview:
-      "Missed calls are missed bookings, and booked calls that nobody follows up are where no-shows come from. The inbound agent answers every call in a natural voice, looks up the caller's booking and live availability, and schedules, moves, or cancels the appointment while they are still on the line, against the business's own calendar. The outbound agent picks up every new booking, researches who booked, and calls to thank them, explain what the meeting will cover, and tell them what to prepare.",
+    brief: [
+      "Customers call to book, move or cancel, often when nobody can answer.",
+      "Every missed call is a booking that goes to a competitor.",
+      "An AI receptionist answers every call, day or night, and books, moves or cancels the appointment in your calendar while the caller is still on the line. It also calls new bookings to confirm them.",
+      "No more missed calls, fewer no-shows, and your team stops answering the same questions all day.",
+    ],
     approach:
-      "Both agents run on n8n with Vapi handling the call and ElevenLabs the voice. Inbound requests are routed by intent (schedule, reschedule, or cancel), checked against Cal.com and Google Calendar, and answered back to the call in real time. The outbound agent uses xAI Grok to research the lead and write a personal opener and prompt for each call, then reads the finished call to record the outcome: a calendar event, an Airtable record, a text to the lead, and a Telegram alert to the team.",
+      "The AI talks like a person and checks your real calendar before it promises a time. Before it moves or cancels anything, it checks the booking is in the caller's name. After each new booking, it calls to say thanks and explain what to prepare.",
     deliverables: [
       "Inbound voice receptionist",
       "Schedule, reschedule & cancel by phone",
@@ -464,7 +487,7 @@ export const projects: Project[] = [
     ],
     titleParts: ["AI voice", "receptionist"],
     lede: "Every inbound call is answered and handled on the spot, and every new booking gets a personal call before the meeting.",
-    captions: ["Inbound: the receptionist", "Outbound: the confirmation call"],
+    captions: ["The inbound call workflow · n8n", "Routing book, move or cancel · n8n"],
     mock: {
       kind: "agent",
       brand: "Voice Receptionist",
@@ -491,8 +514,13 @@ export const projects: Project[] = [
         "p-opener": shot("voice-receptionist/p-opener", 1376, 482),
         "p-summary": shot("voice-receptionist/p-summary", 1102, 482),
         "p-strip": shot("voice-receptionist/p-strip", 1400, 264),
+        // The real inbound workflow in n8n, and zoom-ins of it.
+        "c-inbound": shot("voice-receptionist/c-inbound", 2200, 1085),
+        "z-route": shot("voice-receptionist/z-route", 1000, 935),
+        "z-book": shot("voice-receptionist/z-book", 1180, 360),
       },
     },
+    film: "ai-receptionist",
     collage: {
       field: ["#d6eee1", "#78b394"],
       pairFields: ["#0f1a15", "#86c4a6"],
@@ -512,12 +540,11 @@ export const projects: Project[] = [
       ],
       pair: [
         [
-          { t: "page", x: 9, y: 9, w: 82, at: 1, z: 1 },
-          { t: "shot", shot: "p-call", x: 58, y: 36, w: 36, r: 2, z: 3 },
+          { t: "page", shot: "c-inbound", x: 8, y: 8, w: 84, ar: 0.493, bar: true, z: 1 },
+          { t: "page", shot: "z-book", x: 38, y: 45, w: 56, ar: 0.305, r: 1, z: 3 },
         ],
         [
-          { t: "phone", shot: "m-phone-out", x: 30, y: 6, w: 40, z: 2 },
-          { t: "shot", shot: "p-opener", x: 11, y: 66, w: 78, z: 3 },
+          { t: "page", shot: "z-route", x: 9, y: 10, w: 82, ar: 0.935, z: 1 },
         ],
       ],
     },
@@ -534,10 +561,14 @@ export const projects: Project[] = [
       "Case study: an AI cold-calling agent that researches each lead and their website, writes a script for that business, makes the call and books meetings.",
     summary:
       "An AI sales caller that researches every lead before dialling: it audits the business's website, finds the owner, writes a script for that one lead, makes the call, and books the meeting.",
-    overview:
-      "Generic cold calls get hung up on. This agent works through a lead list one business at a time and does the homework a good salesperson would: it reads the company's website, audits it for problems that cost them customers, and finds the decision maker on LinkedIn. It then rewrites the caller's prompt and opening line around what it found, so the call starts with something specific to that business. This build sold websites, so the research centres on each lead's current site.",
+    brief: [
+      "Cold calls with a generic script get hung up on in seconds.",
+      "Salespeople spend hours dialling and book very few meetings.",
+      "An AI caller researches each business first, finds a real problem on their website and opens the call with it. Then it books the meeting.",
+      "More calls turn into meetings, and nobody on your team has to dial.",
+    ],
     approach:
-      "The workflow runs in n8n: leads come from Google Sheets, xAI Grok extracts names and researches each prospect, the website is scraped and converted for analysis, a series of checks prepares and validates the issues found, and Apify pulls the LinkedIn profile. Grok then writes the first message and system prompt, which are passed to Vapi as call overrides with an ElevenLabs voice. After the call, the agent reads the result to decide whether a meeting was booked: booked calls create a calendar event, an Airtable record, a text to the lead, and a Telegram alert; every outcome is written back to the lead sheet.",
+      "It works through a list, one business at a time. It finds the owner's name and a problem worth calling about, then calls. Booked meetings go straight into the calendar and the team gets a message. It can also find new businesses to call and email them first.",
     deliverables: [
       "Lead list loop",
       "Website audit & LinkedIn research",
@@ -545,10 +576,11 @@ export const projects: Project[] = [
       "Vapi calls with an ElevenLabs voice",
       "Booked / not-booked detection",
       "Calendar, CRM, SMS & Telegram logging",
+      "Lead sourcing & email outreach: 6 more workflows",
     ],
     titleParts: ["AI cold", "caller"],
     lede: "Every lead gets its own research, its own script, and its own call, opening with a problem the agent found on their website.",
-    captions: ["Research & personal script", "The call"],
+    captions: ["The full calling workflow · n8n", "The call, then the outcome · n8n"],
     mock: {
       kind: "agent",
       brand: "AI Cold Caller",
@@ -565,16 +597,23 @@ export const projects: Project[] = [
       domain: "",
     },
     shots: {
-      // The "how it works" board; tops in screen heights: steps 1.0, outcomes 2.3, under the hood 2.85.
-      screen: pageShot("ai-cold-caller/page", 2400, 4416),
+      // The "how it works" board; tops in screen heights: steps 1.0, outcomes 2.3, under the hood 2.85,
+      // where the leads come from (the six lead-pipeline canvases) 3.0.
+      screen: pageShot("ai-cold-caller/page", 2400, 7520),
       phone: shot("ai-cold-caller/m-phone", 720, 1562),
       more: {
         "p-dossier": shot("ai-cold-caller/p-dossier", 940, 722),
         "p-opener": shot("ai-cold-caller/p-opener", 1376, 482),
         "p-summary": shot("ai-cold-caller/p-summary", 1102, 482),
         "p-strip": shot("ai-cold-caller/p-strip", 1400, 264),
+        // The real outbound calling workflow in n8n, and zoom-ins of it.
+        "c-outbound": shot("ai-cold-caller/c-outbound", 2234, 450),
+        "z-research": shot("ai-cold-caller/z-research", 1095, 250),
+        "z-loop": shot("ai-cold-caller/z-loop", 770, 240),
+        "z-call": shot("ai-cold-caller/z-call", 894, 240),
       },
     },
+    film: "ai-cold-caller",
     collage: {
       field: ["#f5e3c0", "#cf9640"],
       pairFields: ["#17130c", "#e0a94c"],
@@ -594,13 +633,121 @@ export const projects: Project[] = [
       ],
       pair: [
         [
-          { t: "page", x: 9, y: 9, w: 82, at: 1, z: 1 },
-          { t: "shot", shot: "p-dossier", x: 60, y: 30, w: 34, r: 2, z: 3 },
+          { t: "page", shot: "c-outbound", x: 6, y: 12, w: 88, ar: 0.201, bar: true, z: 1 },
+          { t: "page", shot: "z-research", x: 10, y: 42, w: 62, ar: 0.228, r: -1, z: 3 },
         ],
         [
-          { t: "phone", x: 30, y: 6, w: 40, z: 2 },
-          { t: "shot", shot: "p-opener", x: 11, y: 66, w: 78, z: 3 },
+          { t: "page", shot: "z-loop", x: 7, y: 12, w: 86, ar: 0.312, z: 1 },
+          { t: "page", shot: "z-call", x: 11, y: 50, w: 80, ar: 0.268, z: 2 },
         ],
+      ],
+    },
+  },
+  {
+    slug: "amazon-store-automation",
+    title: "E-commerce Store Automation",
+    service: "enterprise-solutions",
+    sector: "E-commerce",
+    status: "client",
+    client: "E-commerce store",
+    platforms: "n8n · Amazon Ads API · SP-API",
+    seoDescription:
+      "Case study: 13 n8n workflows that research keywords, rewrite listings, launch Amazon ads, report sales to Telegram and rotate keywords for an FBA store.",
+    summary:
+      "Thirteen workflows that run the busywork of an e-commerce store: keyword research, listing rewrites, Sponsored Products campaigns, daily and weekly sales reports, and keyword rotation, all sharing one database.",
+    brief: [
+      "The product dropped from page 1 to page 3 on Amazon, and its ads paid for clicks that never bought.",
+      "Fewer people saw the product, and ad money was wasted every day.",
+      "We built a system that finds what shoppers search for, rewrites the product page, runs the ads and sends the owner reports every day.",
+      "The product shows up for the searches that sell, and ad money stops going to clicks that never buy.",
+    ],
+    approach:
+      "It runs by itself, step by step: research, product page, ads, reports and better search words. Each run learns from the last one. It keeps the words that sell and drops the ones that waste money.",
+    deliverables: [
+      "Keyword & market research",
+      "AI listing rewrites, with retry",
+      "Sponsored Products campaigns via the Ads API",
+      "Daily & weekly sales reports to Telegram",
+      "Search-term analysis & keyword rotation",
+      "One shared Supabase memory",
+    ],
+    titleParts: ["E-commerce store", "automation"],
+    lede: "A store that had slipped to page three, with ads paying for clicks that never bought. Thirteen workflows now research, rewrite, advertise, report and adjust, each run picking up where the last one stopped.",
+    captions: ["Listing rewrite & retry · n8n", "Ad campaigns · n8n"],
+    mock: {
+      kind: "pipeline",
+      brand: "E-commerce Store Automation",
+      headline: "Listing manager",
+      theme: {
+        bg: "#181818",
+        surface: "#222222",
+        ink: "#f2f2f2",
+        muted: "#9a9a9a",
+        accent: "#ff6d5a",
+        line: "#2e2e2e",
+      },
+      panels: ["#141414", "#8fb6f0"],
+      domain: "",
+    },
+    shots: {
+      // All 13 canvases stacked; tops in screen heights: research 0.02, keywords 0.47, listings 0.84,
+      // listing retry 1.21, ads 1.68, sales reports 2.16, campaign reports 2.41, ads report 2.57.
+      screen: pageShot("amazon-store/page", 1400, 2387),
+      // The cover mixes the real canvases with designed cards drawn from the real flow.
+      phone: shot("amazon-store/m-phone", 720, 1562),
+      more: {
+        "e-keywords": shot("amazon-store/e-keywords", 1120, 742),
+        "e-campaign": shot("amazon-store/e-campaign", 1000, 850),
+        "e-log": shot("amazon-store/e-log", 1080, 562),
+        "c-research": shot("amazon-store/c-research", 1600, 438),
+        "c-keywords-new": shot("amazon-store/c-keywords-new", 1600, 763),
+        "c-update-keywords": shot("amazon-store/c-update-keywords", 1600, 700),
+        "c-listing-1": shot("amazon-store/c-listing-1", 1600, 946),
+        "c-listing-2": shot("amazon-store/c-listing-2", 1600, 612),
+        "c-listing-3": shot("amazon-store/c-listing-3", 1600, 455),
+        "c-ppc-manual": shot("amazon-store/c-ppc-manual", 1600, 942),
+        "c-ppc-auto": shot("amazon-store/c-ppc-auto", 760, 473),
+        "c-daily-report": shot("amazon-store/c-daily-report", 1600, 478),
+        "c-weekly-report": shot("amazon-store/c-weekly-report", 1600, 461),
+        "c-daily-campaign": shot("amazon-store/c-daily-campaign", 1600, 288),
+        "c-weekly-campaign": shot("amazon-store/c-weekly-campaign", 1600, 309),
+        "c-ads-report": shot("amazon-store/c-ads-report", 1600, 144),
+        "p-agent": shot("amazon-store/p-agent", 840, 455),
+        "p-retry": shot("amazon-store/p-retry", 973, 430),
+        "p-campaign": shot("amazon-store/p-campaign", 696, 132),
+      },
+    },
+    film: "ai-amazon-store-manager",
+    collage: {
+      field: ["#d9e6fb", "#7d9fd6"],
+      pairFields: ["#141414", "#7fa6e0"],
+      // Real n8n canvases only; lifted blocks are zoom-ins of nodes the canvas beside them doesn't show.
+      square: [
+        { t: "page", shot: "c-listing-2", x: 4, y: 7, w: 62, ar: 0.383, bar: true, z: 1 },
+        { t: "phone", x: 66, y: 8, w: 27, r: 3, z: 3 },
+        { t: "shot", shot: "e-keywords", x: 6, y: 40, w: 56, r: -1, z: 4 },
+      ],
+      wide: [
+        { t: "page", shot: "c-listing-2", x: 5, y: 7, w: 40, ar: 0.383, bar: true, z: 1 },
+        { t: "shot", shot: "e-keywords", x: 9, y: 26.5, w: 31, r: -1, z: 4 },
+        { t: "phone", x: 45, y: 4, w: 14, r: -3, z: 5 },
+        { t: "page", shot: "c-ppc-auto", x: 63, y: 6, w: 32, ar: 0.622, z: 1 },
+        { t: "shot", shot: "e-campaign", x: 68, y: 19, w: 25, r: 2, z: 3 },
+      ],
+      pair: [
+        [
+          { t: "page", shot: "c-listing-3", x: 9, y: 9, w: 82, ar: 0.284, bar: true, z: 1 },
+          { t: "page", shot: "c-ppc-auto", x: 6, y: 38, w: 40, ar: 0.622, z: 2 },
+          { t: "shot", shot: "p-agent", x: 50, y: 37, w: 42, r: 2, z: 3 },
+        ],
+        [
+          { t: "page", shot: "c-ppc-manual", x: 10, y: 8, w: 80, ar: 0.589, z: 1 },
+          { t: "shot", shot: "p-campaign", x: 14, y: 64, w: 72, z: 3 },
+        ],
+      ],
+      mini: [
+        { t: "page", shot: "c-listing-2", x: 8, y: 10, w: 84, ar: 0.383, z: 1 },
+        { t: "page", shot: "c-ppc-auto", x: 58, y: 34, w: 34, ar: 0.622, z: 2 },
       ],
     },
   },
@@ -614,10 +761,14 @@ export const projects: Project[] = [
     platforms: "Desktop · Phone",
     summary:
       "A warm, playful website for a dog-grooming studio: four services with photography, clear prices by dog size, a story-led gallery, and booking in two steps.",
-    overview:
-      "Before booking, owners want to know three things: what the studio does, what it costs for their dog, and how to get an appointment. The site answers in that order: services shown with photography, prices set by dog size with the most popular package highlighted, a gallery that tells the studio’s story, and a two-step booking form with phone, hours, and a map beside it.",
+    brief: [
+      "Dog owners want to know what you do, what it costs for their dog and how to book, and most grooming sites make that hard.",
+      "If they can't find the price or the booking button, they call someone else.",
+      "We built a bright, friendly website with the services, prices by dog size and a simple two-step booking form.",
+      "Owners get their answers in seconds and book on the spot, without calling.",
+    ],
     approach:
-      "The brand’s sunny yellow and deep plum run through every section, with cut-out dog photography and paw-print details keeping it friendly. Every section ends in a way to book: each service card, each price card, and the floating navigation lead to the same short form. The layout is designed to read as well on a phone as on a desktop.",
+      "Every section ends with a button to book. Prices are clear for every dog size. It works just as well on a phone.",
     deliverables: [
       "Brand-led one-page website",
       "Services with photography",
@@ -698,10 +849,14 @@ export const projects: Project[] = [
       "Case study: a calm, premium website for a Sofia grooming salon, with a stress-free promise, three signature services, a gallery and online booking.",
     summary:
       "A calm, editorial website for a premium grooming salon in Sofia: a stress-free promise up front, three signature services, a gallery, and booking laid out around a date-and-time picker.",
-    overview:
-      "Owners choosing a groomer worry most about how their dog will be treated. The site leads with that: an editorial hero about calm, stress-free grooming, then the salon’s standards (no sedation, no cages, a free first consultation), three signature services, a photo gallery, and a booking form built around picking a date and time.",
+    brief: [
+      "Owners choosing a groomer worry most about how their dog will be treated.",
+      "If the website doesn't calm that worry, they don't book.",
+      "We built a calm, premium website that shows the salon's care first: no cages, no sedation and a free first consultation. Then come the services and easy booking.",
+      "Owners feel safe and book, and the salon looks worth its price.",
+    ],
     approach:
-      "A restrained palette of warm cream, charcoal, and soft caramel, set in Cormorant Garamond, gives the salon a premium, unhurried voice. Generous spacing, an arched hero photograph, and a dark services band set the rhythm down the page, while booking stays one tap away from every section, with a quick-contact button on phones.",
+      "Soft colours and plenty of space make the site feel calm. Booking is one tap away from every section, with a quick contact button on phones.",
     deliverables: [
       "Editorial one-page website",
       "Standards & promises section",
@@ -782,10 +937,14 @@ export const projects: Project[] = [
       "Case study: a custom Shopify store for a Bendigo florist, selling fresh and dried flowers and gifts online, with room for weddings and floral workshops.",
     summary:
       "A Shopify storefront for a boutique florist in Bendigo: fresh and preserved blooms and gifts to buy online, with weddings and floral workshops given their own place on the page.",
-    overview:
-      "The florist sells in three ways: bouquets and gifts online, wedding flowers by enquiry, and floral workshops. The home page gives each its own path, starting from a hero with Shop Blooms and Wedding Enquiry side by side, then three category tiles, a wedding banner, rows of fresh blooms, preserved and dried blooms, and gifts that can be added to the cart straight from the row, a workshop feature, Google reviews, and a newsletter sign-up.",
+    brief: [
+      "The florist sells three things: flowers online, wedding flowers and workshops. A normal shop page mixes them up.",
+      "Visitors get lost and leave without buying or asking about their wedding.",
+      "We built a Shopify store where each of the three has its own clear path, and flowers go into the cart straight from the home page.",
+      "Buying flowers is quick, and couples find the wedding form right away, so fewer visitors leave empty-handed.",
+    ],
     approach:
-      "Soft blush, ivory, and deep plum with Cormorant Garamond headings keep the store feeling like a boutique, not a catalogue. The flowers carry the design: large, bright product photography on quiet grounds, with prices and add-to-cart kept small beneath each one. Same-day delivery sits in the announcement bar, and the phone layout stacks every row for one-thumb shopping.",
+      "The flowers come first: large, bright photos on a quiet background. Same-day delivery is shown at the very top. On a phone, everything lines up for shopping with one thumb.",
     deliverables: [
       "Shopify storefront",
       "Category tiles: blooms, workshops, gifts",
@@ -870,10 +1029,14 @@ export const projects: Project[] = [
       "Case study: a premium website for a Varna window and door repair company, with interior photography, a three-step process and a free-quote form.",
     summary:
       "A premium website for a window and door repair company in Varna: a calm, interior-led look, every service shown with photography, a three-step process, and a free-quote form.",
-    overview:
-      "Window repair is usually sold with stock photos and loud offers. This site takes the opposite route: warm interiors and quiet typography that make the company look as careful as the work it promises. It sets out why to choose the company (same-day repairs, a precise diagnosis with an honest price, and a two-year guarantee), the full range of services, a three-step process from inspection to finished repair, a gallery of finished projects, and a free-quote form.",
+    brief: [
+      "Window repair companies all look the same online: stock photos and loud offers.",
+      "Customers can't tell who to trust, so they pick the cheapest.",
+      "We built a calm, premium website with a photo for every service, a clear three-step process, a two-year guarantee and a short free-quote form.",
+      "The company looks trustworthy and worth paying more for, and asking for a quote takes seconds.",
+    ],
     approach:
-      "Deep forest green, warm cream, and a soft gold accent, with Cormorant Garamond headings, give a trade business the voice of an interiors brand. Each service gets a full photograph rather than an icon, the process reads in three numbered steps, and the free-quote form asks only for a name, phone, the type of problem, and a good time to call.",
+      "Each service gets a large photo instead of an icon. The process is three numbered steps. The form asks only for a name, a phone number, the problem and a good time to call.",
     deliverables: [
       "Brand-led one-page website",
       "Services with photography",
@@ -943,6 +1106,101 @@ export const projects: Project[] = [
     },
   },
   {
+    slug: "construction-renovation",
+    title: "Construction & Renovation",
+    service: "websites",
+    sector: "Construction",
+    status: "concept",
+    client: "Concept study",
+    platforms: "Desktop · Phone",
+    seoDescription:
+      "Concept study: a demo website for construction and renovation companies, with a 3D apartment renovated as you scroll and a renovation price estimate.",
+    summary:
+      "A demo website for construction and renovation companies, built for a fictional renovation firm in Varna: a 3D apartment that is renovated as you scroll, every service shown as a 3D render, a five-step process, and a renovation builder that gives an approximate price.",
+    brief: [
+      "People put off renovating because they fear chaos, hidden costs and dealing with lots of workers.",
+      "Renovation companies lose clients who never even call.",
+      "This demo site shows one company handling everything, a 3D apartment that renovates as you scroll, and a rough price straight away.",
+      "Visitors see the result before they call, know the rough price and ask for a free visit.",
+    ],
+    approach:
+      "Every section leads to one step: book a free visit by phone, Viber or the form. 3D images replace stock photos of builders. It is built for phones first.",
+    deliverables: [
+      "Scroll-animated 3D hero",
+      "Services with 3D renders",
+      "Key numbers & five-step process",
+      "3D renovation builder with price estimate",
+      "Completed projects, reviews & blog",
+      "Free-inspection contact by phone & Viber",
+    ],
+    titleParts: ["Construction &", "renovation"],
+    lede: "A demo, not client work, for businesses that renovate apartments and bathrooms or build whole houses, including modular and prefab homes. It meets what clients dread (coordination, hidden costs, the mess) and walks them from a 3D apartment to a price estimate.",
+    captions: ["3D renovation builder · desktop", "Hero & services · phone"],
+    mock: {
+      kind: "editorial",
+      brand: "Remont Studio",
+      headline: "Ремонтът, за който не мислите",
+      theme: {
+        bg: "#f3f5f8",
+        surface: "#ffffff",
+        ink: "#1e2a4a",
+        muted: "#5d6886",
+        accent: "#4cacd8",
+        line: "#dbe3ec",
+      },
+      panels: ["#24345c", "#9fd0ea"],
+      domain: "",
+    },
+    shots: {
+      // Hero shown once, at the end of its scroll animation; the pinned four-word story is four
+      // screens. Section tops in screen heights: numbers 1.73, services 2.71, story 6.71,
+      // process 10.71, builder 12.6, projects 13.54, reviews 14.84, blog 16.06, contact 17.01.
+      screen: pageShot("construction-renovation/page", 2400, 27588),
+      phone: shot("construction-renovation/m-hero", 1080, 2341),
+      more: {
+        "m-numbers": shot("construction-renovation/m-numbers", 1080, 2341),
+        "m-services": shot("construction-renovation/m-services", 1080, 2341),
+        "m-bath": shot("construction-renovation/m-bath", 1080, 2341),
+        "m-osnova": shot("construction-renovation/m-osnova", 1080, 2341),
+        "m-process": shot("construction-renovation/m-process", 1080, 2341),
+        "m-konstruktor": shot("construction-renovation/m-konstruktor", 1080, 2341),
+        "m-projects": shot("construction-renovation/m-projects", 1080, 2341),
+        "m-reviews": shot("construction-renovation/m-reviews", 1080, 2341),
+        "m-contact": shot("construction-renovation/m-contact", 1080, 2341),
+        "p-price": shot("construction-renovation/p-price", 1032, 808),
+        "p-project": shot("construction-renovation/p-project", 712, 1158),
+        "p-review": shot("construction-renovation/p-review", 552, 896),
+        "p-steps": shot("construction-renovation/p-steps", 528, 956),
+      },
+    },
+    collage: {
+      field: ["#dbebf3", "#7dbfe2"],
+      pairFields: ["#1b2848", "#4cacd8"],
+      square: [
+        { t: "page", x: 4, y: 7, w: 70, bar: true, z: 1 },
+        { t: "shot", shot: "p-project", x: 75, y: 12, w: 21, r: 2, z: 4 },
+        { t: "phone", shot: "m-services", x: 8, y: 48, w: 24, r: -4, z: 3 },
+        { t: "shot", shot: "p-price", x: 44, y: 58, w: 46, z: 4 },
+      ],
+      wide: [
+        { t: "page", x: 3, y: 8, w: 49, bar: true, z: 1 },
+        { t: "phone", shot: "m-bath", x: 50.5, y: 11, w: 12.5, r: -3, z: 4 },
+        { t: "page", x: 66, y: 5, w: 24, ar: 0.96, at: 13.54, z: 1 },
+        { t: "shot", shot: "p-steps", x: 86, y: 13, w: 10, r: 2, z: 4 },
+      ],
+      pair: [
+        [
+          { t: "page", x: 9, y: 9, w: 82, bar: true, at: 12.6, z: 1 },
+          { t: "shot", shot: "p-project", x: 2, y: 44, w: 14, r: -3, z: 3 },
+        ],
+        [
+          { t: "phone", shot: "m-services", x: 12, y: 16, w: 34, r: -5, z: 1 },
+          { t: "phone", x: 50, y: 9, w: 37, r: 3, z: 2 },
+        ],
+      ],
+    },
+  },
+  {
     slug: "revenue-operations-hub",
     title: "Revenue Operations Hub",
     service: "enterprise-solutions",
@@ -952,10 +1210,14 @@ export const projects: Project[] = [
     timeline: "Typical: 6–10 weeks",
     summary:
       "Lead capture, routing, follow-up, and booking connected to the CRM, with an automation log leadership can actually read.",
-    overview:
-      "When enquiries arrive from forms, calls, and referrals, context gets lost between the inbox and the CRM. This study connects every entry point to a single pipeline: leads are enriched, routed to the right owner, followed up on schedule, and booked straight into calendars, with every automated action logged.",
+    brief: [
+      "Leads come in from forms, calls and referrals, and some get lost between the inbox and the client list.",
+      "A lost lead is a lost sale, and nobody knows why it happened.",
+      "This study puts every lead in one place, gives it an owner and follows up on time, automatically.",
+      "No lead is forgotten, and you can see what happened to every one.",
+    ],
     approach:
-      "We would map the current journey first: who touches a lead, when, and with what information. Automation handles the predictable steps; people keep the conversations. A visible activity log and exception queue make sure nothing fails silently.",
+      "First we would map who handles leads today. Then automation does the repeat steps, and people keep the conversations. A simple log shows every action.",
     deliverables: [
       "Lead capture & enrichment",
       "Routing & ownership rules",
@@ -1019,7 +1281,7 @@ export const projects: Project[] = [
 export const visualOnly = (project: Project): Project => ({
   ...project,
   summary: "",
-  overview: "",
+  brief: ["", "", "", ""],
   approach: "",
   deliverables: [],
   lede: "",

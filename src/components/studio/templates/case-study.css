@@ -292,6 +292,38 @@
   color: var(--muted);
   font-size: 19px;
 }
+/* The overview as four plain lines: problem, cost, fix, expected result. */
+.case-brief {
+  display: grid;
+  gap: 0;
+  max-width: 920px;
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+.case-brief > div {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 24px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.case-brief dt {
+  padding-top: 4px;
+  color: var(--orange);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.case-brief dd {
+  margin: 0;
+  color: var(--ink);
+  font-size: 19px;
+  line-height: 1.5;
+}
+.case-brief .is-result dd {
+  font-weight: 600;
+}
 .case-pair {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
@@ -483,6 +515,14 @@
   }
   /* The overview paragraph was 19px against 16px for the approach text. */
   .case-overview > p {
+    font-size: var(--m-body);
+  }
+  .case-brief > div {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 14px 0;
+  }
+  .case-brief dd {
     font-size: var(--m-body);
   }
   .case-pair {

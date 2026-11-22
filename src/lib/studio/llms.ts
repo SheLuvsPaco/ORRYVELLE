@@ -209,7 +209,7 @@ ${w.sector}: ${project.sector} · ${w.discipline}: ${serviceName(project, locale
 
 ${project.summary}
 
-${project.overview}
+${project.brief.join(" ")}
 
 ${project.approach}
 

@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { serviceBySlug } from "@/lib/studio/content";
 import { href, inSentence, t, type Locale } from "@/lib/studio/i18n";
 import { setRequestLocale } from "@/lib/studio/localize";
-import { projectBySlug, projectsIn, visualOnly, type Project } from "@/lib/studio/projects";
+import { projectBySlug, projectsForService, projectsIn, visualOnly, type Project } from "@/lib/studio/projects";
 import { breadcrumbSchema, graph, pageMetadata, projectSchema } from "@/lib/studio/seo";
 import type { ServiceSlug } from "@/lib/studio/site";
 import { Collage } from "../Collage";
@@ -12,8 +12,8 @@ import EnquirySection from "../EnquirySection";
 import JsonLd from "../JsonLd";
 import RelatedInsights from "../RelatedInsights";
 import { ScrollShowcase } from "../Showcase";
-import { ButtonLink, Corners } from "../ui";
-import { ProjectTags } from "../Work";
+import { ButtonLink, Corners, SectionIntro } from "../ui";
+import { ProjectTags, WorkRail } from "../Work";
 import "./case-study.css";
 
 const text = {
@@ -30,6 +30,7 @@ const text = {
       "This is a concept study: an illustrative brief showing how we would approach this kind of project. It is not client work.",
     brief: "01 · The brief",
     overview: ["Project", "overview"],
+    briefLabels: ["The problem", "What it costs", "How we fix it", "Expected result"],
     approachKicker: "02 · The approach",
     approach: ["Our", "approach"],
     similar: "Planning something similar?",
@@ -41,6 +42,8 @@ const text = {
     enquiryChip: "Start your project",
     enquiryTitle: ["Let’s build", "yours next."] as [string, string],
     more: "More work",
+    siblingsTitle: ["More", "from this service"] as [string, string],
+    siblingsText: (name: string) => `Other projects in ${name}. Each one solves a different problem, so browse them side by side.`,
     previous: "Previous study",
     next: "Next study",
   },
@@ -57,6 +60,7 @@ const text = {
       "Това е концептуален проект: илюстративно задание, което показва как бихме подходили към такъв проект. Не е клиентска работа.",
     brief: "01 · Заданието",
     overview: ["Преглед", "на проекта"],
+    briefLabels: ["Проблемът", "Какво струва", "Как го решаваме", "Очакван резултат"],
     approachKicker: "02 · Подходът",
     approach: ["Нашият", "подход"],
     similar: "Планирате нещо подобно?",
@@ -68,6 +72,8 @@ const text = {
     enquiryChip: "Започнете проект",
     enquiryTitle: ["Да изградим", "вашия проект."] as [string, string],
     more: "Още проекти",
+    siblingsTitle: ["Още", "от тази услуга"] as [string, string],
+    siblingsText: (name: string) => `Още проекти за ${inSentence(name)}. Всеки решава различен проблем, разгледайте ги един до друг.`,
     previous: "Предишен проект",
     next: "Следващ проект",
   },
@@ -91,6 +97,8 @@ export default function CaseStudyPage({ project, locale }: { project: Project; l
   const projects = projectsIn(locale);
   const service = serviceBySlug(project.service, locale)!;
   const serviceHref = href(locale, `/services/${service.slug}`);
+  // The other projects in this service, so visitors can move from one to the next.
+  const siblings = projectsForService(project.service, locale).filter((item) => item.slug !== project.slug);
   const index = projects.findIndex((item) => item.slug === project.slug);
   const previous = projects[(index - 1 + projects.length) % projects.length]!;
   const next = projects[(index + 1) % projects.length]!;
@@ -169,7 +177,14 @@ export default function CaseStudyPage({ project, locale }: { project: Project; l
           <h2>
             {copy.overview[0]} <span className="tone">{copy.overview[1]}</span>
           </h2>
-          <p>{project.overview}</p>
+          <dl className="case-brief">
+            {project.brief.map((line, index) => (
+              <div key={index} className={index === 3 ? "is-result" : undefined}>
+                <dt>{copy.briefLabels[index]}</dt>
+                <dd>{line}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
         <div className="case-pair" aria-hidden="true">
           <figure data-reveal="image">
@@ -233,6 +248,26 @@ export default function CaseStudyPage({ project, locale }: { project: Project; l
       </section>
 
       <RelatedInsights service={project.service} locale={locale} />
+
+      {siblings.length ? (
+        <section className="section section-pale case-siblings" id="more-in-service">
+          <div className="container">
+            <SectionIntro
+              chip={service.name}
+              title={copy.siblingsTitle}
+              text={copy.siblingsText(service.name)}
+              action={
+                <ButtonLink href={serviceHref} variant="outline">
+                  {copy.explore(service.name)}
+                </ButtonLink>
+              }
+            />
+          </div>
+          <div className="container rail-container">
+            <WorkRail projects={siblings} label={copy.siblingsText(service.name)} locale={locale} />
+          </div>
+        </section>
+      ) : null}
 
       <EnquirySection chip={copy.enquiryChip} title={copy.enquiryTitle} service={project.service} locale={locale} />
 
